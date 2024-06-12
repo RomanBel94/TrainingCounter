@@ -1,7 +1,8 @@
-#include <iostream>
+#include "Core.h"
 
 int main(int argc, char* argv[])
 {
-    std::cout << "Hello TrainingCounter" << std::endl;
+	Core core(argc, argv);
+	core.run();
     return 0;
 }
