@@ -1,8 +1,7 @@
-#include "Core.h"
+#include "AppCore.h"
 
 int main(int argc, char* argv[])
 {
-	Core core(argc, argv);
-	core.run();
-    return 0;
+	AppCore app(argc, argv);
+	return app.run();
 }

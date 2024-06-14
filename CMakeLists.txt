@@ -10,11 +10,11 @@ set(MAIN_MODULE tc)
 add_executable(${MAIN_MODULE})
 target_sources(${MAIN_MODULE} PRIVATE
 	src/main.cpp 
-    src/Core.h src/Core.cpp
+    src/AppCore.h src/AppCore.cpp
     src/Logger.h src/Logger.cpp
     src/Save.h src/Save.cpp
     src/Counter.h src/Counter.cpp
-    src/Parser.h src/Parser.cpp
+    src/LexerParser.h src/LexerParser.cpp
     src/OutputManager.h src/OutputManager.cpp
 )
-# install(${MAIN_MODULE} <prefix>/bin)
+# instal($iMAIN_MODULE} <prefix>/bin)

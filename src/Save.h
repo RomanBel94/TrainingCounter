@@ -1,19 +1,24 @@
 #pragma once
 #ifndef SAVE_H
 
-#include <fstream>
-#include <filesystem>
+#include <fstream>	// ifstream, ofstream
+#include <filesystem>	// exists(), create_directory()
+#include <cstdlib>	// getenv()
 
 class Save final
 {
 private:
-	std::string savefilePath;
+	/*
+	TODO: create constructor that initializes directory, i have to refactor this class!!!!!
+
+
+	*/
 public:
-	Save(std::string savefile) : savefilePath(savefile) {};
+	Save() {};
 	~Save() {};
 
-	void writeSavefile(int num);
-	int readSavefile();
+	void write(uint8_t trainings);
+	uint8_t read();
 };
 
 #define SAVE_H

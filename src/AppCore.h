@@ -4,10 +4,10 @@
 #include "Counter.h"
 #include "Logger.h"
 #include "Save.h"
-#include "Parser.h"
+#include "LexerParser.h"
 #include "OutputManager.h"
 
-class Core
+class AppCore
 {
 private:
 	int argc;
@@ -15,14 +15,14 @@ private:
 private:
 	Counter trainingCounter;
 	Logger log;
-	Save savefile{"~/.tc/save"};
-	Parser parser;
+	Save savefile;
+	LexerParser parser;
 	OutputManager output;
 public:
-	Core(int argc, char* argv[]) : argc(argc), argv(argv) {};
-	~Core() {};
+	AppCore(int argc, char* argv[]) : argc(argc), argv(argv) {};
+	~AppCore() {};
 
-	void run();
+	int run();
 };
 
 #define CORE_H
