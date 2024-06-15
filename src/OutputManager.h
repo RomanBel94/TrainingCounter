@@ -12,8 +12,11 @@ public:
 	~OutputManager() {};
 
 public:
-	void operator()(const char* msg) { std::cout << msg << std::endl; }
-	void operator()(std::string msg) { operator()(msg.c_str()); }
+	inline void operator()(const char* msg) const
+		{ std::cout << msg << std::endl; }
+	
+	inline void operator()(std::string msg) const
+		{ operator()(msg.c_str()); }
 };
 
 #define OUTPUT_MANAGER_H
