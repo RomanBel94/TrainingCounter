@@ -13,11 +13,11 @@ private:
 	int argc;
 	char** argv;
 private:
-	Counter trainingCounter;
+	Counter counter;
 	Logger log;
-	Save savefile;
+	Save save;
 	LexerParser parser;
-	OutputManager output;
+	OutputManager message;
 public:
 	AppCore(int argc, char* argv[]) : argc(argc), argv(argv) {};
 	~AppCore() {};

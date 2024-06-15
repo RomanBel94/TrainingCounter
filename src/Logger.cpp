@@ -2,13 +2,10 @@
 
 Logger::Logger()
 {
-	std::string dir = getenv("HOME"); dir += "/.tc/";
-	std::string path = dir + "log.txt";
-	
 	if (!std::filesystem::exists(dir))
 		std::filesystem::create_directory(dir);
 
-	logfile.open(path, std::ios::out | std::ios::app);
+	logfile.open(file, std::ios::out | std::ios::app);
 
 	if (!logfile.is_open())
 		throw std::runtime_error("Could not open log file");

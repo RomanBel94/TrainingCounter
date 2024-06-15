@@ -13,6 +13,10 @@ class Logger final
 private:
 	std::ofstream logfile;
 
+	std::string home{ getenv("HOME") };
+	std::string dir{ home + "/.tc/" };
+	std::string file{ dir + "log.txt" };
+
 private:
 	char* _datetime();
 

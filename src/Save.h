@@ -4,7 +4,7 @@
 #include <fstream>	// ifstream, ofstream
 #include <filesystem>	// exists(), create_directory()
 #include <cstdlib>	// getenv()
-#include <string>
+#include <string>	// strings
 
 class Save final
 {
