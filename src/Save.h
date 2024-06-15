@@ -17,7 +17,7 @@ public:
 	~Save() {};
 
 	void write(uint8_t trainings);
-	uint8_t read();
+	uint8_t read() const;
 };
 
 #define SAVE_H

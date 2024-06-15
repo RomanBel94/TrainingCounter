@@ -10,10 +10,10 @@ public:
 	Counter(int num) : Counter() { setTrainings(num); }
 	~Counter() {};
 
-	inline void setTrainings(int num) { trainings = num; }
-	inline void addTrainings(int num) { trainings += num; }
-	inline int getTrainings() const { return trainings; }
-	inline void markTrainings() { --trainings; }
+	inline void setTrainings(int num) noexcept{ trainings = num; }
+	inline void addTrainings(int num) noexcept { trainings += num; }
+	inline int getTrainings() const noexcept { return trainings; }
+	inline void markTrainings() noexcept { --trainings; }
 };
 
 #define COUNTER_H

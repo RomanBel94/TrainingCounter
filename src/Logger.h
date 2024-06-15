@@ -13,9 +13,9 @@ class Logger final
 private:
 	std::ofstream logfile;
 
-	std::string home{ getenv("HOME") };
-	std::string dir{ home + "/.tc/" };
-	std::string file{ dir + "log.txt" };
+	const std::string home{ getenv("HOME") };
+	const std::string dir{ home + "/.tc/" };
+	const std::string file{ dir + "log.txt" };
 
 private:
 	char* _datetime();
@@ -25,9 +25,11 @@ public:
 	~Logger();
 
 public:
-	void operator()(const char* msg)
+	inline void operator()(const char* msg) noexcept
 		{ logfile << _datetime() << msg << '\n'; }
-	void operator()(std::string msg) { operator()(msg.c_str()); }
+
+	inline void operator()(std::string msg) noexcept
+		{ operator()(msg.c_str()); }
 };
 
 #define LOGGER_H
