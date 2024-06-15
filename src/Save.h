@@ -4,17 +4,16 @@
 #include <fstream>	// ifstream, ofstream
 #include <filesystem>	// exists(), create_directory()
 #include <cstdlib>	// getenv()
+#include <string>
 
 class Save final
 {
 private:
-	/*
-	TODO: create constructor that initializes directory, i have to refactor this class!!!!!
-
-
-	*/
+	std::string home{ getenv("HOME") };
+	std::string dir{ home + "/.tc/" };
+	std::string file{ dir + "save.sav" };
 public:
-	Save() {};
+	Save();
 	~Save() {};
 
 	void write(uint8_t trainings);
