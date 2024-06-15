@@ -16,9 +16,9 @@ Logger::~Logger()
 	logfile.close();
 }
 
-char* Logger::_datetime()
+std::string Logger::_datetime()
 {
 	time_t seconds = time(NULL);
-	tm* timeinfo = localtime(&seconds);
-	return asctime(timeinfo);
+	std::string time{ asctime(localtime(&seconds)) };
+	return time.replace(time.find_first_of("\n"), 1, "\t");
 }

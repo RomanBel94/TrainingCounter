@@ -3,7 +3,7 @@
 
 #include <fstream>	// ofstream
 #include <filesystem>	// exists(), create_directory()
-#include <string>	// msg
+#include <string>	// strings
 #include <cstdlib>	// getenv()
 #include <exception>	// runtime_error()
 #include <ctime>	// asctime()
@@ -18,7 +18,7 @@ private:
 	const std::string file{ dir + "log.txt" };
 
 private:
-	char* _datetime();
+	std::string _datetime();
 
 public:
 	Logger();
