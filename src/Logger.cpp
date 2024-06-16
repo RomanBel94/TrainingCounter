@@ -20,5 +20,6 @@ std::string Logger::_datetime()
 {
 	time_t seconds = time(NULL);
 	std::string time{ asctime(localtime(&seconds)) };
-	return time.replace(time.find_first_of("\n"), 1, "\t");
+	time.pop_back();
+	return time;
 }

@@ -26,7 +26,7 @@ public:
 
 public:
 	inline void operator()(const char* msg) noexcept
-		{ logfile << _datetime() << msg << '\n'; }
+		{ logfile << _datetime() << '\t' << msg << '\n'; }
 
 	inline void operator()(std::string msg) noexcept
 		{ operator()(msg.c_str()); }
