@@ -1,15 +1,25 @@
 #pragma once
 #ifndef LEXERPARSER_H
 
+#include <stdint.h>
+#include <forward_list>
+
 class LexerParser final
 {
 public:
-	enum job {none=0, add, set, get};
+	enum job {usage=0, add, set, get, mark};
+
+private:
+    job todo{ usage };
+    uint8_t num{ 0 };
+
 public:
 	LexerParser() {};
 	~LexerParser() {};
 
-	job operator()(char* argv, int& num);
+	void operator()(int argc, char** argv);
+    job getJob() { return todo; }
+    uint8_t getNum(){ return num; }
 };
 
 #define LEXERPARSER_H
