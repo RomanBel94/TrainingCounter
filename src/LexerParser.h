@@ -3,6 +3,7 @@
 
 #include <stdint.h>
 #include <forward_list>
+#include <string>
 
 class LexerParser final
 {
@@ -12,6 +13,23 @@ public:
 private:
     job todo{ usage };
     uint8_t num{ 0 };
+
+    class Token
+    {
+    public:
+        enum tokType { undefined=0, job, num };
+
+    private:
+        std::string content;
+        tokType type;
+
+    public:
+        Token(std::string& content, tokType type) : content(content), type(type) {};
+        std::string& getContent() { return content; }
+        tokType getType() { return type; }
+    };
+    
+    std::forward_list<Token> tokens;
 
 public:
 	LexerParser() {};
