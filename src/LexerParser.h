@@ -2,14 +2,16 @@
 #ifndef LEXERPARSER_H
 
 #include <stdint.h> // uint8_t
+#include <cstdlib> // atoi()
+#include <cctype> // isdigit()
 
 class LexerParser final
 {
 public:
-	enum job {usage=0, add, set, get, mark};
+	enum job {show=0, add, set, help, mark};
 
 private:
-    job todo{ usage };
+    job todo{ show };
     uint8_t num{ 0 };
 
 public:
