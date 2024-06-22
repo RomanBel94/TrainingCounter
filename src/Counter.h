@@ -6,15 +6,15 @@
 class Counter final
 {
 private:
-	int trainings{0};
+	uint8_t trainings{0};
 public:
 	Counter() {};
 	~Counter() {};
 
 	inline void setTrainings(uint8_t num) noexcept{ trainings = num; }
 	inline void addTrainings(uint8_t num) noexcept { trainings += num; }
-	inline int getTrainings() const noexcept { return trainings; }
-	inline void markTrainings() noexcept { --trainings; }
+	inline uint8_t getTrainings() const noexcept { return trainings; }
+	inline void markTraining() noexcept { --trainings; }
 };
 
 #define COUNTER_H

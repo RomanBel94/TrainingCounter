@@ -6,16 +6,22 @@ int AppCore::run()
     parser(argc, argv);
     LexerParser::job todo = parser.getJob();
     uint8_t num = parser.getNum();
-    
+    counter.setTrainings(save.read());
+
     switch (todo) {
     case LexerParser::job::help:
         {
+        log("printed \"help\"");
         message.printHelp();
         break;
         }
     case LexerParser::job::mark:
         {
-        message("mark");
+        counter.markTraining();
+        std::string msg = 
+            "Workout marked. Remaining workouts: " + std::to_string(counter.getTrainings());
+        log(msg);
+        message(msg);
         break;
         }
     case LexerParser::job::set:
@@ -32,7 +38,7 @@ int AppCore::run()
         }
     case LexerParser::job::show:
         {
-        std::string msg = "Remaining trainings: " + std::to_string(save.read());
+        std::string msg = "Remaining workouts: " + std::to_string(counter.getTrainings());
         log(msg);
         message(msg);
         break;
@@ -40,5 +46,7 @@ int AppCore::run()
     default:
         message("unknown task!");
     }
+
+    save.write(counter.getTrainings());
 	return 0;
 }
