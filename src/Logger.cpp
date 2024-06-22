@@ -18,7 +18,7 @@ Logger::~Logger()
 
 std::string Logger::_datetime()
 {
-	time_t seconds = time(NULL);
+	time_t seconds = time(nullptr);
 	std::string time{ asctime(localtime(&seconds)) };
 	time.pop_back();
 	return time;
