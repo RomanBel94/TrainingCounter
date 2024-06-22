@@ -43,10 +43,9 @@ int AppCore::run()
         message(msg);
         break;
         }
-    default:
-        message("unknown task!");
     }
 
+    log("tc stopped");
     save.write(counter.getTrainings());
 	return 0;
 }

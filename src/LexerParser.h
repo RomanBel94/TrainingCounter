@@ -8,10 +8,10 @@
 class LexerParser final
 {
 public:
-	enum job {show=0, add, set, help, mark};
+	enum job {help=0, add, set, show, mark};
 
 private:
-    job todo{ show };
+    job todo{ help };
     uint8_t num{ 0 };
 
 public:
