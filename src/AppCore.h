@@ -18,6 +18,7 @@ private:
 	Save save;
 	LexerParser parser;
 	OutputManager message;
+
 public:
 	AppCore(int argc, char* argv[]) : argc(argc), argv(argv) {};
 	~AppCore() {};

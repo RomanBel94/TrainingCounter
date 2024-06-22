@@ -9,23 +9,34 @@ int AppCore::run()
     
     switch (todo) {
     case LexerParser::job::help:
-        message("help");
+        {
+        message.printHelp();
         break;
+        }
     case LexerParser::job::mark:
+        {
         message("mark");
         break;
+        }
     case LexerParser::job::set:
+        {
         message("set");
         message(std::to_string(num));
         break;
+        }
     case LexerParser::job::add:
+        {
         message("add");
         message(std::to_string(num));
         break;
+        }
     case LexerParser::job::show:
-        message("show");
-        message("Remaining trainings: " + std::to_string(save.read()));
+        {
+        std::string msg = "Remaining trainings: " + std::to_string(save.read());
+        log(msg);
+        message(msg);
         break;
+        }
     default:
         message("unknown task!");
     }
