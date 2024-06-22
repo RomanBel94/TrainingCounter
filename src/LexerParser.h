@@ -1,7 +1,7 @@
 #pragma once
 #ifndef LEXERPARSER_H
 
-#include <stdint.h>
+#include <stdint.h> // uint8_t
 
 class LexerParser final
 {
@@ -11,9 +11,6 @@ public:
 private:
     job todo{ usage };
     uint8_t num{ 0 };
-
-private:
-    Token _getToken();
 
 public:
 	LexerParser() {};
