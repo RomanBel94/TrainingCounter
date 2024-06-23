@@ -11,8 +11,16 @@ int AppCore::run()
     switch (todo) {
     case LexerParser::job::help:
         {
+         std::string helpMessage =
+            "Usage:\n\n"
+                "\ttc -a <num>\tAdd <num> workouts;\n"
+                "\ttc -s <num>\tSet <num> workouts;\n"
+                "\ttc -m\t\tMark completed workout;\n"
+                "\ttc [-h]\t\tPrint help;\n"
+                "\ttc -w\t\tShow remaining workouts.\n";
+
         log("printed \"help\"");
-        message.printHelp();
+        message(helpMessage);
         break;
         }
     case LexerParser::job::mark:
