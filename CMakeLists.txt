@@ -17,4 +17,7 @@ target_sources(${MAIN_MODULE} PRIVATE
     src/LexerParser.h src/LexerParser.cpp
     src/OutputManager.h src/OutputManager.cpp
 )
-# install(${MAIN_MODULE} usr/local/bin)
+install(TARGETS ${MAIN_MODULE} 
+        DESTINATION usr/local/bin 
+        CONFIGURATIONS Release 
+        PERMISSIONS OWNER_EXECUTE)
