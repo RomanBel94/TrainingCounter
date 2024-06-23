@@ -15,7 +15,6 @@ target_sources(${MAIN_MODULE} PRIVATE
     src/Save.h src/Save.cpp
     src/Counter.h src/Counter.cpp
     src/LexerParser.h src/LexerParser.cpp
-    src/OutputManager.h src/OutputManager.cpp
 )
 install(TARGETS ${MAIN_MODULE} 
         DESTINATION usr/local/bin 

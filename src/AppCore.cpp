@@ -49,8 +49,7 @@ void AppCore::_printHelp()
             "\ttc [-h]\t\tPrint help;\n"
             "\ttc -w\t\tShow remaining workouts.\n";
 
-    log("printed \"help\"");
-    message(msg);
+    log(msg);
 }
 
 void AppCore::_markTraining()
@@ -58,7 +57,6 @@ void AppCore::_markTraining()
     counter.markTraining();
     std::string msg = "Workout marked.";
     log(msg);
-    message(msg);
     _showTrainings();
 }
 
@@ -67,7 +65,6 @@ void AppCore::_setTrainings(uint8_t num)
    counter.setTrainings(num);
     std::string msg = "Set workouts to " + std::to_string(num) + ".";
     log(msg);
-    message(msg);
     _showTrainings();
 }
 
@@ -76,7 +73,6 @@ void AppCore::_addTrainings(uint8_t num)
     counter.addTrainings(num);
     std::string msg = "Added " + std::to_string(num) + " workouts.";
     log(msg);
-    message(msg);
     _showTrainings();
 }
 
@@ -84,5 +80,4 @@ void AppCore::_showTrainings()
 {
     std::string msg = "Remaining workouts: " + std::to_string(counter.getTrainings()) + ".";
     log(msg);
-    message(msg);
 }

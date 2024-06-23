@@ -5,7 +5,6 @@
 #include "Logger.h"
 #include "Save.h"
 #include "LexerParser.h"
-#include "OutputManager.h"
 
 class AppCore
 {
@@ -18,7 +17,6 @@ private:
 	Logger log;
 	Save save;
 	LexerParser parser;
-	OutputManager message;
 
 private:
     void _printHelp();

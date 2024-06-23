@@ -7,6 +7,7 @@
 #include <cstdlib>	// getenv()
 #include <exception>	// runtime_error()
 #include <ctime>	// asctime()
+#include <iostream> // cout
 
 class Logger final
 {
@@ -26,7 +27,8 @@ public:
 
 public:
 	inline void operator()(const char* msg) noexcept
-		{ logfile << _datetime() << '\t' << msg << '\n'; }
+		{ logfile << _datetime() << '\t' << msg << '\n';
+          std::cout << msg << std::endl; }
 
 	inline void operator()(std::string msg) noexcept
 		{ operator()(msg.c_str()); }
