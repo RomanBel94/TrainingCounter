@@ -27,26 +27,35 @@ int AppCore::run()
         {
         counter.markTraining();
         std::string msg = 
-            "Workout marked. Remaining workouts: " + std::to_string(counter.getTrainings());
+            "Workout marked. Remaining workouts: " 
+            + std::to_string(counter.getTrainings()) + ".";
         log(msg);
         message(msg);
         break;
         }
     case LexerParser::job::set:
         {
-        message("set");
-        message(std::to_string(num));
+        counter.setTrainings(num);
+        std::string msg = 
+            "Set workouts to " + std::to_string(num) + 
+            ". Remaining workouts: " + std::to_string(counter.getTrainings()) + ".";
+        log(msg);
+        message(msg);
         break;
         }
     case LexerParser::job::add:
         {
-        message("add");
-        message(std::to_string(num));
+        counter.addTrainings(num);
+        std::string msg =
+            "Added " + std::to_string(num) + " workouts. "
+            "Remaining workouts: " + std::to_string(counter.getTrainings()) + ".";
+        log(msg);
+        message(msg);
         break;
         }
     case LexerParser::job::show:
         {
-        std::string msg = "Remaining workouts: " + std::to_string(counter.getTrainings());
+        std::string msg = "Remaining workouts: " + std::to_string(counter.getTrainings()) + ".";
         log(msg);
         message(msg);
         break;
