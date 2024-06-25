@@ -1,6 +1,6 @@
-#include "Logger.h"
+#include "OutputManager.h"
 
-Logger::Logger()
+OutputManager::OutputManager()
 {
 	if (!std::filesystem::exists(dir))
 		std::filesystem::create_directory(dir);
@@ -11,12 +11,12 @@ Logger::Logger()
 		throw std::runtime_error("Could not open log file");
 }
 
-Logger::~Logger()
+OutputManager::~OutputManager()
 {
 	logfile.close();
 }
 
-std::string Logger::_datetime()
+std::string OutputManager::_datetime()
 {
 	time_t seconds = time(nullptr);
 	std::string time{ asctime(localtime(&seconds)) };

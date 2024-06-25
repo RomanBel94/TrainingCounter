@@ -11,7 +11,7 @@ void LexerParser::operator()(int argc, char** argv)
             todo = set; break;
         case 'm':
             todo = mark; break;
-        case 'w':
+        case 't':
             todo = show;
         };
     }

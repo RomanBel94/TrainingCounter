@@ -9,21 +9,21 @@
 #include <ctime>	// asctime()
 #include <iostream> // cout
 
-class Logger final
+class OutputManager final
 {
 private:
 	std::ofstream logfile;
 
 	const std::string home{ getenv("HOME") };
-	const std::string dir{ home + "/.tc/" };
+	const std::string dir{ home + "/.TrainingCounter/" };
 	const std::string file{ dir + "log.txt" };
 
 private:
 	std::string _datetime();
 
 public:
-	Logger();
-	~Logger();
+	OutputManager();
+	~OutputManager();
 
 public:
 	inline void operator()(const char* msg) noexcept

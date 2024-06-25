@@ -10,7 +10,7 @@ class Save final
 {
 private:
 	std::string home{ getenv("HOME") };
-	std::string dir{ home + "/.tc/" };
+	std::string dir{ home + "/.TrainingCounter/" };
 	std::string file{ dir + "save.sav" };
 public:
 	Save();

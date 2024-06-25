@@ -2,7 +2,7 @@
 #ifndef CORE_H
 
 #include "Counter.h"
-#include "Logger.h"
+#include "OutputManager.h"
 #include "Save.h"
 #include "LexerParser.h"
 
@@ -14,7 +14,7 @@ private:
 
 private:
 	Counter counter;
-	Logger log;
+	OutputManager out;
 	Save save;
 	LexerParser parser;
 

@@ -3,11 +3,9 @@
 int AppCore::run()
 {
     parser(argc, argv);
-    LexerParser::job todo = parser.getJob();
-    uint8_t num = parser.getNum();
     counter.setTrainings(save.read());
 
-    switch (todo) {
+    switch (parser.getJob()) {
     case LexerParser::job::help:
         {
             _printHelp();
@@ -20,12 +18,12 @@ int AppCore::run()
         }
     case LexerParser::job::set:
         {
-            _setTrainings(num);
+            _setTrainings(parser.getNum());
             break;
         }
     case LexerParser::job::add:
         {
-            _addTrainings(num);
+            _addTrainings(parser.getNum());
             break;
         }
     case LexerParser::job::show:
@@ -43,20 +41,20 @@ void AppCore::_printHelp()
 {
     std::string msg =
         "Usage:\n\n"
-            "\ttc -a <num>\tAdd <num> workouts;\n"
-            "\ttc -s <num>\tSet <num> workouts;\n"
-            "\ttc -m\t\tMark completed workout;\n"
-            "\ttc [-h]\t\tPrint help;\n"
-            "\ttc -w\t\tShow remaining workouts.\n";
+            "\tTrainingCounter -a <num>\tAdd <num> workouts;\n"
+            "\tTrainingCounter -s <num>\tSet <num> workouts;\n"
+            "\tTrainingCounter -m\t\tMark completed workout;\n"
+            "\tTrainingCounter [-h]\t\tPrint help;\n"
+            "\tTrainingCounter -t\t\tShow remaining workouts.\n";
 
-    log(msg);
+    out(msg);
 }
 
 void AppCore::_markTraining()
 {
     counter.markTraining();
     std::string msg = "Workout marked.";
-    log(msg);
+    out(msg);
     _showTrainings();
 }
 
@@ -64,7 +62,7 @@ void AppCore::_setTrainings(uint8_t num)
 {
    counter.setTrainings(num);
     std::string msg = "Set workouts to " + std::to_string(num) + ".";
-    log(msg);
+    out(msg);
     _showTrainings();
 }
 
@@ -72,12 +70,12 @@ void AppCore::_addTrainings(uint8_t num)
 {
     counter.addTrainings(num);
     std::string msg = "Added " + std::to_string(num) + " workouts.";
-    log(msg);
+    out(msg);
     _showTrainings();
 }
 
 void AppCore::_showTrainings()
 {
     std::string msg = "Remaining workouts: " + std::to_string(counter.getTrainings()) + ".";
-    log(msg);
+    out(msg);
 }
