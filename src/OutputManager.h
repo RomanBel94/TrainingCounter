@@ -30,7 +30,7 @@ public:
 		{ logfile << _datetime() << '\t' << msg << '\n';
           std::cout << msg << std::endl; }
 
-	inline void operator()(std::string msg) noexcept
+	inline void operator()(std::string& msg) noexcept
 		{ operator()(msg.c_str()); }
 };
 

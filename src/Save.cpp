@@ -6,7 +6,7 @@ Save::Save()
 		std::filesystem::create_directory(dir);
 }
 
-uint8_t Save::read() const
+const uint8_t Save::read() const
 {
 	std::ifstream input(file, std::ios::in | std::ios::binary);
 	uint8_t trainings { 0 };
@@ -19,7 +19,7 @@ uint8_t Save::read() const
 	return trainings;
 }
 
-void Save::write(uint8_t trainings)
+void Save::write(const uint8_t trainings)
 {
 	std::ofstream output(file, std::ios::out | std::ios::binary);
 	output.write((char*)&trainings, sizeof(trainings));

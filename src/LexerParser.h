@@ -19,8 +19,8 @@ public:
 	~LexerParser() {};
 
 	void operator()(int argc, char** argv);
-    job getJob() { return todo; }
-    uint8_t getNum(){ return num; }
+    const job getJob() noexcept { return todo; }
+    const uint8_t getNum() const noexcept { return num; }
 };
 
 #define LEXERPARSER_H
