@@ -19,6 +19,6 @@ Build:
 
 ```
 "mkdir build && cd build"
-Enter: "cmake .."
-Enter: "cmake --build . --config release"
+"cmake .."
+"cmake --build . --config release"
 ```
