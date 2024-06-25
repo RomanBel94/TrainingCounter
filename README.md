@@ -1,5 +1,5 @@
 # TrainingCounter
-Simple Linux console program to count the remaining workouts in the gym. This program uses C++, CMake
+Simple Linux console program to count the remaining workouts with trainer in the gym. This program uses C++, CMake
 
 To build this program you need:
 
