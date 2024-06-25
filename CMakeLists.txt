@@ -10,10 +10,10 @@ set(MAIN_MODULE TrainingCounter)
 add_executable(${MAIN_MODULE})
 target_sources(${MAIN_MODULE} PRIVATE
 	src/main.cpp 
-    src/AppCore.h src/AppCore.cpp
-    src/OutputManager.h src/OutputManager.cpp
-    src/Save.h src/Save.cpp
-    src/LexerParser.h src/LexerParser.cpp
+    src/AppCore.cpp
+    src/OutputManager.cpp
+    src/Save.cpp
+    src/LexerParser.cpp
 )
 install(TARGETS ${MAIN_MODULE} 
         DESTINATION ${CMAKE_INSTALL_BINDIR}
