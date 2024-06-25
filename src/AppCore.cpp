@@ -7,32 +7,22 @@ int AppCore::run()
 
     switch (parser.getJob()) {
     case LexerParser::job::help:
-        {
             _printHelp();
             break;
-        }
     case LexerParser::job::mark:
-        {
             _markTraining();
             break;
-        }
     case LexerParser::job::set:
-        {
             _setTrainings(parser.getNum());
             break;
-        }
     case LexerParser::job::add:
-        {
             _addTrainings(parser.getNum());
             break;
-        }
     case LexerParser::job::show:
-        {
             _showTrainings();
             break;
-        }
     }
-
+    
     save.write(counter.getTrainings());
 	return 0;
 }
