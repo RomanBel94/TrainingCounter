@@ -16,7 +16,7 @@ OutputManager::~OutputManager()
 	logfile.close();
 }
 
-std::string OutputManager::_datetime()
+const std::string OutputManager::_datetime()
 {
 	time_t seconds = time(nullptr);
 	std::string time{ asctime(localtime(&seconds)) };
