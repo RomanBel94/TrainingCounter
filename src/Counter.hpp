@@ -11,8 +11,8 @@ public:
 	Counter() {};
 	~Counter() {};
 
-	inline void setTrainings(uint8_t num) noexcept{ trainings = num; }
-	inline void addTrainings(uint8_t num) noexcept { trainings += num; }
+	inline void setTrainings(const uint8_t num) noexcept{ trainings = num; }
+	inline void addTrainings(const uint8_t num) noexcept { trainings += num; }
 	inline const uint8_t getTrainings() const noexcept { return trainings; }
 	inline void markTraining() noexcept { --trainings; }
 };
