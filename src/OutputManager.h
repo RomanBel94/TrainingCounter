@@ -19,7 +19,7 @@ private:
 	const std::string file{ dir + "log.txt" };
 
 private:
-	std::string _datetime();
+	const std::string _datetime();
 
 public:
 	OutputManager();
