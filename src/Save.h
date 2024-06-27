@@ -11,9 +11,9 @@ class Save final
 private:
 #ifdef _WIN32
 	const std::string dir{ "C:\\ProgramData\\TrainingCounter\\" };
-#elif
-	std::string home{ getenv("HOME") };
-	std::string dir{ home + "/.TrainingCounter/" };
+#else
+	const std::string home{ getenv("HOME") };
+	const std::string dir{ home + "/.TrainingCounter/" };
 #endif // _WIN32
 	std::string file{ dir + "save.sav" };
 public:
