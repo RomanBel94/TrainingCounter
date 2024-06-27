@@ -6,7 +6,7 @@
 #include "Save.h"
 #include "LexerParser.h"
 
-class AppCore
+class AppCore final
 {
 private:
 	int argc;

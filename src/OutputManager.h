@@ -13,9 +13,12 @@ class OutputManager final
 {
 private:
 	std::ofstream logfile;
-
+#ifdef _WIN32
+	const std::string dir{ "C:\\ProgramData\\TrainingCounter\\" };
+#else
 	const std::string home{ getenv("HOME") };
 	const std::string dir{ home + "/.TrainingCounter/" };
+#endif // _WIN32
 	const std::string file{ dir + "log.txt" };
 
 private:

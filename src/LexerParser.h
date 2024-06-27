@@ -19,7 +19,7 @@ public:
 	~LexerParser() {};
 
 	void operator()(int argc, char** argv);
-    const job getJob() noexcept { return todo; }
+	const job getJob() const noexcept { return todo; }
     const uint8_t getNum() const noexcept { return num; }
 };
 
