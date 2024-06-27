@@ -6,7 +6,7 @@ To build this program you need:
  * OC Linux or Windows on your computer;
  * C++ compiler with C++17 standard support
  * CMake version 3.8 or greater
- * Any supported generator, like "Make", "Ninja", etc.
+ * Any supported generator, like "Make", "Ninja" for Linux and "Visual Studio" for Windows.
 
 Build:
 
