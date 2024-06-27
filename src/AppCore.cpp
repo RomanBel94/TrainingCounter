@@ -31,11 +31,11 @@ void AppCore::_printHelp()
 {
     std::string msg =
         "Usage:\n\n"
-            "\tTrainingCounter -a <num>\tAdd <num> workouts;\n"
-            "\tTrainingCounter -s <num>\tSet <num> workouts;\n"
-            "\tTrainingCounter -m\t\tMark completed workout;\n"
-            "\tTrainingCounter [-h]\t\tPrint help;\n"
-            "\tTrainingCounter -t\t\tShow remaining workouts.\n";
+            "\tTrainingCounter [-h]\t\tPrint \"Usage\";\n"
+            "\tTrainingCounter -a <num>\tAdd <num> trainings;\n"
+            "\tTrainingCounter -s <num>\tSet <num> trainings;\n"
+            "\tTrainingCounter -m\t\tMark completed training;\n"
+            "\tTrainingCounter -t\t\tShow remaining trainings.\n";
     out(msg);
 }
 
