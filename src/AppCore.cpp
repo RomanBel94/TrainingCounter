@@ -29,14 +29,12 @@ int AppCore::run()
 
 void AppCore::_printHelp()
 {
-    std::string msg =
-        "Usage:\n\n"
+    out("\nUsage:\n\n"
             "\tTrainingCounter [-h]\t\tPrint \"Usage\";\n"
             "\tTrainingCounter -a <num>\tAdd <num> trainings;\n"
             "\tTrainingCounter -s <num>\tSet <num> trainings;\n"
             "\tTrainingCounter -m\t\tMark completed training;\n"
-            "\tTrainingCounter -t\t\tShow remaining trainings.\n";
-    out(msg);
+            "\tTrainingCounter -t\t\tShow remaining trainings.\n");
 }
 
 void AppCore::_markTraining()
@@ -48,22 +46,19 @@ void AppCore::_markTraining()
 
 void AppCore::_setTrainings(const uint8_t num)
 {
-   counter.setTrainings(num);
-    std::string msg = "Set workouts to " + std::to_string(num) + ".";
-    out(msg);
+    counter.setTrainings(num);
+    out("Set workouts to " + std::to_string(num) + ".");
     _showTrainings();
 }
 
 void AppCore::_addTrainings(const uint8_t num)
 {
     counter.addTrainings(num);
-    std::string msg = "Added " + std::to_string(num) + " workouts.";
-    out(msg);
+    out("Added " + std::to_string(num) + " workouts.");
     _showTrainings();
 }
 
 void AppCore::_showTrainings()
 {
-    std::string msg = "Remaining workouts: " + std::to_string(counter.getTrainings()) + ".";
-    out(msg);
+    out("Remaining workouts: " + std::to_string(counter.getTrainings()) + ".");
 }
