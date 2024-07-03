@@ -6,9 +6,6 @@ OutputManager::OutputManager()
 		std::filesystem::create_directory(dir);
 
 	logfile.open(file, std::ios::out | std::ios::app);
-
-	if (!logfile.is_open())
-		throw std::runtime_error("Could not open log file");
 }
 
 OutputManager::~OutputManager()
