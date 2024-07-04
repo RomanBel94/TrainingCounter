@@ -5,7 +5,6 @@
 #include <filesystem>	// exists(), create_directory()
 #include <string>	// strings
 #include <cstdlib>	// getenv()
-#include <exception>	// runtime_error()
 #include <ctime>	// asctime()
 #include <iostream> // cout
 
