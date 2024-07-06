@@ -22,8 +22,7 @@ private:
     void _showTrainings();
 
 public:
-	AppCore(int argc, char* argv[]) 
-        { parser(argc, argv); counter.setTrainings(save.read()); }
+	AppCore(int argc, char* argv[]);
 
 	int run();
 };

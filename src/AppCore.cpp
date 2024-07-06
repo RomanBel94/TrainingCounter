@@ -1,5 +1,11 @@
 #include "AppCore.h"
 
+AppCore::AppCore(int argc, char** argv)
+{ 
+    parser(argc, argv); 
+    counter.setTrainings(save.read());
+}
+
 int AppCore::run()
 {
     switch (parser.getJob()) {
