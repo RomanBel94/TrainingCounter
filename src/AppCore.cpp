@@ -2,9 +2,6 @@
 
 int AppCore::run()
 {
-    parser(argc, argv);
-    counter.setTrainings(save.read());
-
     switch (parser.getJob()) {
     case LexerParser::job::help:
             _printHelp();

@@ -9,10 +9,6 @@
 class AppCore final
 {
 private:
-	int argc;
-	char** argv;
-
-private:
 	Counter counter;
 	OutputManager out;
 	Save save;
@@ -26,8 +22,8 @@ private:
     void _showTrainings();
 
 public:
-	AppCore(int argc, char* argv[]) : argc(argc), argv(argv) {};
-	~AppCore() {};
+	AppCore(int argc, char* argv[]) 
+        { parser(argc, argv); counter.setTrainings(save.read()); }
 
 	int run();
 };
