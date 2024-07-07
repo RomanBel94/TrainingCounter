@@ -11,24 +11,26 @@
 class OutputManager final
 {
 private:
-	std::ofstream logfile;
+	std::ofstream logfile;    // log file
 #ifdef _WIN32
+    // cache directory for windows
 	const std::string dir{ "C:\\ProgramData\\TrainingCounter\\" };
 #else
+    // cache directory for linux
 	const std::string home{ getenv("HOME") };
 	const std::string dir{ home + "/.TrainingCounter/" };
 #endif // _WIN32
-	const std::string file{ dir + "log.txt" };
+	const std::string file{ dir + "log.txt" };   // log file path
 
 private:
-	const std::string _datetime();
+	const std::string _datetime();    // returns current date and time
 
 public:
 	OutputManager();
 	~OutputManager();
 
 public:
-	inline void operator()(const char* msg) noexcept
+	inline void operator()(const char* msg) noexcept   // write message in file and console
 		{ logfile << _datetime() << '\t' << msg << '\n';
           std::cout << msg << std::endl; }
 

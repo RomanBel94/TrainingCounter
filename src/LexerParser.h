@@ -8,19 +8,16 @@
 class LexerParser final
 {
 public:
-	enum job {help=0, add, set, show, mark};
+	enum job {help=0, add, set, show, mark};    // types of job 
 
 private:
-    job todo{ help };
-    uint8_t num{ 0 };
+    job todo{ help };    // what to do
+    uint8_t num{ 0 };    // number to add or set
 
 public:
-	LexerParser() {};
-	~LexerParser() {};
-
-	void operator()(int argc, char** argv);
-	const job getJob() const noexcept { return todo; }
-    const uint8_t getNum() const noexcept { return num; }
+	void operator()(int argc, char** argv);                  // evaluate job and num
+	const job getJob() const noexcept { return todo; }       // returns job
+    const uint8_t getNum() const noexcept { return num; }    // returns num
 };
 
 #define LEXERPARSER_H

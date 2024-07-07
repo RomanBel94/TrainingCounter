@@ -2,6 +2,6 @@
 
 int main(int argc, char* argv[])
 {
-	AppCore app(argc, argv);
-	return app.run();
+	AppCore app(argc, argv);    // create application object
+	return app.run();           // run application
 }

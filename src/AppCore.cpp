@@ -2,13 +2,15 @@
 
 AppCore::AppCore(int argc, char** argv)
 { 
-    parser(argc, argv); 
-    counter.setTrainings(save.read());
+    parser(argc, argv);    // read command arguments
+    counter.setTrainings(save.read());    // read save file and set trainings
 }
 
+// main program function
 int AppCore::run()
 {
-    switch (parser.getJob()) {
+    switch (parser.getJob())    // do job given in argv
+    {
     case LexerParser::job::help:
             _printHelp();
             break;
@@ -26,10 +28,11 @@ int AppCore::run()
             break;
     }
     
-    save.write(counter.getTrainings());
+    save.write(counter.getTrainings());    // write save file
 	return 0;
 }
 
+// print help (usage)
 void AppCore::_printHelp()
 {
     out("\nUsage:\n\n"
@@ -40,6 +43,7 @@ void AppCore::_printHelp()
             "\tTrainingCounter -t\t\tShow remaining trainings.\n");
 }
 
+// mark completed training
 void AppCore::_markTraining()
 {
     counter.markTraining();
@@ -47,6 +51,7 @@ void AppCore::_markTraining()
     _showTrainings();
 }
 
+// set trainings to given num
 void AppCore::_setTrainings(const uint8_t num)
 {
     counter.setTrainings(num);
@@ -54,6 +59,7 @@ void AppCore::_setTrainings(const uint8_t num)
     _showTrainings();
 }
 
+// add given count of trainings
 void AppCore::_addTrainings(const uint8_t num)
 {
     counter.addTrainings(num);
@@ -61,6 +67,7 @@ void AppCore::_addTrainings(const uint8_t num)
     _showTrainings();
 }
 
+// print renaining trainings
 void AppCore::_showTrainings()
 {
     out("Remaining workouts: " + std::to_string(counter.getTrainings()) + ".");
