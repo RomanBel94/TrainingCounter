@@ -12,20 +12,22 @@ int AppCore::run()
     switch (parser.getJob())    // do job given in argv
     {
     case LexerParser::job::help:
-            _printHelp();
-            break;
+        _printHelp();
+        break;
     case LexerParser::job::mark:
-            _markTraining();
-            break;
+        _markTraining();
+        _showTrainings();
+        break;
     case LexerParser::job::set:
-            _setTrainings(parser.getNum());
-            break;
+        _setTrainings(parser.getNum());
+        _showTrainings();
+        break;
     case LexerParser::job::add:
-            _addTrainings(parser.getNum());
-            break;
+        _addTrainings(parser.getNum());
+        _showTrainings();
+        break;
     case LexerParser::job::show:
-            _showTrainings();
-            break;
+        _showTrainings();
     }
     
     save.write(counter.getTrainings());    // write save file
@@ -47,28 +49,25 @@ void AppCore::_printHelp()
 void AppCore::_markTraining()
 {
     counter.markTraining();
-    out("Workout marked.");
-    _showTrainings();
+    out("Training marked.");
 }
 
 // set trainings to given num
 void AppCore::_setTrainings(const uint8_t num)
 {
     counter.setTrainings(num);
-    out("Set workouts to " + std::to_string(num) + ".");
-    _showTrainings();
+    out("Set trainings to " + std::to_string(num) + ".");
 }
 
 // add given count of trainings
 void AppCore::_addTrainings(const uint8_t num)
 {
     counter.addTrainings(num);
-    out("Added " + std::to_string(num) + " workouts.");
-    _showTrainings();
+    out("Added " + std::to_string(num) + " trainings.");
 }
 
 // print renaining trainings
 void AppCore::_showTrainings()
 {
-    out("Remaining workouts: " + std::to_string(counter.getTrainings()) + ".");
+    out("Remaining trainings: " + std::to_string(counter.getTrainings()) + ".");
 }

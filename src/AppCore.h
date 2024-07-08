@@ -22,7 +22,7 @@ private:
     void _showTrainings();                    // show current number of trainings
 
 public:
-	AppCore(int argc, char* argv[]);          // constructor
+	AppCore(int argc, char** argv);          // constructor
 
 	int run();                                // main function of program
 };
