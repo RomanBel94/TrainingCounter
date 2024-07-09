@@ -17,7 +17,7 @@ private:
 	const std::string home{ getenv("HOME") };
 	const std::string dir{ home + "/.TrainingCounter/" };
 #endif // _WIN32
-	std::string file{ dir + "save" };    // save file name
+	std::string filename{ dir + "save" };    // save file name
 public:
 	Save();
 
