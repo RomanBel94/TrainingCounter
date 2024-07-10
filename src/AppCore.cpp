@@ -63,7 +63,5 @@ void AppCore::_addTrainings(const uint8_t num)
 // print renaining trainings
 void AppCore::_showTrainings()
 {
-    out.setColor(OutputManager::color::yellow);
-    out("Remaining trainings: " + std::to_string(counter.getTrainings()) + ".");
-    out.resetColor();
+    out("Remaining trainings: " + std::to_string(counter.getTrainings()) + ".", OutputManager::cyan);
 }

@@ -15,14 +15,22 @@ OutputManager::~OutputManager()
 	logfile.close();
 }
 
+void OutputManager::operator()(const char* msg, color color) noexcept
+{
+	logfile << _datetime() << '\t' << msg << '\n';
+	_setColor(color);
+	std::cout << msg << std::endl;
+	_setColor();
+}
+
 // set console color
-void OutputManager::setColor(color color) noexcept
+void OutputManager::_setColor(color color) noexcept
 {
 	std::string paint{ "\x1b[" + std::to_string(30 + color) + "m" };
 	std::cout << paint;
 }
 
-// returnd current date and time
+// returns current date and time
 const std::string OutputManager::_datetime()
 {
 	time_t seconds = time(nullptr);

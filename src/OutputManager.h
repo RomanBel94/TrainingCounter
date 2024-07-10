@@ -22,29 +22,27 @@ private:
 #endif // _WIN32
 	const std::string file{ dir + "log.txt" };   // log file path
 
-private:
-	const std::string _datetime();    // returns current date and time
-
 public:
 	enum color { black = 0, red, green, yellow, blue, magenta, cyan, white };
+
+private:
+	const std::string _datetime();    // returns current date and time
+	void _setColor(const color color = white) noexcept;
 
 public:
 	OutputManager();
 	~OutputManager();
 
 public:
-	inline void operator()(const char* msg) noexcept   // write message in file and console
-		{ logfile << _datetime() << '\t' << msg << '\n';
-          std::cout << msg << std::endl; }
+	void operator()(const char* msg, color color = white) noexcept; // write message in file and console
 
-	inline void operator()(const std::string& msg) noexcept
-		{ operator()(msg.c_str()); }
+	inline void operator()(const std::string& msg, color color = white) noexcept
+		{ operator()(msg.c_str(), color); }
 
-    inline void operator()(const std::string&& msg) noexcept
-        { operator()(msg.c_str()); }
+    inline void operator()(const std::string&& msg, color color = white) noexcept
+        { operator()(msg.c_str(), color); }
 
-	inline void resetColor() noexcept { setColor(white); }
-	void setColor(const color color) noexcept;
+
 };
 
 #define LOGGER_H
