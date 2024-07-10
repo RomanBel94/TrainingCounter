@@ -10,11 +10,11 @@ private:
 public:
 	// set <num> of trainings if <num> is greater than 0
     inline void setTrainings(const uint8_t num) noexcept
-        { num > 0 ? trainings = num : trainings; }
+        { num >= 0 ? trainings = num : trainings; }
 	
     // add <num> of trainings if <num> is greater than 0
     inline void addTrainings(const uint8_t num) noexcept
-        { num > 0 ? trainings += num : trainings; }
+        { num >= 0 ? trainings += num : trainings; }
 	
     // returns trainings
     inline const uint8_t getTrainings() const noexcept

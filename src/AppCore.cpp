@@ -43,21 +43,21 @@ void AppCore::_printHelp()
 void AppCore::_markTraining()
 {
     counter.markTraining();
-    out("Training marked.");
+    out("Training marked.", OutputManager::magenta);
 }
 
 // set trainings to given num
 void AppCore::_setTrainings(const uint8_t num)
 {
     counter.setTrainings(num);
-    out("Set trainings to " + std::to_string(counter.getTrainings()) + ".");
+    out("Set trainings to " + std::to_string(num) + ".");
 }
 
 // add given count of trainings
 void AppCore::_addTrainings(const uint8_t num)
 {
     counter.addTrainings(num);
-    out("Added " + std::to_string(num) + " trainings.");
+    out("Added " + std::to_string(num) + " trainings.", OutputManager::green);
 }
 
 // print renaining trainings
@@ -66,7 +66,7 @@ void AppCore::_showTrainings()
     auto color = OutputManager::white;
 
     if (!counter.getTrainings())            color = OutputManager::red;
-    else if (counter.getTrainings() > 4)    color = OutputManager::green;
+    else if (counter.getTrainings() > 3)    color = OutputManager::green;
     else                                    color = OutputManager::yellow;
 
     out("Remaining trainings: " + std::to_string(counter.getTrainings()) + ".", color);
