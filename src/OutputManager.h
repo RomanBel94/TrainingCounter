@@ -26,6 +26,9 @@ private:
 	const std::string _datetime();    // returns current date and time
 
 public:
+	enum color { black = 0, red, green, yellow, blue, magenta, cyan, white };
+
+public:
 	OutputManager();
 	~OutputManager();
 
@@ -39,6 +42,9 @@ public:
 
     inline void operator()(const std::string&& msg) noexcept
         { operator()(msg.c_str()); }
+
+	inline void resetColor() noexcept { setColor(white); }
+	void setColor(const color color) noexcept;
 };
 
 #define LOGGER_H
