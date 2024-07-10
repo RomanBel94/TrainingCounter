@@ -43,7 +43,8 @@ void AppCore::_printHelp()
 void AppCore::_markTraining()
 {
     counter.markTraining();
-    out("Training marked.", OutputManager::magenta);
+    if (counter.getTrainings())
+        out("Training marked.", OutputManager::magenta);
 }
 
 // set trainings to given num
