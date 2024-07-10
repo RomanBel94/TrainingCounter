@@ -51,7 +51,7 @@ void AppCore::_markTraining()
 void AppCore::_setTrainings(const uint8_t num)
 {
     counter.setTrainings(num);
-    out("Set trainings to " + std::to_string(num) + ".");
+    out("Set trainings to " + std::to_string(num) + ".", OutputManager::yellow);
 }
 
 // add given count of trainings
