@@ -4,7 +4,7 @@
 void LexerParser::operator()(int argc, char** argv)
 {
     if (argc > 1 && argv[1][0] == '-')  // process given key
-        switch (argv[1][1])
+        switch (tolower(argv[1][1]))
         {
         case 'a':
             todo = add; break;
