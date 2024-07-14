@@ -1,5 +1,6 @@
 #include "AppCore.h"
 #include "LexerParser.h"
+#include "OutputManager.h"
 
 AppCore::AppCore(int argc, char** argv)
 { 
@@ -39,7 +40,8 @@ void AppCore::_printHelp()
             "\tTrainingCounter -s <num>\tSet <num> trainings;\n"
             "\tTrainingCounter -m\t\tMark completed training;\n"
             "\tTrainingCounter -t\t\tShow remaining trainings.\n", 
-        OutputManager::cyan);
+        OutputManager::cyan,
+        false);
 }
 
 // mark completed training
@@ -66,7 +68,7 @@ void AppCore::_addTrainings(const uint8_t num)
 
 void AppCore::_printVersion()
 {
-        out("TrainingCounter v-1.2.0");
+        out("TrainingCounter v-1.2.0", OutputManager::white, false);
 }
 
 // print renaining trainings
@@ -74,9 +76,12 @@ void AppCore::_showTrainings()
 {
     auto color = OutputManager::white;
 
-    if (!counter.getTrainings())            color = OutputManager::red;
-    else if (counter.getTrainings() > 3)    color = OutputManager::green;
-    else                                    color = OutputManager::yellow;
+    if (!counter.getTrainings())
+        color = OutputManager::red;
+    else if (counter.getTrainings() > 3)
+        color = OutputManager::green;
+    else
+        color = OutputManager::yellow;
 
     out("Remaining trainings: " + std::to_string(counter.getTrainings()) + ".", color);
 }

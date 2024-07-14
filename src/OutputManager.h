@@ -34,13 +34,13 @@ public:
 	~OutputManager();
 
 public:
-	void operator()(const char* msg, color color = white) noexcept; // write message in file and console
+	void operator()(const char* msg, color color = white, bool log = true) noexcept; // write message in file and console
 
-	inline void operator()(const std::string& msg, color color = white) noexcept
-		{ operator()(msg.c_str(), color); }
+	inline void operator()(const std::string& msg, color color = white, bool log = true) noexcept
+		{ operator()(msg.c_str(), color, log); }
 
-    inline void operator()(const std::string&& msg, color color = white) noexcept
-        { operator()(msg.c_str(), color); }
+    inline void operator()(const std::string&& msg, color color = white, bool log = true) noexcept
+        { operator()(msg.c_str(), color, log); }
 
 
 };

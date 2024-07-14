@@ -15,9 +15,9 @@ OutputManager::~OutputManager()
 	logfile.close();
 }
 
-void OutputManager::operator()(const char* msg, color color) noexcept
+void OutputManager::operator()(const char* msg, color color, bool log) noexcept
 {
-	logfile << _datetime() << '\t' << msg << '\n';
+    if (log) logfile << _datetime() << '\t' << msg << '\n';
 	_setColor(color);
 	std::cout << msg << std::endl;
 	_setColor();
