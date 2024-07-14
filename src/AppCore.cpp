@@ -10,7 +10,7 @@ AppCore::AppCore(int argc, char** argv)
 // main program function
 int AppCore::run()
 {
-    switch (parser.getJob())    // do job given in argv
+    switch (parser.getTask())    // do job given in argv
     {
     case LexerParser::help:
         _printHelp(); break;
