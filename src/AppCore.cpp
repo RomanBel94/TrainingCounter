@@ -1,4 +1,5 @@
 #include "AppCore.h"
+#include "LexerParser.h"
 
 AppCore::AppCore(int argc, char** argv)
 { 
@@ -13,6 +14,8 @@ int AppCore::run()
     {
     case LexerParser::job::help:
         _printHelp(); break;
+    case LexerParser::job::version:
+        _printVersion(); break;
     case LexerParser::job::mark:
         _markTraining(); break;
     case LexerParser::job::set:
@@ -60,6 +63,11 @@ void AppCore::_addTrainings(const uint8_t num)
 {
     counter.addTrainings(num);
     out("Added " + std::to_string(num) + " trainings.", OutputManager::green);
+}
+
+void AppCore::_printVersion()
+{
+        out("TrainingCounter v-1.2.0");
 }
 
 // print renaining trainings

@@ -20,6 +20,7 @@ private:
     void _setTrainings(const uint8_t num);    // set <num> trainings
     void _markTraining();                     // mark completed training (decrement by 1))
     void _showTrainings();                    // show current number of trainings
+    void _printVersion();                     // show program version
 
 public:
 	AppCore(int argc, char** argv);          // constructor

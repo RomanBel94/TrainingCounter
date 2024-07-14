@@ -8,7 +8,7 @@
 class LexerParser final
 {
 public:
-	enum job {help=0, add, set, show, mark};    // types of job 
+	enum job {help=0, add, set, show, mark, version};    // types of job 
 
 private:
     job todo{ help };    // what to do

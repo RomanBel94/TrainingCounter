@@ -13,7 +13,9 @@ void LexerParser::operator()(int argc, char** argv)
         case 'm':
             todo = mark; break;
         case 't':
-            todo = show;
+            todo = show; break;
+        case 'v':
+            todo = version;
         };
     // read num if exists
     if (argc > 2 && isdigit(argv[2][0])) num = atoi(argv[2]);
