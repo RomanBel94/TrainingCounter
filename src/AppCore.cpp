@@ -39,7 +39,8 @@ void AppCore::_printHelp()
             "\tTrainingCounter -a <num>\tAdd <num> trainings;\n"
             "\tTrainingCounter -s <num>\tSet <num> trainings;\n"
             "\tTrainingCounter -m\t\tMark completed training;\n"
-            "\tTrainingCounter -t\t\tShow remaining trainings.\n", 
+            "\tTrainingCounter -t\t\tShow remaining trainings;\n"
+            "\tTrainingCounter -v\t\tShow TrainingCounter version.\n", 
         OutputManager::cyan,
         false);
 }
