@@ -12,17 +12,17 @@ int AppCore::run()
 {
     switch (parser.getJob())    // do job given in argv
     {
-    case LexerParser::job::help:
+    case LexerParser::help:
         _printHelp(); break;
-    case LexerParser::job::version:
+    case LexerParser::version:
         _printVersion(); break;
-    case LexerParser::job::mark:
+    case LexerParser::mark:
         _markTraining(); break;
-    case LexerParser::job::set:
+    case LexerParser::set:
         _setTrainings(parser.getNum()); break;
-    case LexerParser::job::add:
+    case LexerParser::add:
         _addTrainings(parser.getNum()); break;
-    case LexerParser::job::show:
+    case LexerParser::show:
         _showTrainings(); break;
     }
     
