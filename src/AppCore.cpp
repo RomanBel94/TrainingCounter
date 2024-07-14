@@ -23,10 +23,9 @@ int AppCore::run()
     case LexerParser::job::add:
         _addTrainings(parser.getNum()); break;
     case LexerParser::job::show:
-        //_showTrainings();
-        break;
+        _showTrainings(); break;
     }
-    _showTrainings();
+    
     save.write(counter.getTrainings());    // write save file
 	return 0;
 }
