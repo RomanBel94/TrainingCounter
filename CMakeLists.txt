@@ -5,10 +5,15 @@ project(TrainingCounter VERSION 1.1.0 LANGUAGES C CXX)
 set(MAIN_MODULE TrainingCounter)
 
 add_library(OutputManager src/OutputManager.cpp src/OutputManager.h)
+set_target_properties(OutputManager PROPERTIES CXX_STANDARD 17)
+
 add_library(Save src/Save.cpp src/Save.h)
+set_target_properties(Save PROPERTIES CXX_STANDARD 17)
+
 add_library(Parser src/LexerParser.cpp src/LexerParser.h)
 
 add_library(Core src/AppCore.cpp src/AppCore.h)
+set_target_properties(Core PROPERTIES CXX_STANDARD 17)
 target_link_libraries(Core PRIVATE OutputManager Save Parser)
 
 add_executable(${MAIN_MODULE} src/main.cpp)
