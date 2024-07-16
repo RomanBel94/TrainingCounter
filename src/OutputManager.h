@@ -42,7 +42,7 @@ public:
     inline void operator()(const std::string&& msg, color color = white, bool log = true) noexcept
         { operator()(msg.c_str(), color, log); }
 
-
+    inline void removeLogfile() { std::filesystem::remove(file); }
 };
 
 #define LOGGER_H

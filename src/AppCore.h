@@ -21,6 +21,7 @@ private:
     void _markTraining();                     // mark completed training (decrement by 1))
     void _showTrainings();                    // show current number of trainings
     void _printVersion();                     // show program version
+    void _removeLogfile();                        // remove log file
 
 public:
 	AppCore(int argc, char** argv);          // constructor

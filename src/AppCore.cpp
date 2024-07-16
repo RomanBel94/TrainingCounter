@@ -25,6 +25,8 @@ int AppCore::run()
         _addTrainings(parser.getNum()); break;
     case LexerParser::show:
         _showTrainings(); break;
+    case LexerParser::remove_log:
+        _removeLogfile();
     }
     
     save.write(counter.getTrainings());    // write save file
@@ -40,7 +42,8 @@ void AppCore::_printHelp()
             "\tTrainingCounter -s <num>\tSet <num> trainings;\n"
             "\tTrainingCounter -m\t\tMark completed training;\n"
             "\tTrainingCounter -t\t\tShow remaining trainings;\n"
-            "\tTrainingCounter -v\t\tShow TrainingCounter version.\n", 
+            "\tTrainingCounter -v\t\tShow TrainingCounter version;\n"
+            "\tTrainingCounter -r\t\tRemove log file.\n", 
         OutputManager::cyan,
         false);
 }
@@ -85,4 +88,11 @@ void AppCore::_showTrainings()
         color = OutputManager::yellow;
 
     out("Remaining trainings: " + std::to_string(counter.getTrainings()) + ".", color);
+}
+
+// remove log file
+void AppCore::_removeLogfile()
+{
+    out.removeLogfile();
+    out("Log file has been removed!", OutputManager::red, false);
 }

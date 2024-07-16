@@ -8,7 +8,7 @@
 class LexerParser final
 {
 public:
-	enum task {help=0, add, set, show, mark, version};    // types of job 
+	enum task {help=0, add, set, show, mark, version, remove_log};    // types of job 
 
 private:
     task todo{ help };    // what to do
