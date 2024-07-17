@@ -1,6 +1,4 @@
 #include "AppCore.h"
-#include "LexerParser.h"
-#include "OutputManager.h"
 
 AppCore::AppCore(int argc, char** argv) noexcept
 { 
