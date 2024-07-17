@@ -1,4 +1,5 @@
 #include "OutputManager.h"
+#include "OutputManager.h"
 
 // constructor checks cache directory, and if it's not exists creates it
 OutputManager::OutputManager()
@@ -15,21 +16,36 @@ OutputManager::~OutputManager()
 	logfile.close();
 }
 
+// prints message on console and log file
 void OutputManager::operator()(const char* msg, color color, bool log) noexcept
 {
-	if (logfile.is_open())
+	if (log && logfile.is_open())
 	{
-		if (log) logfile << _datetime() << '\t' << msg << '\n';
-	}
-	else
-	{
-		_setColor(red);
-		std::cout << "[ERROR] Can't open log file!" << std::endl;
-		_setColor();
+		logfile << _datetime() << '\t' << msg << '\n';
 	}
 	_setColor(color);
 	std::cout << msg << std::endl;
 	_setColor();
+}
+
+// shows log
+void OutputManager::showLog() noexcept
+{
+	logfile.close();
+
+	if (std::filesystem::exists(file))
+	{
+		std::ifstream logfileRead(file, std::ios::in);
+
+		const unsigned char BUFSIZE = 128;
+		char buffer[BUFSIZE];
+
+		while (logfileRead.getline(buffer, BUFSIZE, '\n'))
+		{
+			if (logfileRead.eof()) return;
+			std::cout << buffer << std::endl;
+		}
+	}
 }
 
 // set console color
@@ -46,4 +62,23 @@ const std::string OutputManager::_datetime()
 	std::string time{ asctime(localtime(&seconds)) };
 	time.pop_back();
 	return time;
+}
+
+// removes logfile
+bool OutputManager::removeLogfile()
+{
+	logfile.close();
+
+	try 
+	{
+		return std::filesystem::remove(file);
+	}
+	catch (std::exception ex) 
+	{
+#ifdef _WIN32
+		setlocale(LC_ALL, "ru");
+#endif // _WIN32
+		std::cout << ex.what() << std::endl;
+		return false;
+	}
 }

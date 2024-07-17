@@ -34,7 +34,8 @@ public:
 	~OutputManager();
 
 public:
-	void operator()(const char* msg, color color = white, bool log = true) noexcept; // write message in file and console
+	// write message in file and console
+	void operator()(const char* msg, color color = white, bool log = true) noexcept;
 
 	inline void operator()(const std::string& msg, color color = white, bool log = true) noexcept
 		{ operator()(msg.c_str(), color, log); }
@@ -42,7 +43,11 @@ public:
     inline void operator()(const std::string&& msg, color color = white, bool log = true) noexcept
         { operator()(msg.c_str(), color, log); }
 
-    inline void removeLogfile() { std::filesystem::remove(file); }
+	// removes log file
+	bool removeLogfile();
+
+	// shows log file
+	void showLog() noexcept;
 };
 
 #define LOGGER_H

@@ -15,18 +15,23 @@ private:
 	LexerParser parser;    // command argument parser
 
 private:
-    void _printHelp();                        // print help (usage)
-    void _addTrainings(const uint8_t num);    // add <num> trainings
-    void _setTrainings(const uint8_t num);    // set <num> trainings
-    void _markTraining();                     // mark completed training (decrement by 1))
-    void _showTrainings();                    // show current number of trainings
-    void _printVersion();                     // show program version
-    void _removeLogfile();                        // remove log file
+    void _printHelp() noexcept;                        // print help (usage)
+    void _addTrainings(const uint8_t num) noexcept;    // add <num> trainings
+    void _setTrainings(const uint8_t num) noexcept;    // set <num> trainings
+    void _markTraining() noexcept;                     // mark completed training (decrement by 1))
+    void _showTrainings() noexcept;                    // show current number of trainings
+    void _removeLogfile() noexcept;                    // remove log file
+
+    // show program version
+    inline void _printVersion() noexcept { out("TrainingCounter v-1.2.0", OutputManager::white, false); }
+
+    // print log file
+    inline void _showLog() noexcept { out.showLog(); }
 
 public:
-	AppCore(int argc, char** argv);          // constructor
+	AppCore(int argc, char** argv) noexcept;           // constructor
 
-	int run();                                // main function of program
+	int run() noexcept;                                // main function of program
 };
 
 #define CORE_H

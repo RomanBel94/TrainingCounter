@@ -2,14 +2,14 @@
 #include "LexerParser.h"
 #include "OutputManager.h"
 
-AppCore::AppCore(int argc, char** argv)
+AppCore::AppCore(int argc, char** argv) noexcept
 { 
     parser(argc, argv);    // read command arguments
     counter.setTrainings(save.read());    // read save file and set trainings
 }
 
 // main program function
-int AppCore::run()
+int AppCore::run() noexcept
 {
     switch (parser.getTask())    // do job given in argv
     {
@@ -26,7 +26,9 @@ int AppCore::run()
     case LexerParser::show:
         _showTrainings(); break;
     case LexerParser::remove_log:
-        _removeLogfile();
+        _removeLogfile(); break;
+    case LexerParser::show_log:
+        _showLog();
     }
     
     save.write(counter.getTrainings());    // write save file
@@ -34,7 +36,7 @@ int AppCore::run()
 }
 
 // print help (usage)
-void AppCore::_printHelp()
+void AppCore::_printHelp() noexcept
 {
     out("\nUsage:\n\n"
             "\tTrainingCounter [-h]\t\tPrint \"Usage\";\n"
@@ -43,13 +45,14 @@ void AppCore::_printHelp()
             "\tTrainingCounter -m\t\tMark completed training;\n"
             "\tTrainingCounter -t\t\tShow remaining trainings;\n"
             "\tTrainingCounter -v\t\tShow TrainingCounter version;\n"
-            "\tTrainingCounter -r\t\tRemove log file.\n", 
+            "\tTrainingCounter -r\t\tRemove log file;\n"
+            "\tTrainingCounter -l\t\tShow log.\n", 
         OutputManager::cyan,
         false);
 }
 
 // mark completed training
-void AppCore::_markTraining()
+void AppCore::_markTraining() noexcept
 {
     counter.markTraining();
     if (counter.getTrainings())
@@ -57,26 +60,21 @@ void AppCore::_markTraining()
 }
 
 // set trainings to given num
-void AppCore::_setTrainings(const uint8_t num)
+void AppCore::_setTrainings(const uint8_t num) noexcept
 {
     counter.setTrainings(num);
     out("Set trainings to " + std::to_string(num) + ".", OutputManager::yellow);
 }
 
 // add given count of trainings
-void AppCore::_addTrainings(const uint8_t num)
+void AppCore::_addTrainings(const uint8_t num) noexcept
 {
     counter.addTrainings(num);
     out("Added " + std::to_string(num) + " trainings.", OutputManager::green);
 }
 
-void AppCore::_printVersion()
-{
-        out("TrainingCounter v-1.2.0", OutputManager::white, false);
-}
-
-// print renaining trainings
-void AppCore::_showTrainings()
+// print remaining trainings
+void AppCore::_showTrainings() noexcept
 {
     auto color = OutputManager::white;
 
@@ -91,8 +89,10 @@ void AppCore::_showTrainings()
 }
 
 // remove log file
-void AppCore::_removeLogfile()
+void AppCore::_removeLogfile() noexcept
 {
-    out.removeLogfile();
-    out("Log file has been removed!", OutputManager::red, false);
+    if (out.removeLogfile())
+        out("Log file has been removed!", OutputManager::yellow, false);
+    else
+        out("\a[ERROR] Failed to remove log file!", OutputManager::red, false);
 }
