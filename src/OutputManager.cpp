@@ -17,7 +17,16 @@ OutputManager::~OutputManager()
 
 void OutputManager::operator()(const char* msg, color color, bool log) noexcept
 {
-    if (log) logfile << _datetime() << '\t' << msg << '\n';
+	if (logfile.is_open())
+	{
+		if (log) logfile << _datetime() << '\t' << msg << '\n';
+	}
+	else
+	{
+		_setColor(red);
+		std::cout << "[ERROR] Can't open log file!" << std::endl;
+		_setColor();
+	}
 	_setColor(color);
 	std::cout << msg << std::endl;
 	_setColor();

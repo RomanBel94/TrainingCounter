@@ -25,6 +25,10 @@ const uint8_t Save::read() const
 void Save::write(const uint8_t trainings)
 {
 	std::ofstream output(filename, std::ios::out | std::ios::binary);
-	output.write((char*)&trainings, sizeof(trainings));
-	output.close();
+
+	if (output.is_open())
+	{
+		output.write((char*)&trainings, sizeof(trainings));
+		output.close();
+	}
 }
