@@ -1,4 +1,5 @@
 #include "AppCore.h"
+#include "OutputManager.h"
 
 AppCore::AppCore(int argc, char** argv) noexcept
 { 
@@ -26,8 +27,9 @@ int AppCore::run() noexcept
     case LexerParser::remove_log:
         _removeLogfile(); break;
     case LexerParser::show_log:
-        _showLog();
-    }
+        _showLog(); break;
+    default:
+        _showUndefined();}
     
     save.write(counter.getTrainings());    // write save file
 	return 0;
@@ -37,7 +39,7 @@ int AppCore::run() noexcept
 void AppCore::_printHelp() noexcept
 {
     out("\nUsage:\n\n"
-            "\tTrainingCounter [-h]\t\tPrint \"Usage\";\n"
+            "\tTrainingCounter -h\t\tPrint \"Usage\";\n"
             "\tTrainingCounter -a <num>\tAdd <num> trainings;\n"
             "\tTrainingCounter -s <num>\tSet <num> trainings;\n"
             "\tTrainingCounter -m\t\tMark completed training;\n"

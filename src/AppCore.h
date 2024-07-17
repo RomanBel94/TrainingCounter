@@ -28,6 +28,9 @@ private:
     // print log file
     inline void _showLog() noexcept { out.showLog(); }
 
+    // print undefined job message
+    inline void _showUndefined() noexcept { out("Undefined task! Type \"TrainingCounter -h\" for help.", OutputManager::red, false); }
+
 public:
 	AppCore(int argc, char** argv) noexcept;           // constructor
 

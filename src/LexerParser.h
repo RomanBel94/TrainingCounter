@@ -8,10 +8,10 @@
 class LexerParser final
 {
 public:
-	enum task {help=0, add, set, show, mark, version, remove_log, show_log};    // types of job 
+	enum task {undefined = 0, help, add, set, show, mark, version, remove_log, show_log};    // types of job 
 
 private:
-    task todo{ help };    // what to do
+    task todo{ undefined };    // what to do
     uint8_t num{ 0 };    // number to add or set
 
 public:
