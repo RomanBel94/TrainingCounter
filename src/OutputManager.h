@@ -7,6 +7,7 @@
 #include <cstdlib>	// getenv()
 #include <ctime>	// asctime()
 #include <iostream> // cout
+#include <deque>    // deque
 
 class OutputManager final
 {
@@ -47,7 +48,7 @@ public:
 	bool removeLogfile();
 
 	// shows log file
-	void showLog();
+	void showLog(int lines_num = 0);
 };
 
 #define LOGGER_H

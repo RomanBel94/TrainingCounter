@@ -1,4 +1,6 @@
 #include "OutputManager.h"
+#include <deque>
+#include <queue>
 
 // constructor checks cache directory, and if it's not exists creates it
 OutputManager::OutputManager()
@@ -28,9 +30,10 @@ void OutputManager::operator()(const char* msg, color color, bool log) noexcept
 }
 
 // shows log
-void OutputManager::showLog()
+void OutputManager::showLog(int lines_num)
 {
 	logfile.close();
+    std::deque<std::string> lines;
 
 	if (std::filesystem::exists(file))
 	{
@@ -44,8 +47,10 @@ void OutputManager::showLog()
 			while (logfileRead.getline(buffer, BUFSIZE, '\n'))
 			{
 				if (logfileRead.eof()) return;
-				std::cout << buffer << std::endl;
+				lines.push_back(buffer);
 			}
+
+            for (auto& line: lines) std::cout << line << std::endl;
 		}
 		catch (std::exception ex)
 		{

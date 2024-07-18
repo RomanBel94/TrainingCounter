@@ -28,8 +28,8 @@ private:
     { out(std::string("TrainingCounter ") + VERSION, OutputManager::white, false); }
 
     // print log file
-    inline void _showLog() noexcept 
-    { out.showLog(); }
+    inline void _showLog(int lines_num) noexcept 
+    { out.showLog(lines_num); }
 
     // print undefined task message
     inline void _showUndefined() noexcept 

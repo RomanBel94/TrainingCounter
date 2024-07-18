@@ -1,6 +1,4 @@
 #include "AppCore.h"
-#include "OutputManager.h"
-#include <cstdint>
 
 AppCore::AppCore(int argc, char** argv) noexcept
 { 
@@ -28,7 +26,7 @@ int AppCore::run() noexcept
     case LexerParser::remove_log:
         _removeLogfile(); break;
     case LexerParser::show_log:
-        _showLog(); break;
+        _showLog(parser.getNum()); break;
 
     default:
         _showUndefined();
