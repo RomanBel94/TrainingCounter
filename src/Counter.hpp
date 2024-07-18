@@ -1,8 +1,8 @@
 #pragma once
+#include <cstdint>
 #ifndef COUNTER_H
 
 #include <stdint.h> // uint16_t
-#include <limits.h> // _UI8_MAX
 
 class Counter final
 {
@@ -11,11 +11,11 @@ private:
 public:
 	// set <num> of trainings if <num> is greater than 0
     inline void setTrainings(const uint16_t num) noexcept
-        { num >= 0 &&  num <= _UI8_MAX ? trainings = num : trainings = _UI8_MAX; }
+        { num >= 0 &&  num <= UINT8_MAX ? trainings = num : trainings = UINT8_MAX; }
 	
     // add <num> of trainings if <num> is greater than 0
     inline void addTrainings(const uint16_t num) noexcept
-        { num >= 0 && (trainings + num) <= _UI8_MAX ? trainings += num : trainings = _UI8_MAX; }
+        { num >= 0 && (trainings + num) <= UINT8_MAX ? trainings += num : trainings = UINT8_MAX; }
 	
     // returns trainings
     inline const uint16_t getTrainings() const noexcept
