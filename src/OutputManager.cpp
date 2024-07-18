@@ -59,7 +59,7 @@ void OutputManager::showLog()
 }
 
 // set console color
-void OutputManager::_setColor(color color) noexcept
+void OutputManager::_setColor(color color) const noexcept
 {
 	std::cout << std::string{ "\x1b[" + std::to_string(30 + color) + "m" };
 }
@@ -69,7 +69,7 @@ void OutputManager::_setColor(color color) noexcept
 #endif // _WIN32
 
 // returns current date and time
-const std::string OutputManager::_datetime()
+const std::string OutputManager::_datetime() const noexcept
 {
 	time_t seconds = time(nullptr);
 	std::string time{ asctime(localtime(&seconds)) };

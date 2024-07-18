@@ -26,8 +26,8 @@ public:
 	enum color { black = 0, red, green, yellow, blue, magenta, cyan, white };
 
 private:
-	const std::string _datetime();    // returns current date and time
-	void _setColor(const color color = white) noexcept;
+	const std::string _datetime() const noexcept;    // returns current date and time
+	void _setColor(const color color = white) const noexcept;
 
 public:
 	OutputManager();
