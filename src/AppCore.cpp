@@ -28,11 +28,13 @@ int AppCore::run() noexcept
         _removeLogfile(); break;
     case LexerParser::show_log:
         _showLog(); break;
+
     default:
         _showUndefined();
     }
-    
-    save.write(counter.getTrainings());    // write save file
+
+    // write save file
+    save.write(counter.getTrainings());
 	return 0;
 }
 
@@ -43,7 +45,7 @@ void AppCore::_printHelp() noexcept
             "\tTrainingCounter -h, -H\t\tPrint \"Usage\";\n"
             "\tTrainingCounter -a, -A <num>\tAdd <num> trainings;\n"
             "\tTrainingCounter -s, -S <num>\tSet <num> trainings;\n"
-            "\tTrainingCounter -m, -S\t\tMark completed training;\n"
+            "\tTrainingCounter -m, -M\t\tMark completed training;\n"
             "\tTrainingCounter -t, -T\t\tShow remaining trainings;\n"
             "\tTrainingCounter -v, -V\t\tShow TrainingCounter version;\n"
             "\tTrainingCounter -r, -R\t\tRemove log file;\n"
@@ -61,17 +63,19 @@ void AppCore::_markTraining() noexcept
 }
 
 // set trainings to given num
-void AppCore::_setTrainings(const uint8_t num) noexcept
+void AppCore::_setTrainings(const uint16_t num) noexcept
 {
-    counter.setTrainings(num);
-    out("Set trainings to " + std::to_string(num) + ".", OutputManager::yellow);
+    uint16_t toSet = num > _UI8_MAX ? _UI8_MAX : num;
+    counter.setTrainings(toSet);
+    out("Set trainings to " + std::to_string(toSet) + ".", OutputManager::yellow);
 }
 
 // add given count of trainings
-void AppCore::_addTrainings(const uint8_t num) noexcept
+void AppCore::_addTrainings(const uint16_t num) noexcept
 {
-    counter.addTrainings(num);
-    out("Added " + std::to_string(num) + " trainings.", OutputManager::green);
+    uint16_t toAdd = num > _UI8_MAX ? _UI8_MAX : num;
+    counter.addTrainings(toAdd);
+    out("Added " + std::to_string(toAdd) + " trainings.", OutputManager::green);
 }
 
 // print remaining trainings

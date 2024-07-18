@@ -8,10 +8,10 @@ Save::Save()
 }
 
 // read save file
-const uint8_t Save::read() const
+const uint16_t Save::read() const
 {
 	std::ifstream input(filename, std::ios::in | std::ios::binary);
-	uint8_t trainings { 0 };
+	uint16_t trainings { 0 };
 
  	if (input.is_open()) {
 		input.read((char*)&trainings, sizeof(trainings));
@@ -22,7 +22,7 @@ const uint8_t Save::read() const
 }
 
 // write save file
-void Save::write(const uint8_t trainings)
+void Save::write(const uint16_t trainings)
 {
 	std::ofstream output(filename, std::ios::out | std::ios::binary);
 

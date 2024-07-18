@@ -21,8 +21,8 @@ private:
 public:
 	Save();
 
-	void write(const uint8_t trainings);    // write save file
-	const uint8_t read() const;             // read save file
+	void write(const uint16_t trainings);    // write save file
+	const uint16_t read() const;             // read save file
 };
 
 #define SAVE_H

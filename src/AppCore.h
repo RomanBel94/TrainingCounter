@@ -16,8 +16,8 @@ private:
 
 private:
     void _printHelp() noexcept;                        // print help (usage)
-    void _addTrainings(const uint8_t num) noexcept;    // add <num> trainings
-    void _setTrainings(const uint8_t num) noexcept;    // set <num> trainings
+    void _addTrainings(const uint16_t num) noexcept;    // add <num> trainings
+    void _setTrainings(const uint16_t num) noexcept;    // set <num> trainings
     void _markTraining() noexcept;                     // mark completed training (decrement by 1))
     void _showTrainings() noexcept;                    // show current number of trainings
     void _removeLogfile() noexcept;                    // remove log file
