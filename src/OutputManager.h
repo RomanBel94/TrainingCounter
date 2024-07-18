@@ -47,7 +47,7 @@ public:
 	bool removeLogfile();
 
 	// shows log file
-	void showLog() noexcept;
+	void showLog();
 };
 
 #define LOGGER_H

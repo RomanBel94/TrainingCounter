@@ -29,7 +29,8 @@ int AppCore::run() noexcept
     case LexerParser::show_log:
         _showLog(); break;
     default:
-        _showUndefined();}
+        _showUndefined();
+    }
     
     save.write(counter.getTrainings());    // write save file
 	return 0;
