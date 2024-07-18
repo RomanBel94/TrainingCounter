@@ -12,6 +12,10 @@ set_target_properties(Save PROPERTIES CXX_STANDARD 17)
 
 add_library(Parser src/LexerParser.cpp src/LexerParser.h)
 
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/src/Version.hpp.in 
+               ${CMAKE_CURRENT_SOURCE_DIR}/src/Version.hpp 
+               NEWLINE_STYLE UNIX)
+
 add_library(Core src/AppCore.cpp src/AppCore.h)
 set_target_properties(Core PROPERTIES CXX_STANDARD 17)
 target_link_libraries(Core PRIVATE OutputManager Save Parser)

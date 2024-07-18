@@ -4,3 +4,4 @@ out/
 CMakeSettings.json
 .vs/
 install/
+src/Version.hpp

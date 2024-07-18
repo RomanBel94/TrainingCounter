@@ -5,6 +5,7 @@
 #include "OutputManager.h"
 #include "Save.h"
 #include "LexerParser.h"
+#include "Version.hpp"
 
 class AppCore final
 {
@@ -24,7 +25,7 @@ private:
 
     // show program version
     inline void _printVersion() noexcept 
-    { out("TrainingCounter v-1.2.0", OutputManager::white, false); }
+    { out(std::string("TrainingCounter ") + VERSION, OutputManager::white, false); }
 
     // print log file
     inline void _showLog() noexcept 
