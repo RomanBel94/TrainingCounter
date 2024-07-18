@@ -24,5 +24,6 @@ void LexerParser::operator()(int argc, char** argv)
             todo = help;
         };
     // read num if exists
-    if (argc > 2 && isdigit(argv[2][0])) num = atoi(argv[2]);
+    if (argc > 2 && isdigit(argv[2][0]))
+        num = atoi(argv[2]);
 }

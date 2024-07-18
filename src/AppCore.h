@@ -23,13 +23,16 @@ private:
     void _removeLogfile() noexcept;                    // remove log file
 
     // show program version
-    inline void _printVersion() noexcept { out("TrainingCounter v-1.2.0", OutputManager::white, false); }
+    inline void _printVersion() noexcept 
+    { out("TrainingCounter v-1.2.0", OutputManager::white, false); }
 
     // print log file
-    inline void _showLog() noexcept { out.showLog(); }
+    inline void _showLog() noexcept 
+    { out.showLog(); }
 
-    // print undefined job message
-    inline void _showUndefined() noexcept { out("Undefined task! Type \"TrainingCounter -h\" for help.", OutputManager::red, false); }
+    // print undefined task message
+    inline void _showUndefined() noexcept 
+    { out("Undefined task! Type \"TrainingCounter -h\" for help.", OutputManager::red, false); }
 
 public:
 	AppCore(int argc, char** argv) noexcept;           // constructor

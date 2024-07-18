@@ -40,14 +40,14 @@ int AppCore::run() noexcept
 void AppCore::_printHelp() noexcept
 {
     out("\nUsage:\n\n"
-            "\tTrainingCounter -h\t\tPrint \"Usage\";\n"
-            "\tTrainingCounter -a <num>\tAdd <num> trainings;\n"
-            "\tTrainingCounter -s <num>\tSet <num> trainings;\n"
-            "\tTrainingCounter -m\t\tMark completed training;\n"
-            "\tTrainingCounter -t\t\tShow remaining trainings;\n"
-            "\tTrainingCounter -v\t\tShow TrainingCounter version;\n"
-            "\tTrainingCounter -r\t\tRemove log file;\n"
-            "\tTrainingCounter -l\t\tShow log.\n", 
+            "\tTrainingCounter -h, -H\t\tPrint \"Usage\";\n"
+            "\tTrainingCounter -a, -A <num>\tAdd <num> trainings;\n"
+            "\tTrainingCounter -s, -S <num>\tSet <num> trainings;\n"
+            "\tTrainingCounter -m, -S\t\tMark completed training;\n"
+            "\tTrainingCounter -t, -T\t\tShow remaining trainings;\n"
+            "\tTrainingCounter -v, -V\t\tShow TrainingCounter version;\n"
+            "\tTrainingCounter -r, -R\t\tRemove log file;\n"
+            "\tTrainingCounter -l, -L\t\tShow log.\n", 
         OutputManager::cyan,
         false);
 }
