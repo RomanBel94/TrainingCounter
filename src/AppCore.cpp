@@ -1,5 +1,6 @@
 #include "AppCore.h"
 #include "OutputManager.h"
+#include <cstdint>
 
 AppCore::AppCore(int argc, char** argv) noexcept
 { 
@@ -65,7 +66,7 @@ void AppCore::_markTraining() noexcept
 // set trainings to given num
 void AppCore::_setTrainings(const uint16_t num) noexcept
 {
-    uint16_t toSet = num > _UI8_MAX ? _UI8_MAX : num;
+    uint16_t toSet = num > UINT8_MAX ? UINT8_MAX : num;
     counter.setTrainings(toSet);
     out("Set trainings to " + std::to_string(toSet) + ".", OutputManager::yellow);
 }
@@ -73,7 +74,7 @@ void AppCore::_setTrainings(const uint16_t num) noexcept
 // add given count of trainings
 void AppCore::_addTrainings(const uint16_t num) noexcept
 {
-    uint16_t toAdd = num > _UI8_MAX ? _UI8_MAX : num;
+    uint16_t toAdd = num > UINT8_MAX ? UINT8_MAX : num;
     counter.addTrainings(toAdd);
     out("Added " + std::to_string(toAdd) + " trainings.", OutputManager::green);
 }
