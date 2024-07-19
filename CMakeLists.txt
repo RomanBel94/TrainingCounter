@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.8 FATAL_ERROR)
 
-project(TrainingCounter VERSION 1.2.5.2 LANGUAGES C CXX)
+project(TrainingCounter VERSION 1.2.5.3 LANGUAGES C CXX)
 
 set(MAIN_MODULE TrainingCounter)
 
@@ -23,6 +23,8 @@ add_library(Parser
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/src/Version.hpp.in 
                ${CMAKE_CURRENT_SOURCE_DIR}/src/Version.hpp 
                NEWLINE_STYLE UNIX)
+
+message(STATUS "File \"Version.h\" configured (v-${CMAKE_PROJECT_VERSION})")
 
 add_library(Core 
             ${CMAKE_CURRENT_SOURCE_DIR}/src/AppCore.cpp
