@@ -48,7 +48,7 @@ void AppCore::_printHelp() noexcept
             "\tTrainingCounter -t, -T\t\tShow remaining trainings;\n"
             "\tTrainingCounter -v, -V\t\tShow TrainingCounter version;\n"
             "\tTrainingCounter -r, -R\t\tRemove log file;\n"
-            "\tTrainingCounter -l, -L [<num>]\tShow <num> of last lines log. If <num> is not given full log will be printed.\n", 
+            "\tTrainingCounter -l, -L [<num>]\tShow <num> last lines of log. If <num> is not given full log will be printed.\n", 
         OutputManager::cyan,
         false);
 }
