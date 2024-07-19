@@ -54,13 +54,17 @@ void OutputManager::showLog(int lines_num)
 			while (logfileRead.getline(buffer, UINT8_MAX, '\n')) 
 				lines.push_back(buffer);
 
-			if (lines_num > lines.size() || lines_num == NULL) 
-				lines_num = lines.size();
+			if (!lines.empty())
+			{
+				if (lines_num > lines.size() || lines_num == NULL)
+					lines_num = lines.size();
 
-			size_t line{ lines.size() - lines_num };
-			for (auto iterator{ lines.end() - lines_num }; iterator != lines.end(); ++iterator, ++line)
-				operator()(" " + std::to_string(line + 1) + " >\t" + *iterator, white, false);
-
+				size_t line{ lines.size() - lines_num };
+				for (auto iterator{ lines.end() - lines_num }; iterator != lines.end(); ++iterator, ++line)
+					operator()(" " + std::to_string(line + 1) + " >\t" + *iterator, white, false);
+			}
+			else
+				operator()("Log file is empty.", yellow, false);
 		}
 		catch (std::exception ex)
 		{
