@@ -5,8 +5,18 @@ OutputManager::OutputManager()
 {
 	if (!std::filesystem::exists(dir))
 		std::filesystem::create_directory(dir);
-
-	logfile.open(file, std::ios::out | std::ios::app);
+	
+	try
+	{
+		logfile.open(file, std::ios::out | std::ios::app);
+	}
+	catch (std::exception ex)
+	{
+#ifdef _WIN32
+		setlocale(LC_ALL, "ru");
+#endif // _WIN32
+		operator()(ex.what(), red, false);
+	}
 }
 
 // close log file
@@ -31,7 +41,6 @@ void OutputManager::operator()(const char* msg, color color, bool log) noexcept
 void OutputManager::showLog(int lines_num)
 {
 	logfile.close();
-    std::deque<std::string> lines;
 
 	if (std::filesystem::exists(file))
 	{
@@ -39,6 +48,7 @@ void OutputManager::showLog(int lines_num)
 		{
 			std::ifstream logfileRead(file, std::ios::in);
 
+			std::deque<std::string> lines;
 			char buffer[UINT8_MAX];
 
 			while (logfileRead.getline(buffer, UINT8_MAX, '\n')) 
@@ -47,8 +57,9 @@ void OutputManager::showLog(int lines_num)
 			if (lines_num > lines.size() || lines_num == NULL) 
 				lines_num = lines.size();
 
-			for (auto iterator = lines.end() - lines_num; iterator != lines.end(); ++iterator)
-				operator()(*iterator, white, false);
+			size_t line{ lines.size() - lines_num };
+			for (auto iterator{ lines.end() - lines_num }; iterator != lines.end(); ++iterator, ++line)
+				operator()(" " + std::to_string(line) + " >\t" + *iterator, white, false);
 
 		}
 		catch (std::exception ex)
@@ -58,7 +69,6 @@ void OutputManager::showLog(int lines_num)
 #endif // _WIN32
 			operator()(ex.what(), red, false);
 		}
-		
 	}
 }
 
