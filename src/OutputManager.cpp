@@ -56,7 +56,7 @@ void OutputManager::showLog(int lines_num)
 
 			if (!lines.empty())
 			{
-				if (lines_num > lines.size() || lines_num == NULL)
+				if (lines_num > lines.size() || lines_num == 0)
 					lines_num = lines.size();
 
 				size_t line{ lines.size() - lines_num };
