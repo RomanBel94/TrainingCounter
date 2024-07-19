@@ -59,6 +59,8 @@ void AppCore::_markTraining() noexcept
     counter.markTraining();
     if (counter.getTrainings())
         out("Training marked.", OutputManager::magenta);
+    else
+        out("No trainings left!", OutputManager::red);
 }
 
 // set trainings to given num
