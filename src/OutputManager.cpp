@@ -59,9 +59,9 @@ void OutputManager::showLog(int lines_num)
 				if (lines_num > lines.size() || lines_num == 0)
 					lines_num = lines.size();
 
-				size_t line{ lines.size() - lines_num };
+				size_t line{ lines.size() - (lines_num - 1)};
 				for (auto iterator{ lines.end() - lines_num }; iterator != lines.end(); ++iterator, ++line)
-					operator()(" " + std::to_string(line + 1) + " >\t" + *iterator, white, false);
+					std::cout << " " << std::to_string(line) << " >\t" << *iterator << std::endl;
 			}
 			else
 				operator()("Log file is empty.", yellow, false);
