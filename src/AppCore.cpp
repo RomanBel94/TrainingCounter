@@ -9,23 +9,23 @@ AppCore::AppCore(int argc, char** argv) noexcept
 // main program function
 int AppCore::run() noexcept
 {
-    switch (parser.getTask())    // do job given in argv
+    switch (parser.getKey())    // do job given in argv
     {
-    case LexerParser::help:
+    case 'h':
         _printHelp(); break;
-    case LexerParser::version:
+    case 'v':
         _printVersion(); break;
-    case LexerParser::mark:
+    case 'm':
         _markTraining(); break;
-    case LexerParser::set:
+    case 's':
         _setTrainings(parser.getNum()); break;
-    case LexerParser::add:
+    case 'a':
         _addTrainings(parser.getNum()); break;
-    case LexerParser::show:
+    case 't':
         _showTrainings(); break;
-    case LexerParser::remove_log:
+    case 'r':
         _removeLogfile(); break;
-    case LexerParser::show_log:
+    case 'l':
         _showLog(parser.getNum()); break;
 
     default:
