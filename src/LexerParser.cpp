@@ -1,18 +1,22 @@
 #include "LexerParser.h"
+#include <cctype>
 
 // reads command arguments and defines job and given num
 void LexerParser::operator()(int argc, char** argv) noexcept
 {
-    if (argc > 1 && argv[1][0] == '-')  // process given key
-       for (char* i{ argv[1] }; *i; ++i )
-           if(isalpha(*i))
-               keys.push_back(*i);
-
-    // read num if exists
-    if (argc > 2)
-        for (int i{ 1 }; i < argc; ++i)
-            if(isdigit(argv[i][0]))
-                nums.push_back(atoi(argv[i]));
+    for (int i{ 1 }; i < argc; ++i)
+    {
+        if(isdigit(argv[i][0]))
+            nums.push_back(atoi(argv[i]));
+        else if (argv[i][0] == '-' && isalpha(argv[i][1]))
+            for (char* key{argv[i] + 1}; *key; ++key)
+            {
+                if(isalpha(*key))
+                    keys.push_back(*key);
+                else if (isdigit(*key))
+                    nums.push_back(atoi(key));
+            }   
+    }
 }
 
 const uint16_t LexerParser::getNum() noexcept
