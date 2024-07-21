@@ -2,35 +2,36 @@
 
 AppCore::AppCore(int argc, char** argv) noexcept
 { 
-    parser(argc, argv);    // read command arguments
+    parser(argc, argv);
     counter.setTrainings(save.read());    // read save file and set trainings
 }
 
 // main program function
 int AppCore::run() noexcept
 {
-    switch (parser.getKey())    // do job given in argv
-    {
-    case 'h':
-        _printHelp(); break;
-    case 'v':
-        _printVersion(); break;
-    case 'm':
-        _markTraining(); break;
-    case 's':
-        _setTrainings(parser.getNum()); break;
-    case 'a':
-        _addTrainings(parser.getNum()); break;
-    case 't':
-        _showTrainings(); break;
-    case 'r':
-        _removeLogfile(); break;
-    case 'l':
-        _showLog(parser.getNum()); break;
+    for(char key : parser.getKeys())
+        switch (key)// do job given in argv
+        {
+        case 'h':
+            _printHelp(); break;
+        case 'v':
+            _printVersion(); break;
+        case 'm':
+            _markTraining(); break;
+        case 's':
+            _setTrainings(parser.getNum()); break;
+        case 'a':
+            _addTrainings(parser.getNum()); break;
+        case 't':
+            _showTrainings(); break;
+        case 'r':
+            _removeLogfile(); break;
+        case 'l':
+            _showLog(parser.getNum()); break;
 
-    default:
-        _showUndefined();
-    }
+        default:
+            _showUndefined();
+        }
 
     // write save file
     save.write(counter.getTrainings());

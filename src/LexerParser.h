@@ -1,20 +1,23 @@
 #pragma once
 #ifndef LEXERPARSER_H
 
-#include <stdint.h> // uint16_t
-#include <cstdlib> // atoi()
-#include <cctype> // isdigit()
+#include <cstdint>  // uint16_t
+#include <cstdlib>  // atoi()
+#include <cctype>   // isdigit()
+#include <deque>    // deque
 
 class LexerParser final
 {
 private:
-    char key{ '\0' };     // the key given in argv[1]
-    uint16_t num{ 0 };          // number to add or set
+    std::deque<char> keys;
 
+    std::deque<uint16_t> nums;
+    std::deque<uint16_t>::iterator current_num{ nums.begin() };
 public:
-	void operator()(int argc, char** argv);                  // evaluate task and num
-	const char getKey() const noexcept { return key; }     // returns task
-    const uint16_t getNum() const noexcept { return num; }    // returns num
+    void operator()(int argc, char** argv) noexcept;
+	
+    inline const std::deque<char>& getKeys() const noexcept { return keys; }  // returns task
+    const uint16_t getNum() noexcept;
 };
 
 #define LEXERPARSER_H

@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.8 FATAL_ERROR)
 
-project(TrainingCounter VERSION 1.2.6.0 LANGUAGES C CXX)
+project(TrainingCounter VERSION 1.3.0.0 LANGUAGES C CXX)
 
 set(MAIN_MODULE TrainingCounter)
 

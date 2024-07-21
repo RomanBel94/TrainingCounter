@@ -33,12 +33,12 @@ private:
 
     // print undefined task message
     inline void _showUndefined() noexcept 
-    { out("Undefined task! Type \"TrainingCounter -h\" for help.", OutputManager::red, false); }
+    { out("Undefined key! Type \"TrainingCounter -h\" for help.", OutputManager::red, false); }
 
 public:
-	AppCore(int argc, char** argv) noexcept;           // constructor
+	AppCore(int argc, char** argv) noexcept;
 
-	int run() noexcept;                                // main function of program
+	int run() noexcept; // main function of program
 };
 
 #define CORE_H
