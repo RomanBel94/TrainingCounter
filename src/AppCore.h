@@ -25,7 +25,7 @@ private:
 
     // show program version
     inline void _printVersion() noexcept 
-    { out(std::string("TrainingCounter ") + VERSION, OutputManager::white, false); }
+    { out(OutputManager::message, std::string("TrainingCounter ") + VERSION, OutputManager::white, false); }
 
     // print log file
     inline void _showLog(int lines_num) noexcept 
@@ -33,7 +33,7 @@ private:
 
     // print undefined task message
     inline void _showUndefined() noexcept 
-    { out("Undefined key! Type \"TrainingCounter -h\" for help.", OutputManager::red, false); }
+    { out(OutputManager::error, "Undefined key! Type \"TrainingCounter -h\" for help.", OutputManager::red, false); }
 
 public:
 	AppCore(int argc, char** argv) noexcept;

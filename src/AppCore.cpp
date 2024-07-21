@@ -1,4 +1,5 @@
 #include "AppCore.h"
+#include "OutputManager.h"
 
 AppCore::AppCore(int argc, char** argv) noexcept
 { 
@@ -41,7 +42,8 @@ int AppCore::run() noexcept
 // print help (usage)
 void AppCore::_printHelp() noexcept
 {
-    out("\nUsage:\n\n"
+    out(OutputManager::message,
+        "\nUsage:\n\n"
             "\tTrainingCounter -h, -H\t\tPrint \"Usage\";\n"
             "\tTrainingCounter -a, -A <num>\tAdd <num> trainings;\n"
             "\tTrainingCounter -s, -S <num>\tSet <num> trainings;\n"
@@ -59,9 +61,9 @@ void AppCore::_markTraining() noexcept
 {
     counter.markTraining();
     if (counter.getTrainings())
-        out("Training marked.", OutputManager::magenta);
+        out(OutputManager::message, "Training marked.", OutputManager::magenta);
     else
-        out("No trainings left!", OutputManager::red);
+        out(OutputManager::error, "No trainings left!", OutputManager::red);
 }
 
 // set trainings to given num
@@ -69,7 +71,7 @@ void AppCore::_setTrainings(const uint16_t num) noexcept
 {
     uint16_t toSet = num > UINT8_MAX ? UINT8_MAX : num;
     counter.setTrainings(toSet);
-    out("Set trainings to " + std::to_string(toSet) + ".", OutputManager::yellow);
+    out(OutputManager::message, "Set trainings to " + std::to_string(toSet) + ".", OutputManager::yellow);
 }
 
 // add given count of trainings
@@ -77,7 +79,7 @@ void AppCore::_addTrainings(const uint16_t num) noexcept
 {
     uint16_t toAdd = num > UINT8_MAX ? UINT8_MAX : num;
     counter.addTrainings(toAdd);
-    out("Added " + std::to_string(toAdd) + " trainings.", OutputManager::green);
+    out(OutputManager::message, "Added " + std::to_string(toAdd) + " trainings.", OutputManager::green);
 }
 
 // print remaining trainings
@@ -92,14 +94,14 @@ void AppCore::_showTrainings() noexcept
     else
         color = OutputManager::yellow;
 
-    out("Remaining trainings: " + std::to_string(counter.getTrainings()) + ".", color);
+    out(OutputManager::message, "Remaining trainings: " + std::to_string(counter.getTrainings()) + ".", color);
 }
 
 // remove log file
 void AppCore::_removeLogfile() noexcept
 {
     if (out.removeLogfile())
-        out("Log file has been removed!", OutputManager::yellow, false);
+        out(OutputManager::message, "Log file has been removed!", OutputManager::yellow, false);
     else
-        out("\a[ERROR] Failed to remove log file!", OutputManager::red, false);
+        out(OutputManager::error, "\a[ERROR] Failed to remove log file!", OutputManager::red, false);
 }

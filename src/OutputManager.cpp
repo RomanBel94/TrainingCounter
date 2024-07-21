@@ -15,7 +15,7 @@ OutputManager::OutputManager()
 #ifdef _WIN32
 		setlocale(LC_ALL, "ru");
 #endif // _WIN32
-		operator()(ex.what(), red, false);
+		operator()(error, ex.what(), red, false);
 	}
 }
 
@@ -26,14 +26,24 @@ OutputManager::~OutputManager()
 }
 
 // prints message on console and log file
-void OutputManager::operator()(const char* msg, color color, bool log) noexcept
+void OutputManager::operator()(messageType type, const char* msg, color color, bool log) noexcept
 {
-	if (log && logfile.is_open())
+	if ((log && logfile.is_open()) || (type == error && logfile.is_open()))
 	{
 		logfile << _datetime() << '\t' << msg << '\n';
 	}
-	_setColor(color);
-	std::cout << msg << std::endl;
+    switch (type)
+    {
+    case message:
+	    _setColor(color);
+	    std::cout << msg << std::endl;
+    case error:
+        _setColor(red);
+        std::cerr << msg << std::endl;
+    default:
+        _setColor(red);
+        std::cerr << "[ERROR] Unknown type of message!" << std::endl;
+    }
 	_setColor();
 }
 
@@ -60,17 +70,17 @@ void OutputManager::showLog(int lines_num)
 					lines_num = lines.size();
 
 				for (auto iterator{ lines.end() - lines_num }; iterator != lines.end(); ++iterator)
-					operator()(*iterator, white, false);
+					operator()(message, *iterator, white, false);
 			}
 			else
-				operator()("Log file is empty.", yellow, false);
+				operator()(message, "Log file is empty.", yellow, false);
 		}
 		catch (std::exception ex)
 		{
 #ifdef _WIN32
 			setlocale(LC_ALL, "ru");
 #endif // _WIN32
-			operator()(ex.what(), red, false);
+			operator()(error, ex.what(), red, false);
 		}
 	}
 }
@@ -108,7 +118,7 @@ bool OutputManager::removeLogfile()
 #ifdef _WIN32
 		setlocale(LC_ALL, "ru");
 #endif // _WIN32
-		operator()(ex.what(), red, false);
+		operator()(error, ex.what(), red, false);
 		return false;
 	}
 }

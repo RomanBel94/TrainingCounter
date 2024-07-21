@@ -25,6 +25,7 @@ private:
 
 public:
 	enum color { black = 0, red, green, yellow, blue, magenta, cyan, white };
+    enum messageType { message, error };
 
 private:
 	const std::string _datetime() const noexcept;    // returns current date and time
@@ -36,13 +37,13 @@ public:
 
 public:
 	// write message in file and console
-	void operator()(const char* msg, color color = white, bool log = true) noexcept;
+	void operator()(messageType type, const char* msg, color color = white, bool log = true) noexcept;
 
-	inline void operator()(const std::string& msg, color color = white, bool log = true) noexcept
-		{ operator()(msg.c_str(), color, log); }
+	inline void operator()(messageType type, const std::string& msg, color color = white, bool log = true) noexcept
+		{ operator()(type, msg, color, log); }
 
-    inline void operator()(const std::string&& msg, color color = white, bool log = true) noexcept
-        { operator()(msg.c_str(), color, log); }
+    inline void operator()(messageType type, const std::string&& msg, color color = white, bool log = true) noexcept
+        { operator()(type, msg, color, log); }
 
 	// removes log file
 	bool removeLogfile();
