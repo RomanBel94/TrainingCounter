@@ -6,3 +6,4 @@ CMakeSettings.json
 install/
 src/Version.hpp
 .vimspector.json
+testingAndDebug/
