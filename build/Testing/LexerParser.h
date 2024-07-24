@@ -6,6 +6,8 @@
 #include <cctype>   // isdigit()
 #include <deque>    // deque
 #include <string>   // string
+#include <iostream> // cerr
+#include <exception>   // runtime_error
 
 class LexerParser final
 {
@@ -14,7 +16,7 @@ private:
 
     std::deque<uint16_t> nums;
 public:
-    void operator()(int argc, const char** argv) noexcept;
+    void operator()(int argc, const char** argv);
 	
     inline const std::string& getKeys() const noexcept { return keys; }
     const uint16_t getNum() noexcept;
