@@ -1,4 +1,6 @@
-build/
+build/Debug
+build/Release
+build/Testing/test
 *.swp
 out/
 CMakeSettings.json
@@ -6,4 +8,3 @@ CMakeSettings.json
 install/
 src/Version.hpp
 .vimspector.json
-testingAndDebug/
