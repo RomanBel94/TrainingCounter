@@ -14,7 +14,7 @@ void LexerParser::operator()(int argc, const char** argv)
     {
         arguments += argv[i];
     }
-    std::cout << arguments << std::endl;
+    /* DEBUG INFO */    std::cout << arguments << std::endl;
 }
 
 const uint16_t LexerParser::getNum() noexcept
