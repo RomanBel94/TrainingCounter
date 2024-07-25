@@ -21,7 +21,7 @@ public:
     inline const std::string& getKeys() const noexcept { return keys; }
     const uint16_t getNum() noexcept;
 
-    void _readArguments(std::string& strArgs, int argc, const char argv**);
+    void _readArguments(std::string& strArgs, int argc, const char argv**) noexcept;
 };
 
 #define LEXERPARSER_H

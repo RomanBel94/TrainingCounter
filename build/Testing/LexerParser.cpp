@@ -20,7 +20,7 @@ const uint16_t LexerParser::getNum() noexcept
     return 0;
 }
 
-void LexerParser::_readArguments(std::string& strArgs, int argc, const char argv**)
+void LexerParser::_readArguments(std::string& strArgs, int argc, const char argv**) noexcept
 {
     for (int i{ 1 }; i < argc; ++i)
     {
