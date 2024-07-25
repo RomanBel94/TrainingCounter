@@ -38,7 +38,15 @@ target_link_libraries(${MAIN_MODULE} PRIVATE Core)
 
 set_target_properties(${MAIN_MODULE} PROPERTIES CXX_STANDARD 17)
 
-install(TARGETS ${MAIN_MODULE} 
-        DESTINATION ${CMAKE_INSTALL_BINDIR}
+if(WIN32)
+    set(INSTALL_DIR C:\\ProgramFiles\\${MAIN_MODULE})
+    make_directory(${INSTALL_DIR})
+elseif(UNIX)
+    set(INSTALL_DIR /usr/local/bin)
+endif()
+
+install(TARGETS ${MAIN_MODULE}
+        DESTINATION ${INSTALL_DIR}
         CONFIGURATIONS Release 
-        PERMISSIONS OWNER_EXECUTE)
+        PERMISSIONS OWNER_EXECUTE
+)

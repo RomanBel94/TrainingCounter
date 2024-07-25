@@ -35,15 +35,14 @@ public:
 	OutputManager();
 	~OutputManager();
 
-public:
 	// write message in file and console
 	void operator()(messageType type, const char* msg, color color = white, bool log = true) noexcept;
 
 	inline void operator()(messageType type, const std::string& msg, color color = white, bool log = true) noexcept
-		{ operator()(type, msg, color, log); }
+		{ operator()(type, msg.c_str(), color, log); }
 
     inline void operator()(messageType type, const std::string&& msg, color color = white, bool log = true) noexcept
-        { operator()(type, msg, color, log); }
+        { operator()(type, msg.c_str(), color, log); }
 
 	// removes log file
 	bool removeLogfile();

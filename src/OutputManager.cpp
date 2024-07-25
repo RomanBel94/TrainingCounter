@@ -37,9 +37,11 @@ void OutputManager::operator()(messageType type, const char* msg, color color, b
     case message:
 	    _setColor(color);
 	    std::cout << msg << std::endl;
+		break;
     case error:
         _setColor(red);
         std::cerr << msg << std::endl;
+		break;
     default:
         _setColor(red);
         std::cerr << "[ERROR] Unknown type of message!" << std::endl;
