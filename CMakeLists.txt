@@ -1,6 +1,10 @@
 cmake_minimum_required(VERSION 3.8 FATAL_ERROR)
 
-project(TrainingCounter VERSION 1.4.1.3 LANGUAGES CXX)
+project(
+    TrainingCounter
+    VERSION 1.4.1.3
+    DESCRIPTION "Small utility for counting workouts."
+    LANGUAGES CXX)
 
 set(MAIN_MODULE TrainingCounter)
 
