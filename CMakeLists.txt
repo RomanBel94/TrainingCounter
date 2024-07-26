@@ -55,6 +55,14 @@ target_link_libraries(
 
 set_target_properties(${MAIN_MODULE} PROPERTIES CXX_STANDARD 17)
 
+if(${CMAKE_INSTALL_PREFIX} EQUAL "")
+    if(WIN32)
+        set(CMAKE_INSTALL_PREFIX ${CMAKE_CURRENT_BINARY_DIR}/${MAIN_MODULE})
+    elseif(UNIX)
+        set(CMAKE_INSTALL_PREFIX /usr/local/bin)
+    endif()
+endif()
+
 install(
     TARGETS ${MAIN_MODULE}
     DESTINATION ${CMAKE_INSTALL_PREFIX}
