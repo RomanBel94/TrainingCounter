@@ -54,20 +54,9 @@ add_executable(
     ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp
 )
 
-target_link_libraries(
-    ${MAIN_MODULE}
-    PRIVATE Core
-)
+target_link_libraries(${MAIN_MODULE} PRIVATE Core)
 
 set_target_properties(${MAIN_MODULE} PROPERTIES CXX_STANDARD 17)
-
-if(${CMAKE_INSTALL_PREFIX} EQUAL "")
-    if(WIN32)
-        set(CMAKE_INSTALL_PREFIX ${CMAKE_CURRENT_BINARY_DIR}/${MAIN_MODULE})
-    elseif(UNIX)
-        set(CMAKE_INSTALL_PREFIX /usr/local/bin)
-    endif()
-endif()
 
 install(
     TARGETS ${MAIN_MODULE}
