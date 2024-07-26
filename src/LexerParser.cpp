@@ -148,7 +148,10 @@ void LexerParser::_extractNum(const char* reader)
     }
     else
     {
-        _unexpectedTokenErrorMessage += *reader;
+        *reader == '\0' ?
+            _unexpectedTokenErrorMessage += "\\0" :
+            _unexpectedTokenErrorMessage += *reader;
+
         throw std::runtime_error(_unexpectedTokenErrorMessage);
     }
 }
