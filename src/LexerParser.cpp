@@ -1,11 +1,17 @@
 #include "LexerParser.h"
 
-// reads command arguments and defines job and given num
+/*
+    Reads "argv" parameter, extracts given keys and number arguments
+    and places them in _keys and _nums collections
+
+    @ param1    argc parameter from main()
+    @ param2    argv parameter from main()
+*/
 void LexerParser::operator()(int argc, char** argv)
 {
     if (argc == 1)
     {
-        throw std::runtime_error("Undefined task, keys are not given. Use \"TrainingCounter -h\" for help");
+        throw std::runtime_error(_undefinedTaskErrorMessage);
     }
 
     std::string arguments;
@@ -15,26 +21,47 @@ void LexerParser::operator()(int argc, char** argv)
     _extractTokens(arguments);
 }
 
+/*
+    Returns first number from _nums collection
+
+    @ return    uint16_t <number given for key>
+*/
 const uint16_t LexerParser::getNum() noexcept
 {
-    uint16_t ret{ nums.at(0) };
-    nums.pop_front();
+    uint16_t ret{ _nums.at(0) };
+    _nums.pop_front();
     return ret;
 }
 
+/*
+    Reads arguments from argv and places them in one buffer
+
+    @ param1    buffer for writing arguments
+    @ param2    argc parameter from main()
+    @ param3    argv parameter from main()
+*/
 void LexerParser::_collectArguments(std::string& strArgs, int argc, char** argv) noexcept
 {
     for (int i{ 1 }; i < argc; ++i) strArgs += argv[i];
 }
 
+/*
+    Entry point for parsing start
+
+    @ param1    buffer with all read arguments
+*/
 void LexerParser::_extractTokens(const std::string& tokensString)
 {
     const char* reader = tokensString.c_str();
 
-    if (*reader) _extractKey(reader);
-    else throw std::runtime_error("Undefined task, keys are not given");
+    _extractKey(reader);
 }
 
+/*
+    Extracts key from given buffer string
+
+    @ param1    buffer string pointer
+*/
 void LexerParser::_extractKey(const char* reader)
 {
     //   -a10-t-l-m
@@ -47,11 +74,15 @@ void LexerParser::_extractKey(const char* reader)
     {
         //   -a10-t-l-m
         //    ^ - *reader == 'a' 
-        if (*reader == 'a' || *reader == 's' || (*reader == 'l' && isdigit(*(reader + 1))))
+        if (
+            *reader == 'a' || 
+            *reader == 's' || 
+            (*reader == 'l' && isdigit(*(reader + 1)))
+            )
         {
             _validateKey(*reader);
 
-            keys.push_back(*reader);
+            _keys.push_back(*reader);
             //   -a10-t-l-m
             //    ^ push_back('a')
             ++reader;
@@ -61,14 +92,21 @@ void LexerParser::_extractKey(const char* reader)
         }
         //   -a10-t-l-m
         //        ^ - *reader == 't' 
-        else if (*reader == 't' || *reader == 'm' || *reader == 'h' || *reader == 'v' || *reader == 'r' || (*reader == 'l' && !isdigit(*(reader + 1))))
+        else if (
+                 *reader == 't' || 
+                 *reader == 'h' || 
+                 *reader == 'm' || 
+                 *reader == 'v' || 
+                 *reader == 'r' || 
+                 (*reader == 'l' && !isdigit(*(reader + 1)))
+                 )
         {
             _validateKey(*reader);
 
-            keys.push_back(*reader);
+            _keys.push_back(*reader);
             //   -a10-t-l-m
             //        ^ push_back('t')
-            if (*reader == 'l') nums.push_back(0);
+            if (*reader == 'l') _nums.push_back(0);
 
             ++reader;
             //   -a10-t-l-m
@@ -76,9 +114,14 @@ void LexerParser::_extractKey(const char* reader)
             _extractKey(reader);
         }
     }
-    else throw std::runtime_error(std::string("Unexpected token \"") + *reader + "\"");
+    else throw std::runtime_error(_unexpectedTokenErrorMessage + *reader + "\"");
 }
 
+/*
+    Extracts number from given buffer string
+
+    @ param1    buffer string pointer
+*/
 void LexerParser::_extractNum(const char* reader)
 {
 
@@ -95,9 +138,9 @@ void LexerParser::_extractNum(const char* reader)
             //     ^ push_back('1')
             ++reader;
         }
-        nums.push_back(atoi(buffer.c_str()));
+        _nums.push_back(atoi(buffer.c_str()));
 
         _extractKey(reader);
     }
-    else throw std::runtime_error(std::string("Unexpected token \"") + *reader + "\" token has to be a number");
+    else throw std::runtime_error(_unexpectedTokenErrorMessage + *reader + "\" token has to be a number");
 }
