@@ -13,15 +13,6 @@ void LexerParser::operator()(int argc, char** argv)
 
     _collectArguments(arguments, argc, argv);
     _extractTokens(arguments);
-
-    /* DEBUG INFO */
-    std::cout << "\n\n";
-    std::cout << "\tCollected arguments: " << arguments << std::endl;
-    std::cout << "\tExtracted keys: " << keys << std::endl;
-    std::cout << "\tExtracted nums: ";
-    for (auto iterator = nums.cbegin(); iterator != nums.cend(); ++iterator)
-        std::cout << *iterator << ' ';
-    std::cout << "\n\n" << std::endl;
 }
 
 const uint16_t LexerParser::getNum() noexcept
