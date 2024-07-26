@@ -114,7 +114,11 @@ void LexerParser::_extractKey(const char* reader)
             _extractKey(reader);
         }
     }
-    else throw std::runtime_error(_unexpectedTokenErrorMessage + *reader + "\"");
+    else
+    {
+        _unexpectedTokenErrorMessage += *(--reader);
+        throw std::runtime_error(_unexpectedTokenErrorMessage);
+    }
 }
 
 /*
@@ -142,5 +146,9 @@ void LexerParser::_extractNum(const char* reader)
 
         _extractKey(reader);
     }
-    else throw std::runtime_error(_unexpectedTokenErrorMessage + *reader + "\" token has to be a number");
+    else
+    {
+        _unexpectedTokenErrorMessage += *reader;
+        throw std::runtime_error(_unexpectedTokenErrorMessage);
+    }
 }

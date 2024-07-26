@@ -16,7 +16,7 @@ private:
     std::deque<uint16_t> _nums;
 
     std::string _undefinedTaskErrorMessage{ "Undefined task, keys are not given. Use \"TrainingCounter -h\" for help" };
-    std::string _unexpectedTokenErrorMessage{ "Unexpected token \"" };
+    std::string _unexpectedTokenErrorMessage{ "Unexpected token: " };
 public:
     void operator()(int argc, char** argv);
 
