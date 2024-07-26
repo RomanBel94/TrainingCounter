@@ -30,7 +30,7 @@ void OutputManager::operator()(messageType type, const char* msg, color color, b
 {
 	if ((log && logfile.is_open()) || (type == error && logfile.is_open()))
 	{
-		logfile << _datetime() << '\t' << msg << '\n';
+		logfile << _datetime() << '\t' << (type == error ? "[ERROR] " : "") << msg << '\n';
 	}
     switch (type)
     {
@@ -40,7 +40,7 @@ void OutputManager::operator()(messageType type, const char* msg, color color, b
 		break;
     case error:
         _setColor(red);
-        std::cerr << msg << std::endl;
+        std::cerr << "[ERROR] " << msg << std::endl;
 		break;
     default:
         _setColor(red);

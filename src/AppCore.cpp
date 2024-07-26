@@ -3,7 +3,15 @@
 
 AppCore::AppCore(int argc, char** argv) noexcept
 { 
-    parser(argc, argv);
+    try
+    {
+        parser(argc, argv);
+    }
+    catch (std::exception& ex)
+    {
+        out(OutputManager::error, ex.what());
+        exit(-1);
+    }
     counter.setTrainings(save.read());    // read save file and set trainings
 }
 
@@ -29,9 +37,6 @@ int AppCore::run() noexcept
             _removeLogfile(); break;
         case 'l':
             _showLog(parser.getNum()); break;
-
-        default:
-            _showUndefined();
         }
 
     // write save file

@@ -9,3 +9,7 @@ CMakeSettings.json
 install/
 src/Version.hpp
 .vimspector.json
+*.obj
+*.exe
+*.pdb
+*.ilk

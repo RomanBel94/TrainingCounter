@@ -31,10 +31,6 @@ private:
     inline void _showLog(int lines_num) noexcept 
     { out.showLog(lines_num); }
 
-    // print undefined task message
-    inline void _showUndefined() noexcept 
-    { out(OutputManager::error, "Undefined key! Type \"TrainingCounter -h\" for help.", OutputManager::red, false); }
-
 public:
 	AppCore(int argc, char** argv) noexcept;
 

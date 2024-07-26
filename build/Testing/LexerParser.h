@@ -21,7 +21,12 @@ public:
     inline const std::string& getKeys() const noexcept { return keys; }
     const uint16_t getNum() noexcept;
 
-    void _readArguments(std::string& strArgs, int argc, const char argv**) noexcept;
+    inline bool _keyExists(std::string& keys, const char key) noexcept { return keys.find(key) != std::string::npos; }
+
+    void _collectArguments(std::string& strArgs, int argc, const char** argv) noexcept;
+    void _extractTokens(const std::string& tokensString);
+    void _extractKey(const char* reader);
+    void _extractNum(const char* reader);
 };
 
 #define LEXERPARSER_H
