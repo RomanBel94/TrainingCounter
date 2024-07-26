@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.8 FATAL_ERROR)
 
-project(TrainingCounter VERSION 1.4.1.2 LANGUAGES CXX)
+project(TrainingCounter VERSION 1.4.1.3 LANGUAGES CXX)
 
 set(MAIN_MODULE TrainingCounter)
 
@@ -55,15 +55,9 @@ target_link_libraries(
 
 set_target_properties(${MAIN_MODULE} PROPERTIES CXX_STANDARD 17)
 
-if(WIN32)
-    set(INSTALL_DIR ${CMAKE_CURRENT_BINARY_DIR}/${MAIN_MODULE})
-elseif(UNIX)
-    set(INSTALL_DIR /usr/local/bin)
-endif()
-
 install(
     TARGETS ${MAIN_MODULE}
-    DESTINATION ${INSTALL_DIR}
+    DESTINATION ${CMAKE_INSTALL_PREFIX}
     CONFIGURATIONS Release 
     PERMISSIONS OWNER_EXECUTE OWNER_WRITE
 )
