@@ -16,6 +16,7 @@ Build:
 
 ```
 mkdir build && cd build
-cmake ..
-cmake --build . --config release
+cmake -DCMAKE_BUILD_TYPE=Release ..
+cmake --build .
+cmake --install .
 ```
