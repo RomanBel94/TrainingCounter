@@ -1,4 +1,5 @@
 #include "LexerParser.h"
+#include <stdexcept>
 
 /*
     Reads "argv" parameter, extracts given keys and number arguments
@@ -96,7 +97,7 @@ void LexerParser::_extractKey(const char* reader)
                  *reader == 'm' || 
                  *reader == 'v' || 
                  *reader == 'r' || 
-                 (*reader == 'l' && !isdigit(*(reader + 1)))
+                 *reader == 'l' 
                  )
         {
             _validateKey(*reader);
@@ -110,6 +111,11 @@ void LexerParser::_extractKey(const char* reader)
             //   -a10-t-l-m
             //         ^ - *reader == '-'
             _extractKey(reader);
+        }
+        else
+        {
+            _unexpectedTokenErrorMessage += *(reader - 1);
+            throw std::runtime_error(_unexpectedTokenErrorMessage);
         }
     }
     else
