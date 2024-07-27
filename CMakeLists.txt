@@ -2,13 +2,13 @@ cmake_minimum_required(VERSION 3.8 FATAL_ERROR)
 
 project(
     TrainingCounter
-    VERSION 1.4.3.1
+    VERSION 1.4.3.2
     DESCRIPTION "A small utility for counting remaining workouts."
     HOMEPAGE_URL https://github.com/RomanBel94/TrainingCounter
     LANGUAGES CXX
 )
 
-set(MAIN_MODULE TrainingCounter)
+set(MAIN TrainingCounter)
 
 add_library(
     OutputManager 
@@ -50,16 +50,15 @@ set_target_properties(Core PROPERTIES CXX_STANDARD 17)
 target_link_libraries(Core PRIVATE OutputManager Save Parser)
 
 add_executable(
-    ${MAIN_MODULE}
+    ${MAIN}
     ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp
 )
 
-target_link_libraries(${MAIN_MODULE} PRIVATE Core)
-
-set_target_properties(${MAIN_MODULE} PROPERTIES CXX_STANDARD 17)
+target_link_libraries(${MAIN} PRIVATE Core)
+set_target_properties(${MAIN} PROPERTIES CXX_STANDARD 17)
 
 install(
-    TARGETS ${MAIN_MODULE}
+    TARGETS ${MAIN}
     DESTINATION ${CMAKE_INSTALL_PREFIX}
     CONFIGURATIONS Release 
 )
