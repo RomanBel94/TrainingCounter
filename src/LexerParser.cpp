@@ -52,9 +52,7 @@ void LexerParser::_collectArguments(std::string& strArgs, int argc, char** argv)
 */
 void LexerParser::_extractTokens(const std::string& tokensString)
 {
-    const char* reader = tokensString.c_str();
-
-    _extractKey(reader);
+    _extractKey(tokensString.c_str());
 }
 
 /*
@@ -138,9 +136,11 @@ void LexerParser::_extractNum(const char* reader)
         while (isdigit(*reader))
         {
             buffer.push_back(*reader);
-            //   -a10-t-l-m
-            //     ^ push_back('1')
+            //   -a10-t-l-m             |   -a10-t-l-m
+            //     ^ push_back('1')     |      ^ push_back('0')
             ++reader;
+            //   -a10-t-l-m             |   -a10-t-l-m
+            //      ^ - reader          |       ^ - reader
         }
         _nums.push_back(atoi(buffer.c_str()));
 
