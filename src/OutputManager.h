@@ -19,8 +19,8 @@ private:
 	const std::string _cacheDir{ _systemDrive + "\\..\\ProgramData\\TrainingCounter\\" };
 #else
     // cache directory for linux
-	const std::string home{ getenv("HOME") };
-	const std::string dir{ home + "/.TrainingCounter/" };
+	const std::string _home{ getenv("HOME") };
+	const std::string _cacheDir{ _home + "/.TrainingCounter/" };
 #endif // _WIN32
 	const std::string _logFileName{ _cacheDir + "log.txt" };   // log file path
 

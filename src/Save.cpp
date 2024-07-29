@@ -17,7 +17,7 @@ Save::Save()
 const uint16_t Save::read() const
 {
 	std::ifstream input(_filename, std::ios::in | std::ios::binary);
-	uint16_t trainings { 0 };
+	uint16_t trainings{ 0 };
 
  	if (input.is_open()) {
 		input.read((char*)&trainings, sizeof(trainings));
