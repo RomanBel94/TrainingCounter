@@ -115,7 +115,7 @@ void LexerParser::_extractKey(const char* reader)
         }
         else
         {
-            _unexpectedTokenErrorMessage += *(reader);
+            _unexpectedTokenErrorMessage += *(--reader);
             throw std::runtime_error(_unexpectedTokenErrorMessage);
         }
     }
@@ -156,7 +156,7 @@ void LexerParser::_extractNum(const char* reader)
     else
     {
         *reader == '\0' ?
-            _unexpectedTokenErrorMessage += "\\0" :
+            _unexpectedTokenErrorMessage += "\"end_of_line\"" :
             _unexpectedTokenErrorMessage += *reader;
 
         throw std::runtime_error(_unexpectedTokenErrorMessage);
