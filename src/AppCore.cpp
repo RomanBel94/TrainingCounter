@@ -1,5 +1,4 @@
 #include "AppCore.h"
-#include "OutputManager.h"
 
 /*
     Constructor.

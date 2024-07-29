@@ -9,6 +9,7 @@
 class Save final
 {
 private:
+
 #ifdef _WIN32
     // cache directory for windows
 	const std::string _systemDrive{ getenv("WINDIR") };
@@ -21,6 +22,7 @@ private:
 
 	// savefile name
 	std::string _filename{ _cacheDir + "save" };
+
 public:
 	Save();
 

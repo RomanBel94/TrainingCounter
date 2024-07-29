@@ -6,7 +6,9 @@
 Save::Save()
 {
 	if (!std::filesystem::exists(_cacheDir))
+    {
 		std::filesystem::create_directory(_cacheDir);
+    }
 }
 
 /*
@@ -19,7 +21,8 @@ const uint16_t Save::read() const
 	std::ifstream input(_filename, std::ios::in | std::ios::binary);
 	uint16_t trainings{ 0 };
 
- 	if (input.is_open()) {
+ 	if (input)
+    {
 		input.read((char*)&trainings, sizeof(trainings));
 		input.close();
 	}
@@ -36,7 +39,7 @@ void Save::write(const uint16_t trainings)
 {
 	std::ofstream output(_filename, std::ios::out | std::ios::binary);
 
-	if (output.is_open())
+	if (output)
 	{
 		output.write((char*)&trainings, sizeof(trainings));
 		output.close();
