@@ -1,16 +1,22 @@
 #include "Save.h"
 
-// creates cache directory if it's not exists
+/*
+	Creates cache directory if it's not exists
+*/
 Save::Save()
 {
-	if (!std::filesystem::exists(dir))
-		std::filesystem::create_directory(dir);
+	if (!std::filesystem::exists(_cacheDir))
+		std::filesystem::create_directory(_cacheDir);
 }
 
-// read save file
+/*
+	Reads save file
+
+	@return number of trainings
+*/
 const uint16_t Save::read() const
 {
-	std::ifstream input(filename, std::ios::in | std::ios::binary);
+	std::ifstream input(_filename, std::ios::in | std::ios::binary);
 	uint16_t trainings { 0 };
 
  	if (input.is_open()) {
@@ -21,10 +27,14 @@ const uint16_t Save::read() const
 	return trainings;
 }
 
-// write save file
+/*
+	Writes given number into save file
+
+	@param number to write
+*/
 void Save::write(const uint16_t trainings)
 {
-	std::ofstream output(filename, std::ios::out | std::ios::binary);
+	std::ofstream output(_filename, std::ios::out | std::ios::binary);
 
 	if (output.is_open())
 	{

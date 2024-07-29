@@ -1,1 +1,6 @@
+/*
+	CMake configured header.
+	Contains project version.
+*/
+
 #define VERSION "v-${CMAKE_PROJECT_VERSION}"

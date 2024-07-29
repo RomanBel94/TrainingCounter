@@ -1,8 +1,7 @@
 #pragma once
-#include <cstdint>
 #ifndef COUNTER_H
 
-#include <stdint.h> // uint16_t
+#include <cstdint> // uint16_t
 
 class Counter final
 {
