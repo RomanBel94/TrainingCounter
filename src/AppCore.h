@@ -10,10 +10,10 @@
 class AppCore final
 {
 private:
-	Counter _counter;       // counter
-	OutputManager _out;     // console and log output
-	Save _save;             // save file
-	LexerParser _parser;    // command argument parser
+	Counter _counter;
+	OutputManager _out;
+	Save _save;
+	LexerParser _parser;
 
 private:
     void _printHelp() noexcept;
