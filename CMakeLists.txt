@@ -8,8 +8,6 @@ project(
     LANGUAGES CXX
 )
 
-set(MAIN TrainingCounter)
-
 add_library(
     OutputManager 
     ${CMAKE_CURRENT_SOURCE_DIR}/src/OutputManager.cpp 
@@ -50,15 +48,15 @@ set_target_properties(Core PROPERTIES CXX_STANDARD 17)
 target_link_libraries(Core PRIVATE OutputManager Save Parser)
 
 add_executable(
-    ${MAIN}
+    ${PROJECT_NAME}
     ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp
 )
 
-target_link_libraries(${MAIN} PRIVATE Core)
-set_target_properties(${MAIN} PROPERTIES CXX_STANDARD 17)
+target_link_libraries(${PROJECT_NAME} PRIVATE Core)
+set_target_properties(${PROJECT_NAME} PROPERTIES CXX_STANDARD 17)
 
 install(
-    TARGETS ${MAIN}
+    TARGETS ${PROJECT_NAME}
     DESTINATION ${CMAKE_INSTALL_PREFIX}
     CONFIGURATIONS Release 
 )
