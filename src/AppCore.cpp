@@ -26,8 +26,8 @@ AppCore::AppCore(int argc, char** argv) noexcept
 */
 int AppCore::run() noexcept
 {
-    for(char key : _parser.getKeys())
-        switch (key)// do job given in argv
+    for(char token : _parser.getKeys())
+        switch (token)// do job given in argv
         {
         case 'h':
             _printHelp(); break;
