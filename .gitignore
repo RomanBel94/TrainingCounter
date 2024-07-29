@@ -13,3 +13,4 @@ src/Version.hpp
 *.exe
 *.pdb
 *.ilk
+test*
