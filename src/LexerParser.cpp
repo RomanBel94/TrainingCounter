@@ -1,5 +1,4 @@
 #include "LexerParser.h"
-#include <stdexcept>
 
 /*
     Reads "argv" parameter, extracts given keys and number arguments
