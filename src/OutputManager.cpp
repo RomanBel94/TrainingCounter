@@ -1,37 +1,52 @@
 #include "OutputManager.h"
 
-// constructor checks cache directory, and if it's not exists creates it
+/*
+	Constructor
+	Checks cache directory, and if it's not exists creates it
+*/
 OutputManager::OutputManager()
 {
-	if (!std::filesystem::exists(dir))
-		std::filesystem::create_directory(dir);
+	if (!std::filesystem::exists(_cacheDir))
+		std::filesystem::create_directory(_logFileName);
 	
 	try
 	{
-		logfile.open(file, std::ios::out | std::ios::app);
+		logfile.open(_logFileName, std::ios::out | std::ios::app);
 	}
 	catch (std::exception ex)
 	{
 #ifdef _WIN32
 		setlocale(LC_ALL, "ru");
 #endif // _WIN32
-		operator()(error, ex.what(), red, false);
+		operator()(error, ex.what());
+		exit(-1);
 	}
 }
 
-// close log file
+/*
+	Destructor
+	Closes log file
+*/
 OutputManager::~OutputManager()
 {
 	logfile.close();
 }
 
-// prints message on console and log file
+/*
+	Writes message in logfile and console
+
+	@param message type
+	@param message
+	@param message color
+	@param need to write log
+*/
 void OutputManager::operator()(messageType type, const char* msg, color color, bool log) noexcept
 {
-	if ((log && logfile.is_open()) || (type == error && logfile.is_open()))
+	if (log && logfile.is_open() && type != error)
 	{
-		logfile << _datetime() << '\t' << (type == error ? "[ERROR] " : "") << msg << '\n';
+		logfile << _datetime() << '\t' << msg << '\n';
 	}
+
     switch (type)
     {
     case message:
@@ -40,54 +55,68 @@ void OutputManager::operator()(messageType type, const char* msg, color color, b
 		break;
     case error:
         _setColor(red);
-        std::cerr << "[ERROR] " << msg << std::endl;
-		break;
-    default:
-        _setColor(red);
-        std::cerr << "[ERROR] Unknown type of message!" << std::endl;
+        std::cerr << "\a[ERROR] " << msg << std::endl;
     }
 	_setColor();
 }
 
-// shows log
+/*
+	Shows log from logfile, if number is 0 shows full log
+
+	@param number of lines to show
+*/
 void OutputManager::showLog(int lines_num)
 {
 	logfile.close();
 
-	if (std::filesystem::exists(file))
+	if (std::filesystem::exists(_logFileName))
 	{
 		try 
 		{
-			std::ifstream logfileRead(file, std::ios::in);
+			std::ifstream logfileRead(_logFileName, std::ios::in);
 
 			std::deque<std::string> lines;
 			char buffer[UINT8_MAX];
 
-			while (logfileRead.getline(buffer, UINT8_MAX, '\n')) 
+			while (logfileRead.getline(buffer, UINT8_MAX, '\n'))
+			{
 				lines.push_back(buffer);
+			}
 
 			if (!lines.empty())
 			{
 				if (lines_num > lines.size() || lines_num == 0)
+				{
 					lines_num = lines.size();
+				}
 
 				for (auto iterator{ lines.end() - lines_num }; iterator != lines.end(); ++iterator)
+				{
 					operator()(message, *iterator, white, false);
+				}
 			}
 			else
+			{
 				operator()(message, "Log file is empty.", yellow, false);
+			}
+			
 		}
-		catch (std::exception ex)
+		catch (std::exception& ex)
 		{
 #ifdef _WIN32
 			setlocale(LC_ALL, "ru");
 #endif // _WIN32
-			operator()(error, ex.what(), red, false);
+			operator()(error, ex.what());
+			exit(-1);
 		}
 	}
 }
 
-// set console color
+/*
+	Sets text color for console
+
+	@param text color
+*/
 void OutputManager::_setColor(color color) const noexcept
 {
 	std::cout << std::string{ "\x1b[" + std::to_string(30 + color) + "m" };
@@ -97,7 +126,9 @@ void OutputManager::_setColor(color color) const noexcept
 #pragma warning (disable: 4996)
 #endif // _WIN32
 
-// returns current date and time
+/*
+	Returns current date and time
+*/
 const std::string OutputManager::_datetime() const noexcept
 {
 	time_t seconds = time(nullptr);
@@ -106,21 +137,23 @@ const std::string OutputManager::_datetime() const noexcept
 	return time;
 }
 
-// removes logfile
-bool OutputManager::removeLogfile()
+/*
+	Removes logfile
+*/
+void OutputManager::removeLogfile()
 {
 	logfile.close();
 
 	try 
 	{
-		return std::filesystem::remove(file);
+		std::filesystem::remove(_logFileName);
 	}
-	catch (std::exception ex) 
+	catch (std::exception& ex) 
 	{
 #ifdef _WIN32
 		setlocale(LC_ALL, "ru");
 #endif // _WIN32
-		operator()(error, ex.what(), red, false);
-		return false;
+		operator()(error, ex.what());
+		exit(-1);
 	}
 }

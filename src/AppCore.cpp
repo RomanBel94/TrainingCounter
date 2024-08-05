@@ -1,112 +1,140 @@
 #include "AppCore.h"
 #include "OutputManager.h"
 
+/*
+    Constructor.
+    Starts command arguments parsing, reads save file and sets counter.
+
+    @param argc from main
+    @param argv from main
+*/
 AppCore::AppCore(int argc, char** argv) noexcept
 { 
     try
     {
-        parser(argc, argv);
+        _parser(argc, argv);
     }
     catch (std::exception& ex)
     {
-        out(OutputManager::error, ex.what());
+        _out(OutputManager::error, ex.what());
         exit(-1);
     }
-    counter.setTrainings(save.read());    // read save file and set trainings
+    _counter.setTrainings(_save.read());
 }
 
-// main program function
+/*
+    Main program function
+*/
 int AppCore::run() noexcept
 {
-    for(char key : parser.getKeys())
+    for(char key : _parser.getKeys())
         switch (key)// do job given in argv
         {
         case 'h':
             _printHelp(); break;
         case 'v':
-            _printVersion(); break;
+            _out(OutputManager::message, std::string("TrainingCounter ") + VERSION, OutputManager::white, false); break;
         case 'm':
             _markTraining(); break;
         case 's':
-            _setTrainings(parser.getNum()); break;
+            _setTrainings(_parser.getNum()); break;
         case 'a':
-            _addTrainings(parser.getNum()); break;
+            _addTrainings(_parser.getNum()); break;
         case 't':
             _showTrainings(); break;
         case 'r':
             _removeLogfile(); break;
         case 'l':
-            _showLog(parser.getNum()); break;
+            _out.showLog(_parser.getNum()); break;
         }
 
     // write save file
-    save.write(counter.getTrainings());
+    _save.write(_counter.getTrainings());
 	return 0;
 }
 
-// print help (usage)
+/*
+    Prints help (usage)
+*/
 void AppCore::_printHelp() noexcept
 {
-    out(OutputManager::message,
+    _out(OutputManager::message,
         "\nUsage:\n\n"
-            "\tTrainingCounter -h, -H\t\tPrint \"Usage\";\n"
-            "\tTrainingCounter -a, -A <num>\tAdd <num> trainings;\n"
-            "\tTrainingCounter -s, -S <num>\tSet <num> trainings;\n"
-            "\tTrainingCounter -m, -M\t\tMark completed training;\n"
-            "\tTrainingCounter -t, -T\t\tShow remaining trainings;\n"
-            "\tTrainingCounter -v, -V\t\tShow TrainingCounter version;\n"
-            "\tTrainingCounter -r, -R\t\tRemove log file;\n"
-            "\tTrainingCounter -l, -L [<num>]\tShow <num> last lines of log. If <num> is not given full log will be printed.\n", 
+            "\tTrainingCounter -h \t\tPrint \"Usage\";\n"
+            "\tTrainingCounter -a <num>\tAdd <num> trainings;\n"
+            "\tTrainingCounter -s <num>\tSet <num> trainings;\n"
+            "\tTrainingCounter -m \t\tMark completed training;\n"
+            "\tTrainingCounter -t \t\tShow remaining trainings;\n"
+            "\tTrainingCounter -v \t\tShow TrainingCounter version;\n"
+            "\tTrainingCounter -r \t\tRemove log file;\n"
+            "\tTrainingCounter -l [<num>]\tShow <num> last lines of log. If <num> is not given full log will be printed.\n", 
         OutputManager::cyan,
         false);
 }
-
-// mark completed training
+/*
+    Marks the completed training
+*/
 void AppCore::_markTraining() noexcept
 {
-    counter.markTraining();
-    if (counter.getTrainings())
-        out(OutputManager::message, "Training marked.", OutputManager::magenta);
+    _counter.markTraining();
+    if (_counter.getTrainings() > 0)
+    {
+        _out(OutputManager::message, "Training marked.", OutputManager::magenta);
+    }
     else
-        out(OutputManager::error, "No trainings left!", OutputManager::red);
+    {
+        _out(OutputManager::error, "No trainings left!", OutputManager::red);
+    }
 }
 
-// set trainings to given num
+/*
+    Sets trainings to given num
+*/
 void AppCore::_setTrainings(const uint16_t num) noexcept
 {
     uint16_t toSet = num > UINT8_MAX ? UINT8_MAX : num;
-    counter.setTrainings(toSet);
-    out(OutputManager::message, "Set trainings to " + std::to_string(toSet) + ".", OutputManager::yellow);
+    _counter.setTrainings(toSet);
+    _out(OutputManager::message, "Set trainings to " + std::to_string(toSet) + ".", OutputManager::yellow);
 }
 
-// add given count of trainings
+/*
+    Adds given count of trainings
+*/
 void AppCore::_addTrainings(const uint16_t num) noexcept
 {
     uint16_t toAdd = num > UINT8_MAX ? UINT8_MAX : num;
-    counter.addTrainings(toAdd);
-    out(OutputManager::message, "Added " + std::to_string(toAdd) + " trainings.", OutputManager::green);
+    _counter.addTrainings(toAdd);
+    _out(OutputManager::message, "Added " + std::to_string(toAdd) + " trainings.", OutputManager::green);
 }
 
-// print remaining trainings
+/*
+    Prints remaining trainings
+*/
 void AppCore::_showTrainings() noexcept
 {
     auto color = OutputManager::white;
 
-    if (!counter.getTrainings())
+    if (_counter.getTrainings() == 0)
+    {
         color = OutputManager::red;
-    else if (counter.getTrainings() > 3)
+    }
+    else if (_counter.getTrainings() > 3)
+    {
         color = OutputManager::green;
+    }
     else
+    {
         color = OutputManager::yellow;
+    }
 
-    out(OutputManager::message, "Remaining trainings: " + std::to_string(counter.getTrainings()) + ".", color);
+    _out(OutputManager::message, "Remaining trainings: " + std::to_string(_counter.getTrainings()) + ".", color);
 }
 
-// remove log file
-void AppCore::_removeLogfile() noexcept
+/*
+    Removes log file
+*/
+void AppCore::_removeLogfile()
 {
-    if (out.removeLogfile())
-        out(OutputManager::message, "Log file has been removed!", OutputManager::yellow, false);
-    else
-        out(OutputManager::error, "\a[ERROR] Failed to remove log file!", OutputManager::red, false);
+    _out.removeLogfile();
+    _out(OutputManager::message, "Log file has been removed!", OutputManager::yellow, false);
 }

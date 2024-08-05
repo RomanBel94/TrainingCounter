@@ -15,13 +15,14 @@ private:
 	std::ofstream logfile;    // log file
 #ifdef _WIN32
     // cache directory for windows
-	const std::string dir{ "C:\\ProgramData\\TrainingCounter\\" };
+	const std::string _systemDrive{ getenv("WINDIR") };
+	const std::string _cacheDir{ _systemDrive + "\\..\\ProgramData\\TrainingCounter\\" };
 #else
     // cache directory for linux
 	const std::string home{ getenv("HOME") };
 	const std::string dir{ home + "/.TrainingCounter/" };
 #endif // _WIN32
-	const std::string file{ dir + "log.txt" };   // log file path
+	const std::string _logFileName{ _cacheDir + "log.txt" };   // log file path
 
 public:
 	enum color { black = 0, red, green, yellow, blue, magenta, cyan, white };
@@ -34,20 +35,32 @@ private:
 public:
 	OutputManager();
 	~OutputManager();
-
-	// write message in file and console
+	
 	void operator()(messageType type, const char* msg, color color = white, bool log = true) noexcept;
 
+	/*
+	Writes message in logfile and console
+
+	@param message type
+	@param message
+	@param message color
+	@param need to write log
+	*/
 	inline void operator()(messageType type, const std::string& msg, color color = white, bool log = true) noexcept
 		{ operator()(type, msg.c_str(), color, log); }
 
+	/*
+	Writes message in logfile and console
+
+	@param message type
+	@param message
+	@param message color
+	@param need to write log
+	*/
     inline void operator()(messageType type, const std::string&& msg, color color = white, bool log = true) noexcept
         { operator()(type, msg.c_str(), color, log); }
 
-	// removes log file
-	bool removeLogfile();
-
-	// shows log file
+	void removeLogfile();
 	void showLog(int lines_num = 0);
 };
 

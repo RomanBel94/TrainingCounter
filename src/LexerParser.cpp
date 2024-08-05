@@ -4,8 +4,8 @@
     Reads "argv" parameter, extracts given keys and number arguments
     and places them in _keys and _nums collections
 
-    @ param1    argc parameter from main()
-    @ param2    argv parameter from main()
+    @param1    argc parameter from main()
+    @param2    argv parameter from main()
 */
 void LexerParser::operator()(int argc, char** argv)
 {
@@ -24,7 +24,7 @@ void LexerParser::operator()(int argc, char** argv)
 /*
     Returns first number from _nums collection
 
-    @ return    uint16_t <number given for key>
+    @return    uint16_t <number given for key>
 */
 const uint16_t LexerParser::getNum() noexcept
 {
@@ -36,9 +36,9 @@ const uint16_t LexerParser::getNum() noexcept
 /*
     Reads arguments from argv and places them in one buffer
 
-    @ param1    buffer for writing arguments
-    @ param2    argc parameter from main()
-    @ param3    argv parameter from main()
+    @param1    buffer for writing arguments
+    @param2    argc parameter from main()
+    @param3    argv parameter from main()
 */
 void LexerParser::_collectArguments(std::string& strArgs, int argc, char** argv) noexcept
 {
@@ -48,7 +48,7 @@ void LexerParser::_collectArguments(std::string& strArgs, int argc, char** argv)
 /*
     Entry point for parsing start
 
-    @ param1    buffer with all read arguments
+    @param1    buffer with all read arguments
 */
 void LexerParser::_extractTokens(const std::string& tokensString)
 {
@@ -58,7 +58,7 @@ void LexerParser::_extractTokens(const std::string& tokensString)
 /*
     Extracts key from given buffer string
 
-    @ param1    buffer string pointer
+    @param1    buffer string pointer
 */
 void LexerParser::_extractKey(const char* reader)
 {
@@ -68,8 +68,9 @@ void LexerParser::_extractKey(const char* reader)
     {
         return;
     }
-    else if (*reader++ == '-')
+    else if (*reader == '-')
     {
+        ++reader;
         //   -a10-t-l-m
         //    ^ - *reader == 'a' 
         if (
@@ -113,13 +114,13 @@ void LexerParser::_extractKey(const char* reader)
         }
         else
         {
-            _unexpectedTokenErrorMessage += *(reader - 1);
+            _unexpectedTokenErrorMessage += *(reader);
             throw std::runtime_error(_unexpectedTokenErrorMessage);
         }
     }
     else
     {
-        _unexpectedTokenErrorMessage += *(reader - 1);
+        _unexpectedTokenErrorMessage += *(reader);
         throw std::runtime_error(_unexpectedTokenErrorMessage);
     }
 }
@@ -127,7 +128,7 @@ void LexerParser::_extractKey(const char* reader)
 /*
     Extracts number from given buffer string
 
-    @ param1    buffer string pointer
+    @param1    buffer string pointer
 */
 void LexerParser::_extractNum(const char* reader)
 {
