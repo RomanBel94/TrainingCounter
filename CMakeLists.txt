@@ -51,7 +51,7 @@ target_link_libraries(Core PRIVATE OutputManager Save Parser)
 
 add_executable(
     ${MAIN}
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/TrainingCounter.cpp
 )
 
 target_link_libraries(${MAIN} PRIVATE Core)
