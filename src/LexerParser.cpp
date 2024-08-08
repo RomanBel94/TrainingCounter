@@ -15,7 +15,6 @@ void LexerParser::operator()(int argc, char** argv)
     }
 
     std::string arguments;
-    arguments.reserve(UINT8_MAX);
 
     _collectArguments(arguments, argc, argv);
     _extractTokens(arguments);
