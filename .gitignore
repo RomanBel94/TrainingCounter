@@ -1,7 +1,4 @@
-build/Debug
-build/Release
-build/Testing/test
-build/Testing/build.sh
+build/
 *.swp
 out/
 CMakeSettings.json

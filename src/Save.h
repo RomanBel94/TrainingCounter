@@ -16,7 +16,7 @@ private:
 #else
     // cache directory for linux
 	const std::string _home{ getenv("HOME") };
-	const std::string _dir{ _home + "/.TrainingCounter/" };
+	const std::string _cacheDir{ _home + "/.TrainingCounter/" };
 #endif // _WIN32
 
 	// savefile name
