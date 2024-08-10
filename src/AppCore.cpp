@@ -67,7 +67,9 @@ void AppCore::_printHelp() noexcept
             "\tTrainingCounter -t \t\tShow remaining trainings;\n"
             "\tTrainingCounter -v \t\tShow TrainingCounter version;\n"
             "\tTrainingCounter -r \t\tRemove log file;\n"
-            "\tTrainingCounter -l [<num>]\tShow <num> last lines of log. If <num> is not given full log will be printed.\n", 
+            "\tTrainingCounter -l [<num>]\tShow <num> last lines of log. If <num> is not given full log will be printed.\n\n\n"
+            "You can pass more than one key, but all keys must be unique.\n\n"
+            "Example: TrainingCounter -m -t -l5\n", 
         OutputManager::cyan,
         false);
 }
@@ -83,7 +85,7 @@ void AppCore::_markTraining() noexcept
     }
     else
     {
-        _out(OutputManager::error, "No trainings left!", OutputManager::red);
+        _out(OutputManager::message, "No trainings left!", OutputManager::red, false);
     }
 }
 
