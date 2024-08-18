@@ -4,7 +4,7 @@ project(
     TrainingCounter
     VERSION 1.4.8.3
     DESCRIPTION "A small utility for counting remaining workouts."
-    HOMEPAGE_URL https://github.com/RomanBel94/TrainingCounter
+    HOMEPAGE_URL https://github.com/RomanBel94/TrainingCounter.git
     LANGUAGES CXX
 )
 
@@ -22,19 +22,19 @@ set_target_properties(
 )
 
 add_library(Save)
-target_sources(
-    Save PRIVATE
+target_sources(Save
+    PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Save.cpp 
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Save.h
 )
-set_target_properties(
-    Save PROPERTIES
+set_target_properties(Save
+    PROPERTIES
     CXX_STANDARD 17
 )
 
 add_library(Parser)
-target_sources(
-    Parser PRIVATE
+target_sources(Parser
+    PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/src/LexerParser.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/LexerParser.h
 )
@@ -45,36 +45,36 @@ configure_file(
     NEWLINE_STYLE UNIX
 )
 
-message(STATUS "File \"Version.h\" configured (with version: ${CMAKE_PROJECT_VERSION})")
+message(STATUS "File \"Version.h\" configured with version: ${CMAKE_PROJECT_VERSION}")
 
 add_library(Core)
-target_sources(
-    Core PRIVATE
+target_sources(Core
+    PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/src/AppCore.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/AppCore.h
 )
-set_target_properties(
-    Core PROPERTIES
+set_target_properties(Core
+    PROPERTIES
     CXX_STANDARD 17
 )
-target_link_libraries(
-    Core PRIVATE
+target_link_libraries(Core
+    PRIVATE
     OutputManager
     Save
     Parser
 )
 
 add_executable(${MAIN})
-target_sources(
-    ${MAIN} PRIVATE
+target_sources(${MAIN}
+    PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/src/TrainingCounter.cpp
 )
-target_link_libraries(
-    ${MAIN} PRIVATE
+target_link_libraries(${MAIN}
+    PRIVATE
     Core
 )
-set_target_properties(
-    ${MAIN} PROPERTIES
+set_target_properties(${MAIN}
+    PROPERTIES
     CXX_STANDARD 17
 )
 
