@@ -67,15 +67,14 @@ void LexerParser::_extractKey(const char* reader)
     {
         return;
     }
-    else if (*reader == '-')
+    else if (*reader == DIVIDER)
     {
         ++reader;
         //   -a10-t-l-m
         //    ^ - *reader == 'a' 
         if (
-            *reader == 'a' || 
-            *reader == 's' || 
-            (*reader == 'l' && isdigit(*(reader + 1)))
+            _numberRequired(*reader) ||
+            _numberOptional(*reader) && isdigit(*(reader + 1))
             )
         {
             _validateKey(*reader);
@@ -90,14 +89,7 @@ void LexerParser::_extractKey(const char* reader)
         }
         //   -a10-t-l-m
         //        ^ - *reader == 't' 
-        else if (
-                 *reader == 't' || 
-                 *reader == 'h' || 
-                 *reader == 'm' || 
-                 *reader == 'v' || 
-                 *reader == 'r' || 
-                 *reader == 'l' 
-                 )
+        else if (_numberNotRequired(*reader) || _numberOptional(*reader))
         {
             _validateKey(*reader);
 
