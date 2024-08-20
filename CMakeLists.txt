@@ -52,6 +52,7 @@ target_sources(Core
     PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/src/AppCore.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/AppCore.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Version.hpp
 )
 set_target_properties(Core
     PROPERTIES
@@ -80,6 +81,6 @@ set_target_properties(${MAIN}
 
 install(
     TARGETS ${MAIN}
-    DESTINATION ${CMAKE_INSTALL_PREFIX}
+    DESTINATION ${CMAKE_INSTALL_PREFIX}/bin
     CONFIGURATIONS Release 
 )
