@@ -4,20 +4,20 @@ set(MAIN TrainingCounter)
 
 project(
     ${MAIN}
-    VERSION 1.4.8.7
+    VERSION 1.4.9.1
     DESCRIPTION "A small utility for counting remaining workouts."
     HOMEPAGE_URL https://github.com/RomanBel94/TrainingCounter.git
     LANGUAGES CXX
 )
 
 add_library(OutputManager)
-target_sources(
-    OutputManager PRIVATE
+target_sources(OutputManager
+    PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/src/OutputManager.cpp 
     ${CMAKE_CURRENT_SOURCE_DIR}/src/OutputManager.h
 )
-set_target_properties(
-    OutputManager PROPERTIES
+set_target_properties(OutputManager
+    PROPERTIES
     CXX_STANDARD 17
 )
 

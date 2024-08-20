@@ -96,7 +96,7 @@ void LexerParser::_extractKey(const char* reader)
             _keys.push_back(*reader);
             //   -a10-t-l-m
             //        ^ push_back('t')
-            if (*reader == 'l') _nums.push_back(0);
+            if (_numberOptional(*reader)) _nums.push_back(0);
 
             ++reader;
             //   -a10-t-l-m
@@ -105,14 +105,12 @@ void LexerParser::_extractKey(const char* reader)
         }
         else
         {
-            _unexpectedTokenErrorMessage += *(reader);
-            throw std::runtime_error(_unexpectedTokenErrorMessage);
+            throw std::runtime_error(_unexpectedTokenErrorMessage + *reader);
         }
     }
     else
     {
-        _unexpectedTokenErrorMessage += *(reader);
-        throw std::runtime_error(_unexpectedTokenErrorMessage);
+        throw std::runtime_error(_unexpectedTokenErrorMessage + *reader);
     }
 }
 
@@ -145,10 +143,6 @@ void LexerParser::_extractNum(const char* reader)
     }
     else
     {
-        *reader == '\0' ?
-            _unexpectedTokenErrorMessage += "\\0" :
-            _unexpectedTokenErrorMessage += *reader;
-
-        throw std::runtime_error(_unexpectedTokenErrorMessage);
+        throw std::runtime_error(_unexpectedTokenErrorMessage + *reader);
     }
 }
