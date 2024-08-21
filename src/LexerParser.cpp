@@ -23,11 +23,11 @@ void LexerParser::operator()(int argc, char** argv)
 /*
     Returns first number from _nums collection
 
-    @return    uint16_t <number given for key>
+    @return    uint32_t <number given for key>
 */
-const uint16_t LexerParser::getNum() noexcept
+const uint32_t LexerParser::getNum() noexcept
 {
-    uint16_t ret{ _nums.at(0) };
+    uint32_t ret{ _nums.at(0) };
     _nums.pop_front();
     return ret;
 }

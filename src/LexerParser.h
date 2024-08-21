@@ -1,7 +1,7 @@
 #pragma once
 #ifndef LEXERPARSER_H
 
-#include <cstdint>    // uint16_t
+#include <cstdint>    // uint32_t
 #include <cstdlib>    // atoi()
 #include <cctype>     // isdigit()
 #include <deque>      // deque
@@ -16,7 +16,7 @@ class LexerParser final
 private:
 
     std::string _keys;
-    std::deque<uint16_t> _nums;
+    std::deque<uint32_t> _nums;
 
     std::string _undefinedTaskErrorMessage{ "Undefined task, keys are not given. Use \"TrainingCounter -h\" for help" };
     std::string _unexpectedTokenErrorMessage{ "Unexpected token: " };
@@ -26,7 +26,7 @@ public:
     void operator()(int argc, char** argv);
 
     inline const std::string& getKeys() const noexcept { return _keys; }
-    const uint16_t getNum() noexcept;
+    const uint32_t getNum() noexcept;
 
 private:
 

@@ -92,9 +92,9 @@ void AppCore::_markTraining() noexcept
 /*
     Sets trainings to given num
 */
-void AppCore::_setTrainings(const uint16_t num) noexcept
+void AppCore::_setTrainings(const uint32_t num) noexcept
 {
-    uint16_t toSet = num > UINT8_MAX ? UINT8_MAX : num;
+    uint32_t toSet = num > UINT32_MAX ? UINT32_MAX : num;
     _counter.setTrainings(toSet);
     _out(OutputManager::message, "Set trainings to " + std::to_string(toSet) + ".", OutputManager::yellow);
 }
@@ -102,9 +102,9 @@ void AppCore::_setTrainings(const uint16_t num) noexcept
 /*
     Adds given count of trainings
 */
-void AppCore::_addTrainings(const uint16_t num) noexcept
+void AppCore::_addTrainings(const uint32_t num) noexcept
 {
-    uint16_t toAdd = num > UINT8_MAX ? UINT8_MAX : num;
+    uint32_t toAdd = num > UINT32_MAX ? UINT32_MAX : num;
     _counter.addTrainings(toAdd);
     _out(OutputManager::message, "Added " + std::to_string(toAdd) + " trainings.", OutputManager::green);
 }

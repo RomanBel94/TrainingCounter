@@ -14,10 +14,10 @@ Save::Save()
 
 	@return number of trainings
 */
-const uint16_t Save::read() const
+const uint32_t Save::read() const
 {
 	std::ifstream input(_filename, std::ios::in | std::ios::binary);
-	uint16_t trainings { 0 };
+	uint32_t trainings { 0 };
 
  	if (input.is_open()) {
 		input.read((char*)&trainings, sizeof(trainings));
@@ -32,7 +32,7 @@ const uint16_t Save::read() const
 
 	@param number to write
 */
-void Save::write(const uint16_t trainings)
+void Save::write(const uint32_t trainings)
 {
 	std::ofstream output(_filename, std::ios::out | std::ios::binary);
 
