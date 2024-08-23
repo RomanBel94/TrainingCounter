@@ -65,7 +65,7 @@ void OutputManager::operator()(messageType type, const char* msg, color color, b
 
 	@param number of lines to show
 */
-void OutputManager::showLog(int lines_num)
+void OutputManager::showLog(size_t lines_num)
 {
 	logfile.close();
 

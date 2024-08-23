@@ -40,9 +40,9 @@ private:
     void _extractTokens(const std::string& tokensString);
     void _extractKey(const char* reader);
     void _extractNum(const char* reader);
-    inline bool _numberRequired(char ch) { return ch == 'a' || ch == 's'; }
-    inline bool _numberNotRequired(char ch) { return ch == 't' || ch == 'h' || ch == 'm' || ch == 'v' || ch == 'r'; }
-    inline bool _numberOptional(char ch) { return ch == 'l'; }
+    inline bool _numberIsRequired(char ch) { return ch == 'a' || ch == 's'; }
+    inline bool _numberIsNotRequired(char ch) { return ch == 't' || ch == 'h' || ch == 'm' || ch == 'v' || ch == 'r'; }
+    inline bool _numberIsOptional(char ch) { return ch == 'l'; }
 };
 
 #define LEXERPARSER_H

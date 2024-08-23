@@ -61,7 +61,7 @@ public:
         { operator()(type, msg.c_str(), color, log); }
 
 	void removeLogfile();
-	void showLog(int lines_num = 0);
+	void showLog(size_t lines_num = 0);
 };
 
 #define LOGGER_H

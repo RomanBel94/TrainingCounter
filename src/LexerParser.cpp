@@ -73,8 +73,8 @@ void LexerParser::_extractKey(const char* reader)
         //   -a10-t-l-m
         //    ^ - *reader == 'a' 
         if (
-            _numberRequired(*reader) ||
-            _numberOptional(*reader) && isdigit(*(reader + 1))
+            _numberIsRequired(*reader) ||
+            _numberIsOptional(*reader) && isdigit(*(reader + 1))
             )
         {
             _validateKey(*reader);
@@ -89,14 +89,14 @@ void LexerParser::_extractKey(const char* reader)
         }
         //   -a10-t-l-m
         //        ^ - *reader == 't' 
-        else if (_numberNotRequired(*reader) || _numberOptional(*reader))
+        else if (_numberIsNotRequired(*reader) || _numberIsOptional(*reader))
         {
             _validateKey(*reader);
 
             _keys.push_back(*reader);
             //   -a10-t-l-m
             //        ^ push_back('t')
-            if (_numberOptional(*reader)) _nums.push_back(0);
+            if (_numberIsOptional(*reader)) _nums.push_back(0);
 
             ++reader;
             //   -a10-t-l-m
