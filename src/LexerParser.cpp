@@ -51,7 +51,7 @@ void LexerParser::_collectArguments(std::string& strArgs, int argc, char** argv)
 */
 void LexerParser::_extractTokens(const std::string& tokensString)
 {
-    if (tokensString[0] == '-')
+    if (tokensString[0] == '-' && tokensString[1] != '-')
         _extractKey(tokensString.c_str() + 1);
     else throw std::runtime_error(_unexpectedTokenErrorMessage + tokensString[0]);
 }
