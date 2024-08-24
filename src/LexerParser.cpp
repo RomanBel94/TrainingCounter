@@ -51,7 +51,9 @@ void LexerParser::_collectArguments(std::string& strArgs, int argc, char** argv)
 */
 void LexerParser::_extractTokens(const std::string& tokensString)
 {
-    _extractKey(tokensString.c_str());
+    if (tokensString[0] == '-')
+        _extractKey(tokensString.c_str() + 1);
+    else throw std::runtime_error(_unexpectedTokenErrorMessage + tokensString[0]);
 }
 
 /*
@@ -67,9 +69,9 @@ void LexerParser::_extractKey(const char* reader)
     {
         return;
     }
-    else if (*reader == DIVIDER)
+    else if (*reader == DIVIDER || std::isalpha(*reader))
     {
-        ++reader;
+        *reader == '-' ? ++reader : reader;
         //   -a10-t-l-m
         //    ^ - *reader == 'a' 
         if (
