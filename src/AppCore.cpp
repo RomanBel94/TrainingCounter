@@ -144,7 +144,7 @@ void AppCore::_showTrainings() noexcept
         color = OutputManager::yellow;
     }
 
-    _out(OutputManager::message, "Remaining trainings: " + std::to_string(_counter.getTrainings()) + ".", color);
+    _out(OutputManager::message, "Remaining trainings: " + std::to_string(_counter.getTrainings()) + ".", color, false);
 }
 
 /*
