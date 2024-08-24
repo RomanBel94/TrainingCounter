@@ -20,6 +20,7 @@ private:
 
     std::string _undefinedTaskErrorMessage{ "Undefined task, keys are not given. Use \"TrainingCounter -h\" for help" };
     std::string _unexpectedTokenErrorMessage{ "Unexpected token: " };
+    std::string _numberIsRequiredMessage{ "Number is required."} ;
 
 public:
 

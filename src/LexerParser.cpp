@@ -143,6 +143,6 @@ void LexerParser::_extractNum(const char* reader)
     }
     else
     {
-        throw std::runtime_error(_unexpectedTokenErrorMessage + *reader);
+        throw std::runtime_error(_numberIsRequiredMessage);
     }
 }
