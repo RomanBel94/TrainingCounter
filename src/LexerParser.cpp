@@ -65,7 +65,7 @@ void LexerParser::_extractKey(const char* reader)
 {
     //   -a10-t-l-m
     //   ^ - *reader == '-'
-    if (!*reader)
+    if (!*reader && *(reader - 1) != '-')
     {
         return;
     }
