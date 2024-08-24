@@ -1,5 +1,4 @@
 #include "AppCore.h"
-#include "OutputManager.h"
 
 /*
     Constructor.
@@ -8,7 +7,7 @@
     @param argc from main
     @param argv from main
 */
-AppCore::AppCore(int argc, char** argv) noexcept
+AppCore::AppCore(int argc, char** argv)
 { 
     try
     {
@@ -19,37 +18,49 @@ AppCore::AppCore(int argc, char** argv) noexcept
         _out(OutputManager::error, ex.what());
         exit(-1);
     }
-    _counter.setTrainings(_save.read());
 }
 
 /*
     Main program function
-*/
-int AppCore::run() noexcept
-{
-    for(char key : _parser.getKeys())
-        switch (key)// do job given in argv
-        {
-        case 'h':
-            _printHelp(); break;
-        case 'v':
-            _out(OutputManager::message, std::string("TrainingCounter ") + VERSION, OutputManager::white, false); break;
-        case 'm':
-            _markTraining(); break;
-        case 's':
-            _setTrainings(_parser.getNum()); break;
-        case 'a':
-            _addTrainings(_parser.getNum()); break;
-        case 't':
-            _showTrainings(); break;
-        case 'r':
-            _removeLogfile(); break;
-        case 'l':
-            _out.showLog(_parser.getNum()); break;
-        }
 
+    @return exit code
+*/
+int AppCore::run()
+{
+    try
+    {   
+        _counter.setTrainings(_save.read());
+       
+        for(char key : _parser.getKeys())
+        {
+            switch (key)// do job given in argv
+            {
+            case 'h':
+                _printHelp(); break;
+            case 'v':
+                _out(OutputManager::message, std::string("TrainingCounter ") + VERSION, OutputManager::white, false); break;
+            case 'm':
+                _markTraining(); break;
+            case 's':
+                _setTrainings(_parser.getNum()); break;
+            case 'a':
+                _addTrainings(_parser.getNum()); break;
+            case 't':
+                _showTrainings(); break;
+            case 'r':
+                _removeLogfile(); break;
+            case 'l':
+                _out.showLog(_parser.getNum()); break;
+            }
+        }
     // write save file
     _save.write(_counter.getTrainings());
+    }
+    catch (std::exception& ex)
+    {
+        _out(OutputManager::error, ex.what());
+        exit(-1);
+    }
 	return 0;
 }
 
@@ -91,6 +102,8 @@ void AppCore::_markTraining() noexcept
 
 /*
     Sets trainings to given num
+
+    @param number to set up
 */
 void AppCore::_setTrainings(const uint32_t num) noexcept
 {
@@ -101,6 +114,8 @@ void AppCore::_setTrainings(const uint32_t num) noexcept
 
 /*
     Adds given count of trainings
+
+    @param number to add
 */
 void AppCore::_addTrainings(const uint32_t num) noexcept
 {

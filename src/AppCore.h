@@ -24,9 +24,9 @@ private:
     void _removeLogfile();
 
 public:
-	AppCore(int argc, char** argv) noexcept;
+	AppCore(int argc, char** argv);
 
-	int run() noexcept;
+	int run();
 };
 
 #define CORE_H
