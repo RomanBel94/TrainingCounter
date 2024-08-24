@@ -4,7 +4,7 @@ set(MAIN TrainingCounter)
 
 project(
     ${MAIN}
-    VERSION 1.4.9.6
+    VERSION 1.5.0
     DESCRIPTION "A small utility for counting remaining workouts."
     HOMEPAGE_URL https://github.com/RomanBel94/TrainingCounter.git
     LANGUAGES CXX
