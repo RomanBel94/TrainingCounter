@@ -18,7 +18,7 @@ OutputManager::OutputManager()
 #ifdef _WIN32
 		setlocale(LC_ALL, "ru");
 #endif // _WIN32
-		operator()(error, ex.what());
+		operator()(ex.what());
 		exit(-1);
 	}
 }
@@ -40,24 +40,13 @@ OutputManager::~OutputManager()
 	@param message color
 	@param need to write log
 */
-void OutputManager::operator()(messageType type, const char* msg, color color, bool log) noexcept
+void OutputManager::operator()(const char* msg, bool log) noexcept
 {
-	if (log && logfile.is_open() && type != error)
+	if (log && logfile.is_open())
 	{
 		logfile << _datetime() << '\t' << msg << '\n';
 	}
-
-    switch (type)
-    {
-    case message:
-	    _setColor(color);
-	    std::cout << msg << std::endl;
-		break;
-    case error:
-        _setColor(red);
-        std::cerr << "\a[ERROR] " << msg << std::endl;
-    }
-	_setColor();
+	std::cout << msg << std::endl;
 }
 
 /*
@@ -69,57 +58,31 @@ void OutputManager::showLog(size_t lines_num)
 {
 	logfile.close();
 
-	if (std::filesystem::exists(_logFileName))
+	std::ifstream logfileRead(_logFileName, std::ios::in);
+
+	std::deque<std::string> lines;
+	char buffer[UINT8_MAX];
+
+	while (logfileRead.getline(buffer, UINT8_MAX, '\n'))
 	{
-		try 
-		{
-			std::ifstream logfileRead(_logFileName, std::ios::in);
-
-			std::deque<std::string> lines;
-			char buffer[UINT8_MAX];
-
-			while (logfileRead.getline(buffer, UINT8_MAX, '\n'))
-			{
-				lines.push_back(buffer);
-			}
-
-			if (!lines.empty())
-			{
-				if (lines_num > lines.size() || lines_num == 0)
-				{
-					lines_num = lines.size();
-				}
-
-				for (auto iterator{ lines.end() - lines_num }; iterator != lines.end(); ++iterator)
-				{
-					operator()(message, *iterator, white, false);
-				}
-			}
-			else
-			{
-				operator()(message, "Log file is empty.", yellow, false);
-			}
-			
-		}
-		catch (std::exception& ex)
-		{
-#ifdef _WIN32
-			setlocale(LC_ALL, "ru");
-#endif // _WIN32
-			operator()(error, ex.what());
-			exit(-1);
-		}
+		lines.push_back(buffer);
 	}
-}
 
-/*
-	Sets text color for console
+	if (lines.empty())
+    {
+		operator()("Log file is empty.", false);
+        return;
+    }
+	
+	if (lines_num > lines.size() || lines_num == 0)
+	{
+		lines_num = lines.size();
+	}
 
-	@param text color
-*/
-void OutputManager::_setColor(color color) const noexcept
-{
-	std::cout << std::string{ "\x1b[" + std::to_string(30 + color) + "m" };
+	for (auto iterator{ lines.end() - lines_num }; iterator != lines.end(); ++iterator)
+	{
+		operator()(*iterator, false);
+	}
 }
 
 #ifdef _WIN32
@@ -143,17 +106,5 @@ const std::string OutputManager::_datetime() const noexcept
 void OutputManager::removeLogfile()
 {
 	logfile.close();
-
-	try 
-	{
-		std::filesystem::remove(_logFileName);
-	}
-	catch (std::exception& ex) 
-	{
-#ifdef _WIN32
-		setlocale(LC_ALL, "ru");
-#endif // _WIN32
-		operator()(error, ex.what());
-		exit(-1);
-	}
+	std::filesystem::remove(_logFileName);
 }

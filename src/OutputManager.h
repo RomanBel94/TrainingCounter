@@ -24,19 +24,14 @@ private:
 #endif // _WIN32
 	const std::string _logFileName{ _cacheDir + "log.txt" };   // log file path
 
-public:
-	enum color { black = 0, red, green, yellow, blue, magenta, cyan, white };
-    enum messageType { message, error };
-
 private:
 	const std::string _datetime() const noexcept;    // returns current date and time
-	void _setColor(const color color = white) const noexcept;
 
 public:
 	OutputManager();
 	~OutputManager();
 	
-	void operator()(messageType type, const char* msg, color color = white, bool log = true) noexcept;
+	void operator()(const char* msg, bool log = true) noexcept;
 
 	/*
 	Writes message in logfile and console
@@ -46,8 +41,8 @@ public:
 	@param message color
 	@param need to write log
 	*/
-	inline void operator()(messageType type, const std::string& msg, color color = white, bool log = true) noexcept
-		{ operator()(type, msg.c_str(), color, log); }
+	inline void operator()(const std::string& msg, bool log = true) noexcept
+		{ operator()(msg.c_str(), log); }
 
 	/*
 	Writes message in logfile and console
@@ -57,8 +52,8 @@ public:
 	@param message color
 	@param need to write log
 	*/
-    inline void operator()(messageType type, const std::string&& msg, color color = white, bool log = true) noexcept
-        { operator()(type, msg.c_str(), color, log); }
+    inline void operator()(const std::string&& msg, bool log = true) noexcept
+        { operator()(msg.c_str(), log); }
 
 	void removeLogfile();
 	void showLog(size_t lines_num = 0);

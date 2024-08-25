@@ -20,7 +20,6 @@ private:
     void _addTrainings(const uint32_t num) noexcept;
     void _setTrainings(const uint32_t num) noexcept;
     void _markTraining() noexcept;
-    void _showTrainings() noexcept;
     void _removeLogfile();
 
 public:
