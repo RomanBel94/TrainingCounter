@@ -33,23 +33,6 @@ OutputManager::~OutputManager()
 }
 
 /*
-	Writes message in logfile and console
-
-	@param message type
-	@param message
-	@param message color
-	@param need to write log
-*/
-void OutputManager::operator()(const char* msg, bool log) noexcept
-{
-	if (log && logfile.is_open())
-	{
-		logfile << _datetime() << '\t' << msg << '\n';
-	}
-	std::cout << msg << std::endl;
-}
-
-/*
 	Shows log from logfile, if number is 0 shows full log
 
 	@param number of lines to show

@@ -31,29 +31,21 @@ public:
 	OutputManager();
 	~OutputManager();
 	
-	void operator()(const char* msg, bool log = true) noexcept;
-
 	/*
-	Writes message in logfile and console
+		Writes message in logfile and console
 
-	@param message type
-	@param message
-	@param message color
-	@param need to write log
+		@param message
+		@param need to write log
 	*/
-	inline void operator()(const std::string& msg, bool log = true) noexcept
-		{ operator()(msg.c_str(), log); }
-
-	/*
-	Writes message in logfile and console
-
-	@param message type
-	@param message
-	@param message color
-	@param need to write log
-	*/
-    inline void operator()(const std::string&& msg, bool log = true) noexcept
-        { operator()(msg.c_str(), log); }
+	template <class T>
+	void operator()(T msg, bool log = true) noexcept
+	{
+		if (log && logfile.is_open())
+		{
+			logfile << _datetime() << '\t' << msg << '\n';
+		}
+		std::cout << msg << std::endl;
+	}
 
 	void removeLogfile();
 	void showLog(size_t lines_num = 0);
