@@ -91,20 +91,15 @@ void AppCore::_printHelp() noexcept
         false
         );
 }
+
 /*
     Marks the completed training
 */
-void AppCore::_markTraining() noexcept
+void AppCore::_markTraining()
 {
+    _counter.getTrainings() > 0 ? 
+        _out("Training marked.") : throw std::runtime_error("No trainings left.");
     _counter.markTraining();
-    if (_counter.getTrainings() > 0)
-    {
-        _out("Training marked.");
-    }
-    else
-    {
-        _out("No trainings left!", false);
-    }
 }
 
 /*
@@ -112,9 +107,10 @@ void AppCore::_markTraining() noexcept
 
     @param number to set up
 */
-void AppCore::_setTrainings(const uint32_t num) noexcept
+void AppCore::_setTrainings(const uint32_t num)
 {
-    uint32_t toSet = num > UINT32_MAX ? UINT32_MAX : num;
+    uint32_t toSet = num < UINT32_MAX ?
+        num : throw std::runtime_error(std::to_string(num) + " is too big number.");
     _counter.setTrainings(toSet);
     _out("Set trainings to " + std::to_string(toSet) + ".");
 }
@@ -124,9 +120,10 @@ void AppCore::_setTrainings(const uint32_t num) noexcept
 
     @param number to add
 */
-void AppCore::_addTrainings(const uint32_t num) noexcept
+void AppCore::_addTrainings(const uint32_t num)
 {
-    uint32_t toAdd = num > UINT32_MAX ? UINT32_MAX : num;
+    uint32_t toAdd = _counter.getTrainings() + num < UINT32_MAX ?
+        num : throw std::runtime_error("Can't add " + std::to_string(num) + " trainings.");
     _counter.addTrainings(toAdd);
     _out("Added " + std::to_string(toAdd) + " trainings.");
 }
@@ -137,5 +134,5 @@ void AppCore::_addTrainings(const uint32_t num) noexcept
 void AppCore::_removeLogfile()
 {
     _out.removeLogfile();
-    _out("Log file has been removed!", false);
+    _out("Log file has been removed.", false);
 }
