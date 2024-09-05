@@ -1,26 +1,6 @@
 #include "AppCore.h"
 
 /*
-    Constructor.
-    Starts command arguments parsing, reads save file and sets counter.
-
-    @param argc from main
-    @param argv from main
-*/
-AppCore::AppCore(int argc, char** argv)
-{ 
-    try
-    {
-        _parser(argc, argv);
-    }
-    catch (std::exception& ex)
-    {
-        _out(ex.what());
-        exit(-1);
-    }
-}
-
-/*
     Main program function
 
     @return exit code
@@ -29,6 +9,7 @@ int AppCore::run()
 {
     try
     {   
+        _parser(argc, argv);
         _counter.setTrainings(_save.read());
        
         for(char key : _parser.getKeys())
@@ -97,9 +78,15 @@ void AppCore::_printHelp() noexcept
 */
 void AppCore::_markTraining()
 {
-    _counter.markTraining();
-    _counter.getTrainings() > 0 ?
-        _out("Training marked.") : _out("No trainings left.", false);
+    if (_counter.getTrainings() > 0)
+    {
+        _counter.markTraining();
+        _out("Training marked.");
+    }
+    else
+    {
+        _out("No trainings left.", false);
+    }
 }
 
 /*
@@ -109,10 +96,15 @@ void AppCore::_markTraining()
 */
 void AppCore::_setTrainings(const uint32_t num)
 {
-    uint32_t toSet = num < UINT32_MAX ?
-        num : throw std::runtime_error(std::to_string(num) + " is too big number.");
-    _counter.setTrainings(toSet);
-    _out("Set trainings to " + std::to_string(toSet) + ".");
+    if (num < UINT32_MAX)
+    {
+        _counter.setTrainings(num);
+        _out("Set trainings to " + std::to_string(num) + ".");
+    }
+    else
+    {
+        throw std::runtime_error(std::to_string(num) + " is too big number.");
+    }    
 }
 
 /*
@@ -122,10 +114,15 @@ void AppCore::_setTrainings(const uint32_t num)
 */
 void AppCore::_addTrainings(const uint32_t num)
 {
-    uint32_t toAdd = _counter.getTrainings() + num < UINT32_MAX ?
-        num : throw std::runtime_error("Can't add " + std::to_string(num) + " trainings.");
-    _counter.addTrainings(toAdd);
-    _out("Added " + std::to_string(toAdd) + " trainings.");
+    if (_counter.getTrainings() + num < UINT32_MAX)
+    {
+        _counter.addTrainings(num);
+        _out("Added " + std::to_string(num) + " trainings.");
+    }
+    else
+    {
+        throw std::runtime_error("Can't add " + std::to_string(num) + " trainings.");
+    }
 }
 
 /*

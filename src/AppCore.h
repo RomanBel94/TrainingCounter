@@ -15,6 +15,9 @@ private:
 	Save _save;             // save file
 	LexerParser _parser;    // command argument parser
 
+	int argc;               // number of given arguments
+	char** argv;            // value of given arguments
+
 private:
     void _printHelp() noexcept;
     void _addTrainings(const uint32_t num);
@@ -23,7 +26,14 @@ private:
     void _removeLogfile();
 
 public:
-	AppCore(int argc, char** argv);
+	/*
+	    Constructor.
+	    Starts command arguments parsing, reads save file and sets counter.
+	    
+	    @param argc from main
+	    @param argv from main
+    */
+	AppCore(int argc, char** argv) : argc(argc), argv(argv) {};
 
 	int run();
 };

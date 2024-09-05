@@ -1,10 +1,12 @@
 cmake_minimum_required(VERSION 3.8)
 
 set(MAIN TrainingCounter)
+set(CMAKE_BUILD_TYPE Release)
+message(STATUS "Build type is: ${CMAKE_BUILD_TYPE}")
 
 project(
     ${MAIN}
-    VERSION 1.5.2
+    VERSION 1.5.3
     DESCRIPTION "A small utility for counting remaining workouts."
     HOMEPAGE_URL https://github.com/RomanBel94/TrainingCounter.git
     LANGUAGES CXX
@@ -44,15 +46,15 @@ configure_file(
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Version.hpp 
     NEWLINE_STYLE UNIX
 )
-
 message(STATUS "File \"Version.h\" configured with version: ${CMAKE_PROJECT_VERSION}")
 
 add_library(Core)
 target_sources(Core
     PRIVATE
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/AppCore.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/AppCore.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Counter.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Version.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/AppCore.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/AppCore.cpp
 )
 set_target_properties(Core
     PROPERTIES
