@@ -9,10 +9,10 @@ int AppCore::run()
 {
     try
     {   
-        _parser(argc, argv);
-        _counter.setTrainings(_save.read());
+        parser(argc, argv);
+        counter.setTrainings(save.read());
        
-        for(char key : _parser.getKeys())
+        for(char key : parser.getKeys())
         {
             switch (key)// do job given in argv
             {
@@ -20,17 +20,17 @@ int AppCore::run()
                 _printHelp();
                 break;
             case 'v':
-                _out(std::string("TrainingCounter ") + VERSION, NO_LOG);
+                out(std::string("TrainingCounter ") + VERSION, NO_LOG);
                 break;
             case 'm':
                 _markTraining();
                 _showTrainings();
                 break;
             case 's':
-                _setTrainings(_parser.getNum());
+                _setTrainings(parser.getNum());
                 break;
             case 'a':
-                _addTrainings(_parser.getNum());
+                _addTrainings(parser.getNum());
                 _showTrainings();
                 break;
             case 't':
@@ -40,19 +40,19 @@ int AppCore::run()
                 _removeLogfile();
                 break;
             case 'l':
-                _out.showLog(_parser.getNum());
+                out.showLog(parser.getNum());
                 break;
             }
         }
     // write save file
-    _save.write(_counter.getTrainings());
+    save.write(counter.getTrainings());
     }
     catch (std::exception& ex)
     {
-        _out(ex.what());
+        out(ex.what());
         exit(-1);
     }
-	return 0;
+    return 0;
 }
 
 /*
@@ -60,7 +60,7 @@ int AppCore::run()
 */
 void AppCore::_printHelp() noexcept
 {
-    _out("\nUsage:\n\n"
+    out("\nUsage:\n\n"
             "\tTrainingCounter -h \t\tPrint \"Usage\";\n"
             "\tTrainingCounter -a <num>\tAdd <num> trainings;\n"
             "\tTrainingCounter -s <num>\tSet <num> trainings;\n"
@@ -80,14 +80,14 @@ void AppCore::_printHelp() noexcept
 */
 void AppCore::_markTraining()
 {
-    if (_counter.getTrainings() > 0)
+    if (counter.getTrainings() > 0)
     {
-        _counter.markTraining();
-        _out("Training marked.");
+        counter.markTraining();
+        out("Training marked.");
     }
     else
     {
-        _out("No trainings left.", NO_LOG);
+        out("No trainings left.", NO_LOG);
     }
 }
 
@@ -100,8 +100,8 @@ void AppCore::_setTrainings(const uint32_t num)
 {
     if (num < UINT32_MAX)
     {
-        _counter.setTrainings(num);
-        _out("Set trainings to " + std::to_string(num) + ".");
+        counter.setTrainings(num);
+        out("Set trainings to " + std::to_string(num) + ".");
     }
     else
     {
@@ -116,10 +116,10 @@ void AppCore::_setTrainings(const uint32_t num)
 */
 void AppCore::_addTrainings(const uint32_t num)
 {
-    if (_counter.getTrainings() + num < UINT32_MAX)
+    if (counter.getTrainings() + num < UINT32_MAX)
     {
-        _counter.addTrainings(num);
-        _out("Added " + std::to_string(num) + " trainings.");
+        counter.addTrainings(num);
+        out("Added " + std::to_string(num) + " trainings.");
     }
     else
     {
@@ -132,6 +132,6 @@ void AppCore::_addTrainings(const uint32_t num)
 */
 void AppCore::_removeLogfile()
 {
-    _out.removeLogfile();
-    _out("Log file has been removed.", NO_LOG);
+    out.removeLogfile();
+    out("Log file has been removed.", NO_LOG);
 }

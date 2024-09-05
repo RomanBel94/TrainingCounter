@@ -8,24 +8,26 @@
 
 class Save final
 {
+using string = std::string;
+
 private:
 #ifdef _WIN32
     // cache directory for windows
-	const std::string _systemDrive{ getenv("WINDIR") };
-	const std::string _cacheDir{ _systemDrive + "\\..\\ProgramData\\TrainingCounter\\" };
+    const string systemDrive{ getenv("WINDIR") };
+    const string cacheDir{ systemDrive + "\\..\\ProgramData\\TrainingCounter\\" };
 #else
     // cache directory for linux
-	const std::string _home{ getenv("HOME") };
-	const std::string _cacheDir{ _home + "/.TrainingCounter/" };
+    const string home{ getenv("HOME") };
+    const string cacheDir{ home + "/.TrainingCounter/" };
 #endif // _WIN32
 
-	// savefile name
-	std::string _filename{ _cacheDir + "save" };
+    // savefile name
+    string filename{ cacheDir + "save" };
 public:
-	Save();
+    Save();
 
-	void write(const uint32_t trainings);
-	const uint32_t read() const;
+    void write(const uint32_t trainings);
+    const uint32_t read() const;
 };
 
 #define SAVE_H

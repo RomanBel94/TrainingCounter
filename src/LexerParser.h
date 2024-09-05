@@ -15,23 +15,23 @@ class LexerParser final
 {
 private:
 
-    std::string _keys;
-    std::deque<uint32_t> _nums;
+    std::string keys;
+    std::deque<uint32_t> nums;
 
-    std::string _undefinedTaskErrorMessage{ "Undefined task, keys are not given. Use \"TrainingCounter -h\" for help" };
-    std::string _unexpectedTokenErrorMessage{ "Unexpected token: " };
-    std::string _numberIsRequiredMessage{ "Number is required."} ;
+    std::string undefinedTaskErrorMessage{ "Undefined task, keys are not given. Use \"TrainingCounter -h\" for help" };
+    std::string unexpectedTokenErrorMessage{ "Unexpected token: " };
+    std::string numberIsRequiredMessage{ "Number is required."} ;
 
 public:
 
     void operator()(int argc, char** argv);
 
-    inline const std::string& getKeys() const noexcept { return _keys; }
+    inline const std::string& getKeys() const noexcept { return keys; }
     const uint32_t getNum() noexcept;
 
 private:
 
-    inline bool _keyExists(const char key) const noexcept { return _keys.find(key) != std::string::npos; }
+    inline bool _keyExists(const char key) const noexcept { return keys.find(key) != std::string::npos; }
     inline void _validateKey(const char key) const 
     { 
         _keyExists(key) ? throw std::runtime_error(std::string("Key \"-") + key + "\" is not unique. All keys have to be given once") : key;
