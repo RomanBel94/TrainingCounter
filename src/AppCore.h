@@ -7,6 +7,8 @@
 #include "LexerParser.h"
 #include "Version.hpp"
 
+constexpr bool NO_LOG = false;
+
 class AppCore final
 {
 private:
@@ -24,6 +26,10 @@ private:
     void _setTrainings(const uint32_t num);
     void _markTraining();
     void _removeLogfile();
+
+	inline void _showTrainings() { 
+		_out("Remaining trainings: " + std::to_string(_counter.getTrainings()), NO_LOG);
+	}
 
 public:
 	/*

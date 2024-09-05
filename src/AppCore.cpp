@@ -20,19 +20,21 @@ int AppCore::run()
                 _printHelp();
                 break;
             case 'v':
-                _out(std::string("TrainingCounter ") + VERSION, false);
+                _out(std::string("TrainingCounter ") + VERSION, NO_LOG);
                 break;
             case 'm':
                 _markTraining();
+                _showTrainings();
                 break;
             case 's':
                 _setTrainings(_parser.getNum());
                 break;
             case 'a':
                 _addTrainings(_parser.getNum());
+                _showTrainings();
                 break;
             case 't':
-                _out("Remaining trainings: " + std::to_string(_counter.getTrainings()) + ".", false);
+                _showTrainings();
                 break;
             case 'r':
                 _removeLogfile();
@@ -69,7 +71,7 @@ void AppCore::_printHelp() noexcept
             "\tTrainingCounter -l [<num>]\tShow <num> last lines of log. If <num> is not given full log will be printed.\n\n\n"
             "You can pass more than one key, but all keys must be unique.\n\n"
             "Example: TrainingCounter -m -t -l5\n", 
-        false
+        NO_LOG
         );
 }
 
@@ -85,7 +87,7 @@ void AppCore::_markTraining()
     }
     else
     {
-        _out("No trainings left.", false);
+        _out("No trainings left.", NO_LOG);
     }
 }
 
@@ -131,5 +133,5 @@ void AppCore::_addTrainings(const uint32_t num)
 void AppCore::_removeLogfile()
 {
     _out.removeLogfile();
-    _out("Log file has been removed.", false);
+    _out("Log file has been removed.", NO_LOG);
 }
