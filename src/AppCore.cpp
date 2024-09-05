@@ -97,9 +97,9 @@ void AppCore::_printHelp() noexcept
 */
 void AppCore::_markTraining()
 {
-    _counter.getTrainings() > 0 ? 
-        _out("Training marked.") : throw std::runtime_error("No trainings left.");
     _counter.markTraining();
+    _counter.getTrainings() > 0 ?
+        _out("Training marked.") : _out("No trainings left.", false);
 }
 
 /*
