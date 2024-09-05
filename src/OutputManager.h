@@ -16,9 +16,11 @@ using string = std::string;
 private:
     std::ofstream logfile;    // log file
 #ifdef _WIN32
+#pragma warning (disable: 4996)
     // cache directory for windows
     const string _systemDrive{ getenv("WINDIR") };
     const string _cacheDir{ _systemDrive + "\\..\\ProgramData\\TrainingCounter\\" };
+#pragma warning (default: 4996)
 #else
     // cache directory for linux
     const string _home{ getenv("HOME") };

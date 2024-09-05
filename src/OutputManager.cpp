@@ -71,7 +71,6 @@ void OutputManager::showLog(size_t lines_num)
 #ifdef _WIN32
 #pragma warning (disable: 4996)
 #endif // _WIN32
-
 /*
     Returns current date and time
 */
@@ -82,6 +81,9 @@ const std::string OutputManager::_datetime() const noexcept
     time.pop_back();
     return time;
 }
+#ifdef _WIN32
+#pragma warning (default: 4996)
+#endif // _WIN32
 
 /*
     Removes logfile
