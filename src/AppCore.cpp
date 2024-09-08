@@ -44,8 +44,8 @@ int AppCore::run()
                 break;
             }
         }
-    // write save file
-    save.write(counter.getTrainings());
+        // write save file
+        save.write(counter.getTrainings());
     }
     catch (std::exception& ex)
     {
@@ -83,11 +83,11 @@ void AppCore::_markTraining()
     if (counter.getTrainings() > 0)
     {
         counter.markTraining();
-        out("Training marked.");
+        out("Training marked");
     }
     else
     {
-        out("No trainings left.", NO_LOG);
+        out("No trainings left", NO_LOG);
     }
 }
 
@@ -101,11 +101,11 @@ void AppCore::_setTrainings(const uint32_t num)
     if (num < UINT32_MAX)
     {
         counter.setTrainings(num);
-        out("Set trainings to " + std::to_string(num) + ".");
+        out("Set trainings to " + std::to_string(num));
     }
     else
     {
-        throw std::runtime_error(std::to_string(num) + " is too big number.");
+        throw std::runtime_error(std::to_string(num) + " is too big number");
     }    
 }
 
@@ -119,11 +119,11 @@ void AppCore::_addTrainings(const uint32_t num)
     if (counter.getTrainings() + num < UINT32_MAX)
     {
         counter.addTrainings(num);
-        out("Added " + std::to_string(num) + " trainings.");
+        out("Added " + std::to_string(num) + " trainings");
     }
     else
     {
-        throw std::runtime_error("Can't add " + std::to_string(num) + " trainings.");
+        throw std::runtime_error("Can't add " + std::to_string(num) + " trainings");
     }
 }
 
@@ -133,5 +133,5 @@ void AppCore::_addTrainings(const uint32_t num)
 void AppCore::_removeLogfile()
 {
     out.removeLogfile();
-    out("Log file has been removed.", NO_LOG);
+    out("Log file has been removed", NO_LOG);
 }
