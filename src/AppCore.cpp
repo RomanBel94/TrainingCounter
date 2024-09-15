@@ -24,14 +24,12 @@ int AppCore::run()
                 break;
             case 'm':
                 _markTraining();
-                _showTrainings();
                 break;
             case 's':
                 _setTrainings(parser.getNum());
                 break;
             case 'a':
                 _addTrainings(parser.getNum());
-                _showTrainings();
                 break;
             case 't':
                 _showTrainings();
