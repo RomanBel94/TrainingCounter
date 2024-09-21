@@ -41,8 +41,18 @@ public:
         @param message
         @param need to write log
     */
+    template <class T = const char*>
+    void operator()(const T* msg, bool log = true) noexcept
+    {
+        if (log && logfile.is_open())
+        {
+            logfile << _datetime() << '\t' << msg << '\n';
+        }
+        std::cout << msg << std::endl;
+    }
+    
     template <class T>
-    void operator()(T msg, bool log = true) noexcept
+    void operator()(const T&& msg, bool log = true) noexcept
     {
         if (log && logfile.is_open())
         {

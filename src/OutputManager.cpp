@@ -62,9 +62,9 @@ void OutputManager::showLog(size_t lines_num)
         lines_num = lines.size();
     }
 
-    for (auto iterator{ lines.end() - lines_num }; iterator != lines.end(); ++iterator)
+    for (auto iterator{ lines.cend() - lines_num }; iterator != lines.cend(); ++iterator)
     {
-        operator()(*iterator, false);
+        operator()(std::move(*iterator), false);
     }
 }
 

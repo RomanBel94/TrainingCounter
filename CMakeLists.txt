@@ -1,12 +1,13 @@
 cmake_minimum_required(VERSION 3.8)
 
+set(CXX_STANDARD 17)
 set(MAIN TrainingCounter)
 set(CMAKE_BUILD_TYPE Release)
 message(STATUS "Build type is: ${CMAKE_BUILD_TYPE}")
 
 project(
     ${MAIN}
-    VERSION 1.5.5
+    VERSION 1.5.6
     DESCRIPTION "A small utility for counting remaining workouts."
     HOMEPAGE_URL https://github.com/RomanBel94/TrainingCounter.git
     LANGUAGES CXX
@@ -18,20 +19,12 @@ target_sources(OutputManager
     ${CMAKE_CURRENT_SOURCE_DIR}/src/OutputManager.cpp 
     ${CMAKE_CURRENT_SOURCE_DIR}/src/OutputManager.h
 )
-set_target_properties(OutputManager
-    PROPERTIES
-    CXX_STANDARD 17
-)
 
 add_library(Save)
 target_sources(Save
     PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Save.cpp 
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Save.h
-)
-set_target_properties(Save
-    PROPERTIES
-    CXX_STANDARD 17
 )
 
 add_library(Parser)
@@ -56,10 +49,6 @@ target_sources(Core
     ${CMAKE_CURRENT_SOURCE_DIR}/src/AppCore.h
     ${CMAKE_CURRENT_SOURCE_DIR}/src/AppCore.cpp
 )
-set_target_properties(Core
-    PROPERTIES
-    CXX_STANDARD 17
-)
 target_link_libraries(Core
     PRIVATE
     OutputManager
@@ -75,10 +64,6 @@ target_sources(${MAIN}
 target_link_libraries(${MAIN}
     PRIVATE
     Core
-)
-set_target_properties(${MAIN}
-    PROPERTIES
-    CXX_STANDARD 17
 )
 
 install(
