@@ -10,7 +10,7 @@ int AppCore::run()
     try
     {   
         parser(argc, argv);
-        setTrainings(save.read());
+        setTrainings(read());
        
         for(char key : parser.getKeys())
         {
@@ -42,7 +42,7 @@ int AppCore::run()
             }
         }
         // write save file
-        save.write(getTrainings());
+        write(getTrainings());
     }
     catch (std::exception& ex)
     {

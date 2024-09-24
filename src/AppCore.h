@@ -11,10 +11,10 @@ constexpr bool NO_LOG = false;
 
 class AppCore final :
     protected Counter,
-    protected OutputManager
+    protected OutputManager,
+    protected Save
 {
 private:
-    Save save;             // save file
     LexerParser parser;    // command argument parser
 
     int argc;              // number of given arguments

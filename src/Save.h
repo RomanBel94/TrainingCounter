@@ -6,7 +6,7 @@
 #include <cstdlib>	// getenv()
 #include <string>	// strings
 
-class Save final
+class Save 
 {
 using string = std::string;
 
@@ -25,6 +25,7 @@ private:
     string filename{ cacheDir + "save" };
 public:
     Save();
+    virtual ~Save() {}
 
     void write(const uint32_t trainings);
     const uint32_t read() const;
