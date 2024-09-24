@@ -9,10 +9,10 @@ int AppCore::run()
 {
     try
     {   
-        parser(argc, argv);
+        parseCommandLine(argc, argv);
         setTrainings(read());
        
-        for(char key : parser.getKeys())
+        for(char key : getKeys())
         {
             switch (key)// do job given in argv
             {
@@ -23,10 +23,10 @@ int AppCore::run()
                 _markTraining();
                 break;
             case 's':
-                _setTrainings(parser.getNum());
+                _setTrainings(getNum());
                 break;
             case 'a':
-                _addTrainings(parser.getNum());
+                _addTrainings(getNum());
                 break;
             case 't':
                 _showTrainings();
@@ -35,7 +35,7 @@ int AppCore::run()
                 _removeLogfile();
                 break;
             case 'l':
-                showLog(parser.getNum());
+                showLog(getNum());
                 break;
             default:
                 _printHelp();

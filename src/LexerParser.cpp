@@ -7,7 +7,7 @@
     @param1    argc parameter from main()
     @param2    argv parameter from main()
 */
-void LexerParser::operator()(int argc, char** argv)
+void LexerParser::parseCommandLine(int argc, char** argv)
 {
     if (argc == 1)
     {

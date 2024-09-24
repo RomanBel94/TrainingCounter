@@ -11,7 +11,7 @@
 
 constexpr char DIVIDER{ '-' };
 
-class LexerParser final
+class LexerParser 
 {
 private:
 
@@ -22,8 +22,9 @@ private:
     std::string numberIsRequiredMessage{ "Number is required."} ;
 
 public:
+    virtual ~LexerParser() {}
 
-    void operator()(int argc, char** argv);
+    void parseCommandLine(int argc, char** argv);
 
     inline const std::string& getKeys() const noexcept { return keys; }
     const uint32_t getNum() noexcept;
