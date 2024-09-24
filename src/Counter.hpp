@@ -23,6 +23,8 @@ public:
     // decrement trainings by 1 if current number of trainings is greater than 0
     inline void markTraining() noexcept 
         { trainings > 0 ? --trainings : trainings; }
+
+    virtual ~Counter() {};
 };
 
 #define COUNTER_H

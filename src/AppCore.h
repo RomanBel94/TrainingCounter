@@ -10,10 +10,10 @@
 constexpr bool NO_LOG = false;
 
 class AppCore final :
-    protected Counter
+    protected Counter,
+    protected OutputManager
 {
 private:
-    OutputManager out;     // console and log output
     Save save;             // save file
     LexerParser parser;    // command argument parser
 

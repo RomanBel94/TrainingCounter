@@ -10,7 +10,7 @@
 #include <deque>    // deque
 
 
-class OutputManager final
+class OutputManager 
 {
 using string = std::string;
 private:
@@ -33,7 +33,7 @@ private:
 
 public:
     OutputManager();
-    ~OutputManager();
+    virtual ~OutputManager();
     
     /*
         Writes message in logfile and console
@@ -42,7 +42,7 @@ public:
         @param need to write log
     */
     template <class T = const char*>
-    void operator()(const T* msg, bool log = true) noexcept
+    void out(T* msg, bool log = true) noexcept
     {
         if (log && logfile.is_open())
         {
@@ -52,7 +52,7 @@ public:
     }
     
     template <class T>
-    void operator()(const T&& msg, bool log = true) noexcept
+    void out(const T&& msg, bool log = true) noexcept
     {
         if (log && logfile.is_open())
         {

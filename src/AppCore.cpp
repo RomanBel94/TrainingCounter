@@ -35,7 +35,7 @@ int AppCore::run()
                 _removeLogfile();
                 break;
             case 'l':
-                out.showLog(parser.getNum());
+                showLog(parser.getNum());
                 break;
             default:
                 _printHelp();
@@ -129,6 +129,6 @@ void AppCore::_addTrainings(const uint32_t num)
 */
 void AppCore::_removeLogfile()
 {
-    out.removeLogfile();
+    removeLogfile();
     out("Log file has been removed", NO_LOG);
 }
