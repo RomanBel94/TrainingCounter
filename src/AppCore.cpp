@@ -16,9 +16,6 @@ int AppCore::run()
         {
             switch (key)// do job given in argv
             {
-            case 'h':
-                _printHelp();
-                break;
             case 'v':
                 out(std::string("TrainingCounter ") + VERSION, NO_LOG);
                 break;
@@ -40,6 +37,8 @@ int AppCore::run()
             case 'l':
                 out.showLog(parser.getNum());
                 break;
+            default:
+                _printHelp();
             }
         }
         // write save file

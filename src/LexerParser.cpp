@@ -11,7 +11,7 @@ void LexerParser::operator()(int argc, char** argv)
 {
     if (argc == 1)
     {
-        keys.push_back('h');
+        keys.push_back('*');
         return;
     }
 
