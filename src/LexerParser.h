@@ -18,7 +18,6 @@ private:
     std::string keys;
     std::deque<uint32_t> nums;
 
-    std::string undefinedTaskErrorMessage{ "Undefined task, keys are not given. Use \"TrainingCounter -h\" for help" };
     std::string unexpectedTokenErrorMessage{ "Unexpected token: " };
     std::string numberIsRequiredMessage{ "Number is required."} ;
 

@@ -7,7 +7,7 @@ message(STATUS "Build type is: ${CMAKE_BUILD_TYPE}")
 
 project(
     ${MAIN}
-    VERSION 1.5.6
+    VERSION 1.5.7
     DESCRIPTION "A small utility for counting remaining workouts."
     HOMEPAGE_URL https://github.com/RomanBel94/TrainingCounter.git
     LANGUAGES CXX

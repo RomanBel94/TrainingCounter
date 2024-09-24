@@ -11,7 +11,8 @@ void LexerParser::operator()(int argc, char** argv)
 {
     if (argc == 1)
     {
-        throw std::runtime_error(undefinedTaskErrorMessage);
+        keys.push_back('h');
+        return;
     }
 
     std::string arguments;
