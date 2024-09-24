@@ -10,7 +10,7 @@ int AppCore::run()
     try
     {   
         parser(argc, argv);
-        counter.setTrainings(save.read());
+        setTrainings(save.read());
        
         for(char key : parser.getKeys())
         {
@@ -42,7 +42,7 @@ int AppCore::run()
             }
         }
         // write save file
-        save.write(counter.getTrainings());
+        save.write(getTrainings());
     }
     catch (std::exception& ex)
     {
@@ -77,9 +77,9 @@ void AppCore::_printHelp() noexcept
 */
 void AppCore::_markTraining()
 {
-    if (counter.getTrainings() > 0)
+    if (getTrainings() > 0)
     {
-        counter.markTraining();
+        markTraining();
         out("Training marked");
     }
     else
@@ -97,7 +97,7 @@ void AppCore::_setTrainings(const uint32_t num)
 {
     if (num < UINT32_MAX)
     {
-        counter.setTrainings(num);
+        setTrainings(num);
         out("Set trainings to " + std::to_string(num));
     }
     else
@@ -113,9 +113,9 @@ void AppCore::_setTrainings(const uint32_t num)
 */
 void AppCore::_addTrainings(const uint32_t num)
 {
-    if (counter.getTrainings() + num < UINT32_MAX)
+    if (getTrainings() + num < UINT32_MAX)
     {
-        counter.addTrainings(num);
+        addTrainings(num);
         out("Added " + std::to_string(num) + " trainings");
     }
     else

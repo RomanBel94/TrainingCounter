@@ -9,10 +9,10 @@
 
 constexpr bool NO_LOG = false;
 
-class AppCore final
+class AppCore final :
+    protected Counter
 {
 private:
-    Counter counter;       // counter
     OutputManager out;     // console and log output
     Save save;             // save file
     LexerParser parser;    // command argument parser
@@ -28,7 +28,7 @@ private:
     void _removeLogfile();
 
     inline void _showTrainings() { 
-        out("Remaining trainings: " + std::to_string(counter.getTrainings()), NO_LOG);
+        out("Remaining trainings: " + std::to_string(getTrainings()), NO_LOG);
     }
 
 public:
