@@ -18,7 +18,7 @@ OutputManager::OutputManager()
 #ifdef _WIN32
         setlocale(LC_ALL, "ru");
 #endif // _WIN32
-        operator()(ex.what());
+        out(ex.what());
         exit(-1);
     }
 }
@@ -53,7 +53,7 @@ void OutputManager::showLog(size_t lines_num)
 
     if (lines.empty())
     {
-        operator()("Log file is empty.", false);
+        out("Log file is empty.", false);
         return;
     }
     
@@ -64,7 +64,7 @@ void OutputManager::showLog(size_t lines_num)
 
     for (auto iterator{ lines.cend() - lines_num }; iterator != lines.cend(); ++iterator)
     {
-        operator()(std::move(*iterator), false);
+        out(std::move(*iterator), false);
     }
 }
 
