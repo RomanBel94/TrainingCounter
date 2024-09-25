@@ -17,7 +17,7 @@ int AppCore::run()
             switch (key)// do job given in argv
             {
             case 'v':
-                out(std::string("TrainingCounter ") + VERSION, NO_LOG);
+                out(fmt::format("TrainingCounter {} ", VERSION));
                 break;
             case 'm':
                 _markTraining();
@@ -98,11 +98,11 @@ void AppCore::_setTrainings(const uint32_t num)
     if (num < UINT32_MAX)
     {
         setTrainings(num);
-        out("Set trainings to " + std::to_string(num));
+        out(fmt::format("Set trainings to {}", num));
     }
     else
     {
-        throw std::runtime_error(std::to_string(num) + " is too big number");
+        throw std::runtime_error(fmt::format("{} is too large number", num));
     }    
 }
 
@@ -116,11 +116,11 @@ void AppCore::_addTrainings(const uint32_t num)
     if (getTrainings() + num < UINT32_MAX)
     {
         addTrainings(num);
-        out("Added " + std::to_string(num) + " trainings");
+        out(fmt::format("Added {} trainings", num));
     }
     else
     {
-        throw std::runtime_error("Can't add " + std::to_string(num) + " trainings");
+        throw std::runtime_error(fmt::format("Can't add {} trainings", num));
     }
 }
 

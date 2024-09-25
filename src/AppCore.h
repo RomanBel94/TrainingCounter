@@ -6,6 +6,7 @@
 #include "Save.h"
 #include "LexerParser.h"
 #include "Version.hpp"
+#include "include/fmt/core.h"
 
 constexpr bool NO_LOG = false;
 

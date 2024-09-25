@@ -54,6 +54,10 @@ target_link_libraries(Core
     OutputManager
     Save
     Parser
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/lib/fmt/libfmt.a
+)
+target_include_directories(Core
+    PRIVATE
 )
 
 add_executable(${MAIN})
