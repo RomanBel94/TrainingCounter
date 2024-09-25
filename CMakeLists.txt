@@ -54,7 +54,7 @@ target_link_libraries(Core
     OutputManager
     Save
     Parser
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/lib/fmt/libfmt.a
+    ${CMAKE_CURRENT_SOURCE_DIR}/lib/fmt/libfmt.a
 )
 target_include_directories(Core
     PRIVATE
