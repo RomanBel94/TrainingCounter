@@ -15,9 +15,6 @@ OutputManager::OutputManager()
     }
     catch (std::exception ex)
     {
-#ifdef _WIN32
-        setlocale(LC_ALL, "ru");
-#endif // _WIN32
         out(ex.what());
         exit(-1);
     }
