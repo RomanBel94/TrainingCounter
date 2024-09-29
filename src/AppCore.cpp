@@ -139,6 +139,7 @@ void AppCore::_removeLogfile()
 void AppCore::_drawCat()
 {
     out(
+        "\n"
         "       _\n"
         "       \\`*-.\n"
         "        )  _`-.\n"
@@ -153,6 +154,6 @@ void AppCore::_drawCat()
         "         :  '  |    ;       ;-.\n"
         "         ; '   : :`-:     _.`* ;\n"
         "[bug] .*' /  .*' ; .*`- +'  `*'\n"
-        "      `*-*   `*-*  `*-*'\n",
+        "      `*-*   `*-*  `*-*'\n\n",
         NO_LOG);
 }
