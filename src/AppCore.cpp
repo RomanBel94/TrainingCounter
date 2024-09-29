@@ -17,7 +17,7 @@ int AppCore::run()
             switch (key)// do job given in argv
             {
             case 'v':
-                out(fmt::format("TrainingCounter {} ", VERSION));
+                out(fmt::format("TrainingCounter {} ", VERSION), NO_LOG);
                 break;
             case 'm':
                 _markTraining();
@@ -153,6 +153,6 @@ void AppCore::_drawCat()
         "         :  '  |    ;       ;-.\n"
         "         ; '   : :`-:     _.`* ;\n"
         "[bug] .*' /  .*' ; .*`- +'  `*'\n"
-        "      `*-*   `*-*  `*-*'\n"
-          );
+        "      `*-*   `*-*  `*-*'\n",
+        NO_LOG);
 }
