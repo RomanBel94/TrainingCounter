@@ -42,7 +42,7 @@ private:
     void _extractKey(const char* reader);
     void _extractNum(const char* reader);
     inline bool _numberIsRequired(char ch) { return ch == 'a' || ch == 's'; }
-    inline bool _numberIsNotRequired(char ch) { return ch == 't' || ch == 'h' || ch == 'm' || ch == 'v' || ch == 'r'; }
+    inline bool _numberIsNotRequired(char ch) { return ch == 't' || ch == 'h' || ch == 'm' || ch == 'v' || ch == 'r' || ch == 'C'; }
     inline bool _numberIsOptional(char ch) { return ch == 'l'; }
 };
 

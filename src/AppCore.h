@@ -26,6 +26,7 @@ private:
     void _setTrainings(const uint32_t num);
     void _markTraining();
     void _removeLogfile();
+    void _drawCat();
 
     inline void _showTrainings() { 
         out("Remaining trainings: " + std::to_string(getTrainings()), NO_LOG);

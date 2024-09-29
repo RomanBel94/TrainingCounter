@@ -37,6 +37,9 @@ int AppCore::run()
             case 'l':
                 showLog(getNum());
                 break;
+            case 'C':
+                _drawCat();
+                break;
             default:
                 _printHelp();
             }
@@ -131,4 +134,25 @@ void AppCore::_removeLogfile()
 {
     removeLogfile();
     out("Log file has been removed", NO_LOG);
+}
+
+void AppCore::_drawCat()
+{
+    out(
+        "       _\n"
+        "       \\`*-.\n"
+        "        )  _`-.\n"
+        "       .  : `. .\n"
+        "       : _   '  \\\n"
+        "       ; *` _.   `*-._\n"
+        "       `-.-'          `-.\n"
+        "         ;       `       `.\n"
+        "         :.       .        \\\n"
+        "         . \\  .   :   .-'   .\n"
+        "         '  `+.;  ;  '      :\n"
+        "         :  '  |    ;       ;-.\n"
+        "         ; '   : :`-:     _.`* ;\n"
+        "[bug] .*' /  .*' ; .*`- +'  `*'\n"
+        "      `*-*   `*-*  `*-*'\n"
+          );
 }
