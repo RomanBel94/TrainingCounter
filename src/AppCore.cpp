@@ -47,7 +47,7 @@ int AppCore::run()
         // write save file
         write(getTrainings());
     }
-    catch (std::exception& ex)
+    catch (const std::exception& ex)
     {
         out(ex.what());
         exit(-1);
