@@ -54,7 +54,7 @@ void LexerParser::_extractTokens(const std::string& tokensString)
 {
     if (tokensString[0] == '-' && tokensString[1] != '-')
         _extractKey(tokensString.c_str() + 1);
-    else throw std::runtime_error(unexpectedTokenErrorMessage + tokensString[0]);
+    else throw std::runtime_error(fmt::format("Unexpected token {}", tokensString[0]));
 }
 
 /*
@@ -108,12 +108,12 @@ void LexerParser::_extractKey(const char* reader)
         }
         else
         {
-            throw std::runtime_error(unexpectedTokenErrorMessage + *reader);
+            throw std::runtime_error(fmt::format("Unexpected token {}", *reader));
         }
     }
     else
     {
-        throw std::runtime_error(unexpectedTokenErrorMessage + *reader);
+        throw std::runtime_error(fmt::format("Unexpected token {}", *reader));
     }
 }
 
@@ -146,6 +146,6 @@ void LexerParser::_extractNum(const char* reader)
     }
     else
     {
-        throw std::runtime_error(numberIsRequiredMessage);
+        throw std::runtime_error("Number is required");
     }
 }
