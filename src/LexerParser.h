@@ -4,6 +4,7 @@
 #include <cstdint>    // uint32_t
 #include <cstdlib>    // atoi()
 #include <cctype>     // isdigit()
+#include <cstring>    // strchr()
 #include <deque>      // deque
 #include <string>     // string
 #include <iostream>   // cerr
@@ -11,6 +12,9 @@
 #include "../include/fmt/core.h"    // fmt::format
 
 constexpr char DIVIDER{ '-' };
+constexpr const char* numberIsRequiredKeys = "as";
+constexpr const char* numberIsNotRequiredKeys = "thmvrC";
+constexpr const char* numberIsOptionalKeys = "l";
 
 class LexerParser 
 {
@@ -19,9 +23,6 @@ private:
     std::string keys;
     std::deque<uint32_t> nums;
 
-    std::string numberIsRequiredKeys{ "as" };
-    std::string numberIsNotRequiredKeys{ "thmvrC" };
-    std::string numberIsOptionalKeys{ "l" };
 public:
     virtual ~LexerParser() {}
 
@@ -44,13 +45,13 @@ private:
     void _extractNum(const char* reader);
 
     inline bool _numberIsRequired(char ch) const noexcept
-        { return numberIsRequiredKeys.find(ch) != std::string::npos; }
+        { return strchr(numberIsRequiredKeys, ch); }
 
     inline bool _numberIsNotRequired(char ch) const noexcept
-        { return numberIsNotRequiredKeys.find(ch) != std::string::npos; } 
+        { return strchr(numberIsNotRequiredKeys, ch); } 
 
     inline bool _numberIsOptional(char ch) const noexcept
-        { return numberIsOptionalKeys.find(ch) != std::string::npos; }
+        { return strchr(numberIsOptionalKeys, ch); }
 };
 
 #define LEXERPARSER_H
