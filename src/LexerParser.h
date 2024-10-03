@@ -36,7 +36,11 @@ private:
     inline bool _keyExists(const char key) const noexcept { return keys.find(key) != std::string::npos; }
     inline void _validateKey(const char key) const 
     { 
-        _keyExists(key) ? throw std::runtime_error(fmt::format("Key \"-{}\" is not unique. All keys have to be given once", key)) : key;
+        _keyExists(key) ? 
+            throw std::runtime_error(
+                    fmt::format("Key \"-{}\" is not unique. All keys have to be given once", key
+                        ))
+            : key;
     }
 
     void _collectArguments(std::string& strArgs, int argc, char** argv) noexcept;
