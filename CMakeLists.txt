@@ -16,8 +16,8 @@ project(
 add_library(OutputManager)
 target_sources(OutputManager
     PRIVATE
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/OutputManager.cpp 
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/OutputManager.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Logger.cpp 
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Logger.h
 )
 
 add_library(Save)
@@ -55,7 +55,7 @@ target_link_libraries(Core
     Save
     Parser
     PUBLIC
-    ${CMAKE_CURRENT_SOURCE_DIR}/lib/fmt/libfmt.a
+    ${CMAKE_CURRENT_SOURCE_DIR}/extern/lib/fmt/libfmt.a
 )
 target_include_directories(Core
     PRIVATE

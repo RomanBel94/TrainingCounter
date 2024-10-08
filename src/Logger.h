@@ -2,6 +2,7 @@
 #ifndef LOGGER_H
 
 #include <fstream>	// ofstream
+#include <chrono>   // now()
 #include <filesystem>	// exists(), create_directory()
 #include <string>	// strings
 #include <cstdlib>	// getenv()
@@ -9,10 +10,12 @@
 #include <iostream> // cout
 #include <deque>    // deque
 
+#include "../extern/include/fmt/core.h"
 
-class OutputManager 
+class Logger 
 {
 using string = std::string;
+
 private:
     std::ofstream logfile;    // log file
 #ifdef _WIN32
@@ -32,8 +35,8 @@ private:
     const string _datetime() const noexcept;    // returns current date and time
 
 public:
-    OutputManager();
-    virtual ~OutputManager();
+    Logger();
+    virtual ~Logger();
     
     /*
         Writes message in logfile and console
@@ -46,7 +49,7 @@ public:
     {
         if (log && logfile.is_open())
         {
-            logfile << _datetime() << '\t' << msg << '\n';
+            logfile << _datetime() << msg << '\n';
         }
         std::cout << msg << std::endl;
     }
@@ -56,7 +59,7 @@ public:
     {
         if (log && logfile.is_open())
         {
-            logfile << _datetime() << '\t' << msg << '\n';
+            logfile << _datetime() << msg << '\n';
         }
         std::cout << msg << std::endl;
     }

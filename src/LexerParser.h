@@ -9,7 +9,7 @@
 #include <string>     // string
 #include <iostream>   // cerr
 #include <exception>  // runtime_error
-#include "../include/fmt/core.h"    // fmt::format
+#include "../extern/include/fmt/core.h"    // fmt::format
 
 constexpr char DIVIDER{ '-' };
 constexpr const char* numberIsRequiredKeys = "as";

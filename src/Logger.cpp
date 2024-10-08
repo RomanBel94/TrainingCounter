@@ -1,10 +1,10 @@
-#include "OutputManager.h"
+#include "Logger.h"
 
 /*
     Constructor
     Checks cache directory, and if it's not exists creates it
 */
-OutputManager::OutputManager()
+Logger::Logger()
 {
     if (!std::filesystem::exists(_cacheDir))
         std::filesystem::create_directory(_logFileName);
@@ -24,7 +24,7 @@ OutputManager::OutputManager()
     Destructor
     Closes log file
 */
-OutputManager::~OutputManager()
+Logger::~Logger()
 {
     logfile.close();
 }
@@ -34,7 +34,7 @@ OutputManager::~OutputManager()
 
     @param number of lines to show
 */
-void OutputManager::showLog(size_t lines_num)
+void Logger::showLog(size_t lines_num)
 {
     logfile.close();
 
@@ -71,11 +71,11 @@ void OutputManager::showLog(size_t lines_num)
 /*
     Returns current date and time
 */
-const std::string OutputManager::_datetime() const noexcept
+const std::string Logger::_datetime() const noexcept
 {
     time_t seconds = time(nullptr);
     std::string time{ asctime(localtime(&seconds)) };
-    time.pop_back();
+    time[time.size() - 1] = '\t';
     return time;
 }
 #ifdef _WIN32
@@ -85,7 +85,7 @@ const std::string OutputManager::_datetime() const noexcept
 /*
     Removes logfile
 */
-void OutputManager::removeLogfile()
+void Logger::removeLogfile()
 {
     logfile.close();
     std::filesystem::remove(_logFileName);

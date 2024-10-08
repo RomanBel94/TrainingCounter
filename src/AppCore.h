@@ -2,17 +2,17 @@
 #ifndef CORE_H
 
 #include "Counter.hpp"
-#include "OutputManager.h"
+#include "Logger.h"
 #include "Save.h"
 #include "LexerParser.h"
 #include "Version.hpp"
-#include "../include/fmt/core.h"
+#include "../extern/include/fmt/core.h"
 
 constexpr bool NO_LOG = false;
 
 class AppCore final :
     protected Counter,
-    protected OutputManager,
+    protected Logger,
     protected Save,
     protected LexerParser
 {
@@ -29,7 +29,7 @@ private:
     void _drawCat();
 
     inline void _showTrainings() { 
-        out("Remaining trainings: " + std::to_string(getTrainings()), NO_LOG);
+        out(fmt::format("Remaining trainings: {}", getTrainings()), NO_LOG);
     }
 
 public:
