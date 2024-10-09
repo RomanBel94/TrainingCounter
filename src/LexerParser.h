@@ -16,9 +16,9 @@ class LexerParser
 private:
 
     static constexpr char DIVIDER{ '-' };
-    static constexpr const char* numberIsRequiredKeys = "as";
-    static constexpr const char* numberIsNotRequiredKeys = "thmvrC";
-    static constexpr const char* numberIsOptionalKeys = "l";
+    static constexpr const char* const numberIsRequiredKeys = "as";
+    static constexpr const char* const numberIsNotRequiredKeys = "thmvrC";
+    static constexpr const char* const numberIsOptionalKeys = "l";
 
     std::string keys;
     std::deque<uint32_t> nums;
