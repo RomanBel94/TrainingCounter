@@ -11,14 +11,14 @@
 #include <exception>  // runtime_error
 #include "../extern/include/fmt/core.h"    // fmt::format
 
-constexpr char DIVIDER{ '-' };
-constexpr const char* numberIsRequiredKeys = "as";
-constexpr const char* numberIsNotRequiredKeys = "thmvrC";
-constexpr const char* numberIsOptionalKeys = "l";
-
 class LexerParser 
 {
 private:
+
+    static constexpr char DIVIDER{ '-' };
+    static constexpr const char* numberIsRequiredKeys = "as";
+    static constexpr const char* numberIsNotRequiredKeys = "thmvrC";
+    static constexpr const char* numberIsOptionalKeys = "l";
 
     std::string keys;
     std::deque<uint32_t> nums;
