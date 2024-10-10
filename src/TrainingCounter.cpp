@@ -2,5 +2,5 @@
 
 int main(int argc, char* argv[])
 {
-	return AppCore::getInstance().run(); // run application
+	return AppCore::getInstance(argc, argv).run(); // run application
 }

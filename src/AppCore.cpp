@@ -1,8 +1,8 @@
 #include "AppCore.h"
 
-AppCore& AppCore::getInstance()
+AppCore& AppCore::getInstance(int argc, char** argv) noexcept
 {
-    static AppCore app;
+    static AppCore app(argc, argv);
     return app;
 }
 
