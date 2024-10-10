@@ -1,5 +1,11 @@
 #include "AppCore.h"
 
+AppCore& AppCore::getInstance()
+{
+    AppCore app;
+    return app;
+}
+
 /*
     Main program function
 
