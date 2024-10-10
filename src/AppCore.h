@@ -42,6 +42,7 @@ public:
     */
     AppCore(int argc, char** argv) : argc(argc), argv(argv) {};
 
+    static getInstance() noexcept;
     int run();
 };
 
