@@ -10,7 +10,7 @@
 #include <iostream> // cout
 #include <deque>    // deque
 
-#include "../extern/include/fmt/core.h"
+#include "../fmt/include/fmt/core.h"
 
 class Logger 
 {

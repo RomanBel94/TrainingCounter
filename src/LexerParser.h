@@ -9,7 +9,8 @@
 #include <string>     // string
 #include <iostream>   // cerr
 #include <exception>  // runtime_error
-#include "../extern/include/fmt/core.h"    // fmt::format
+
+#include "../fmt/include/fmt/core.h"    // fmt::format
 
 class LexerParser 
 {
