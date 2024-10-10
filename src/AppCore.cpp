@@ -2,7 +2,7 @@
 
 AppCore& AppCore::getInstance()
 {
-    AppCore app;
+    static AppCore app;
     return app;
 }
 
