@@ -5,6 +5,14 @@ set(MAIN TrainingCounter)
 set(CMAKE_BUILD_TYPE Release)
 message(STATUS "Build type is: ${CMAKE_BUILD_TYPE}")
 
+if(${WIN32})
+    set(FMT_LIB_PATH ${CMAKE_CURRENT_SOURCE_DIR}/fmt/fmt.lib)
+    include_directories(${CMAKE_CURRENT_SOURCE_DIR}/fmt/include/fmt/)
+    add_compile_options("/utf-8")
+elseif(${LINUX})
+    set(FMT_LIB_PATH ${CMAKE_CURRENT_SOURCE_DIR}/fmt/libfmt.a)
+endif()
+
 project(
     ${MAIN}
     VERSION 1.6.1
@@ -55,7 +63,7 @@ target_link_libraries(Core
     Save
     Parser
     PUBLIC
-    ${CMAKE_CURRENT_SOURCE_DIR}/fmt/libfmt.a
+    ${FMT_LIB_PATH}
 )
 target_include_directories(Core
     PRIVATE
