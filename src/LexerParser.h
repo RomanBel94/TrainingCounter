@@ -16,15 +16,21 @@ class LexerParser
 {
 private:
 
-    static constexpr char DIVIDER{ '-' };
-    static constexpr const char* const numberIsRequiredKeys = "as";
-    static constexpr const char* const numberIsNotRequiredKeys = "thmvrC";
-    static constexpr const char* const numberIsOptionalKeys = "l";
+    LexerParser(const LexerParser&) = delete;
+    LexerParser(LexerParser&&) = delete;
+    LexerParser& operator=(const LexerParser&) = delete;
+    LexerParser& operator=(LexerParser&&) = delete;
 
-    std::string keys;
-    std::deque<uint32_t> nums;
+    static constexpr char DIVIDER{ '-' };
+    static constexpr auto numberIsRequiredKeys = "as";
+    static constexpr auto numberIsNotRequiredKeys = "thmvrC";
+    static constexpr auto numberIsOptionalKeys = "l";
+
+    std::string keys{ "" };
+    std::deque<uint32_t> nums{};
 
 public:
+    LexerParser() = default;
     virtual ~LexerParser() {}
 
     void parseCommandLine(int argc, char** argv);
@@ -49,13 +55,13 @@ private:
     void _extractKey(const char* reader);
     void _extractNum(const char* reader);
 
-    inline bool _numberIsRequired(char ch) const noexcept
+    inline bool _numberIsRequired(const char ch) const noexcept
         { return strchr(numberIsRequiredKeys, ch); }
 
-    inline bool _numberIsNotRequired(char ch) const noexcept
+    inline bool _numberIsNotRequired(const char ch) const noexcept
         { return strchr(numberIsNotRequiredKeys, ch); } 
 
-    inline bool _numberIsOptional(char ch) const noexcept
+    inline bool _numberIsOptional(const char ch) const noexcept
         { return strchr(numberIsOptionalKeys, ch); }
 };
 

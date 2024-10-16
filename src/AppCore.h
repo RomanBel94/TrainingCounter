@@ -9,8 +9,6 @@
 
 #include "../fmt/include/fmt/core.h"
 
-constexpr bool NO_LOG = false;
-
 class AppCore final :
     protected Counter,
     protected Logger,
@@ -18,10 +16,19 @@ class AppCore final :
     protected LexerParser
 {
 private:
+    static constexpr bool NO_LOG = false;
+
     int argc;              // number of given arguments
     char** argv;           // value of given arguments
 
 private:
+
+    AppCore() = delete;
+    AppCore(const AppCore&) = delete;
+    AppCore(AppCore&&) = delete;
+    AppCore& operator=(const AppCore&) = delete;
+    AppCore& operator=(AppCore&&) = delete;
+
     void _printHelp() noexcept;
     void _addTrainings(const uint32_t num);
     void _setTrainings(const uint32_t num);
@@ -34,6 +41,7 @@ private:
     }
 
 public:
+
     /*
         Constructor.
         Starts command arguments parsing, reads save file and sets counter.

@@ -55,7 +55,7 @@ int AppCore::run()
     }
     catch (const std::exception& ex)
     {
-        out(ex.what());
+        out(ex.what(), NO_LOG);
         exit(-1);
     }
     return 0;

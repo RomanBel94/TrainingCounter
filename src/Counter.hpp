@@ -6,23 +6,23 @@
 class Counter 
 {
 private:
-    uint32_t trainings { 0 };    // current value of trainings
+    uint32_t m_trainings { 0 };    // current value of trainings
 public:
     // set <num> of trainings if <num> is greater than 0
     inline void setTrainings(const uint32_t num) noexcept
-        { num >= 0 &&  num <= UINT32_MAX ? trainings = num : trainings = UINT32_MAX; }
+        { num >= 0 &&  num <= UINT32_MAX ? m_trainings = num : m_trainings = UINT32_MAX; }
     
     // add <num> of trainings if <num> is greater than 0
     inline void addTrainings(const uint32_t num) noexcept
-        { num >= 0 && (trainings + num) <= UINT32_MAX ? trainings += num : trainings = UINT32_MAX; }
+        { num >= 0 && (m_trainings + num) <= UINT32_MAX ? m_trainings += num : m_trainings = UINT32_MAX; }
     
     // returns trainings
     inline const uint32_t getTrainings() const noexcept
-        { return trainings; }
+        { return m_trainings; }
     
     // decrement trainings by 1 if current number of trainings is greater than 0
     inline void markTraining() noexcept 
-        { trainings > 0 ? --trainings : trainings; }
+        { m_trainings > 0 ? --m_trainings : m_trainings; }
 
     virtual ~Counter() {};
 };

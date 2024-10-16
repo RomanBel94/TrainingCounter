@@ -11,23 +11,29 @@ class Save
 using string = std::string;
 
 private:
+
+    Save(const Save&) = delete;
+    Save(Save&&) = delete;
+    Save& operator=(const Save&) = delete;
+    Save& operator=(Save&&) = delete;
+
 #ifdef _WIN32
     // cache directory for windows
-    const string systemDrive{ getenv("WINDIR") };
-    const string cacheDir{ systemDrive + "\\..\\ProgramData\\TrainingCounter\\" };
+    inline static const string m_systemDrive{ getenv("WINDIR") };
+    inline static const string m_cacheDir{ systemDrive + "\\..\\ProgramData\\TrainingCounter\\" };
 #else
     // cache directory for linux
-    const string home{ getenv("HOME") };
-    const string cacheDir{ home + "/.TrainingCounter/" };
+    inline static const string m_home{ getenv("HOME") };
+    inline static const string m_cacheDir{ m_home + "/.TrainingCounter/" };
 #endif // _WIN32
 
     // savefile name
-    string filename{ cacheDir + "save" };
+    inline static const string filename{ m_cacheDir + "save" };
 public:
     Save();
     virtual ~Save() {}
 
-    void write(const uint32_t trainings);
+    void write(const uint32_t trainings) const;
     const uint32_t read() const;
 };
 

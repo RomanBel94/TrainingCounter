@@ -5,8 +5,7 @@
 */
 Save::Save()
 {
-    if (!std::filesystem::exists(cacheDir))
-        std::filesystem::create_directory(cacheDir);
+    std::filesystem::create_directory(m_cacheDir);
 }
 
 /*
@@ -32,7 +31,7 @@ const uint32_t Save::read() const
 
     @param number to write
 */
-void Save::write(const uint32_t trainings)
+void Save::write(const uint32_t trainings) const
 {
     std::ofstream output(filename, std::ios::out | std::ios::binary);
 
