@@ -17,24 +17,32 @@ class Logger
 using string = std::string;
 
 private:
-    std::ofstream logfile;    // log file
+
+    std::ofstream logfile;
+
 #ifdef _WIN32
 #pragma warning (disable: 4996)
     // cache directory for windows
-    const string _systemDrive{ getenv("WINDIR") };
-    const string _cacheDir{ _systemDrive + "\\..\\ProgramData\\TrainingCounter\\" };
+    const string cacheDir{ fmt::format("{}\\..\\ProgramData\\TrainingCounter\\", getenv("WINDIR")) };
 #pragma warning (default: 4996)
 #else
     // cache directory for linux
-    const string _home{ getenv("HOME") };
-    const string _cacheDir{ _home + "/.TrainingCounter/" };
+    const string cacheDir{ fmt::format("{}/.TrainingCounter", getenv("HOME")) };
 #endif // _WIN32
-    const string _logFileName{ _cacheDir + "log.txt" };   // log file path
+
+    const string logFileName{ fmt::format("{}/log.txt", cacheDir) };
 
 private:
-    const string _datetime() const noexcept;    // returns current date and time
+
+    const string _datetime() const noexcept;
+
+    Logger(const Logger&) = delete;
+    Logger(Logger&&) = delete;
+    Logger& operator=(const Logger&) = delete;
+    Logger& operator=(Logger&&) = delete;
 
 public:
+
     Logger();
     virtual ~Logger();
     

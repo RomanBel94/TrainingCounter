@@ -6,12 +6,12 @@
 */
 Logger::Logger()
 {
-    if (!std::filesystem::exists(_cacheDir))
-        std::filesystem::create_directory(_logFileName);
+    if (!std::filesystem::exists(cacheDir))
+        std::filesystem::create_directory(logFileName);
     
     try
     {
-        logfile.open(_logFileName, std::ios::out | std::ios::app);
+        logfile.open(logFileName, std::ios::out | std::ios::app);
     }
     catch (std::exception ex)
     {
@@ -38,7 +38,7 @@ void Logger::showLog(size_t lines_num)
 {
     logfile.close();
 
-    std::ifstream logfileRead(_logFileName, std::ios::in);
+    std::ifstream logfileRead(logFileName, std::ios::in);
 
     std::deque<std::string> lines;
     char buffer[UINT8_MAX];
@@ -88,5 +88,5 @@ const std::string Logger::_datetime() const noexcept
 void Logger::removeLogfile()
 {
     logfile.close();
-    std::filesystem::remove(_logFileName);
+    std::filesystem::remove(logFileName);
 }
