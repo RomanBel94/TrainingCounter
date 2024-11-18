@@ -5,7 +5,7 @@
 */
 Save::Save()
 {
-    std::filesystem::create_directory(m_cacheDir);
+    std::filesystem::create_directory(cacheDir);
 }
 
 /*

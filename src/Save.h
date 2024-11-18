@@ -19,16 +19,16 @@ private:
 
 #ifdef _WIN32
     // cache directory for windows
-    inline static const string m_systemDrive{ getenv("WINDIR") };
-    inline static const string m_cacheDir{ systemDrive + "\\..\\ProgramData\\TrainingCounter\\" };
+    inline static const string systemDrive{ getenv("WINDIR") };
+    inline static const string cacheDir{ systemDrive + "\\..\\ProgramData\\TrainingCounter\\" };
 #else
     // cache directory for linux
-    inline static const string m_home{ getenv("HOME") };
-    inline static const string m_cacheDir{ m_home + "/.TrainingCounter/" };
+    inline static const string home{ getenv("HOME") };
+    inline static const string cacheDir{ home + "/.TrainingCounter/" };
 #endif // _WIN32
 
     // savefile name
-    inline static const string filename{ m_cacheDir + "save" };
+    inline static const string filename{ cacheDir + "save" };
 public:
     Save();
     virtual ~Save() {}
