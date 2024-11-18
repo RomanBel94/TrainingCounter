@@ -16,7 +16,6 @@ class AppCore final :
     protected LexerParser
 {
 private:
-    static constexpr bool NO_LOG = false;
 
     int argc;              // number of given arguments
     char** argv;           // value of given arguments
@@ -37,7 +36,7 @@ private:
     void _drawCat();
 
     inline void _showTrainings() { 
-        out(fmt::format("Remaining trainings: {}", getTrainings()), NO_LOG);
+        out(fmt::format("Remaining trainings: {}", getTrainings()), Logger::NO_LOG);
     }
 
 public:

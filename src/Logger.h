@@ -34,6 +34,8 @@ private:
 
 private:
 
+    inline static size_t const BUFFER_SIZE = UINT8_MAX;
+
     const string _datetime() const noexcept;
 
     Logger(const Logger&) = delete;
@@ -42,6 +44,8 @@ private:
     Logger& operator=(Logger&&) = delete;
 
 public:
+
+    inline static bool const NO_LOG = false;
 
     Logger();
     virtual ~Logger();
@@ -52,22 +56,22 @@ public:
         @param message
         @param need to write log
     */
-    template <class T = const char*>
-    void out(T* msg, bool log = true) noexcept
+    template <class T = char const*>
+    void out(T const* msg, bool log = true) noexcept
     {
         if (log && logfile.is_open())
         {
-            logfile << _datetime() << msg << '\n';
+            logfile << fmt::format("{0}{1}\n", _datetime(), msg);
         }
         std::cout << msg << std::endl;
     }
     
     template <class T>
-    void out(const T&& msg, bool log = true) noexcept
+    void out(T const&& msg, bool log = true) noexcept
     {
         if (log && logfile.is_open())
         {
-            logfile << _datetime() << msg << '\n';
+            logfile << fmt::format( "{0}{1}\n", _datetime(), msg);
         }
         std::cout << msg << std::endl;
     }

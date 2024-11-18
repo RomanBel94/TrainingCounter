@@ -6,10 +6,10 @@
 #include <cstdlib>	// getenv()
 #include <string>	// strings
 
+#include "../fmt/include/fmt/core.h"
+
 class Save 
 {
-using string = std::string;
-
 private:
 
     Save(const Save&) = delete;
@@ -19,21 +19,19 @@ private:
 
 #ifdef _WIN32
     // cache directory for windows
-    inline static const string systemDrive{ getenv("WINDIR") };
-    inline static const string cacheDir{ systemDrive + "\\..\\ProgramData\\TrainingCounter\\" };
+    inline static const std::string cacheDir{ fmt::format("{}\\..\\ProgramData\\TrainingCounter\\", getenv("WINDIR")) };
 #else
     // cache directory for linux
-    inline static const string home{ getenv("HOME") };
-    inline static const string cacheDir{ home + "/.TrainingCounter/" };
+    inline static const std::string cacheDir{ fmt::format("{}/.TrainingCounter/", getenv("HOME")) };
 #endif // _WIN32
 
     // savefile name
-    inline static const string filename{ cacheDir + "save" };
+    inline static const std::string filename{ fmt::format("{}save", cacheDir) };
 public:
     Save();
     virtual ~Save() {}
 
-    void write(const uint32_t trainings) const;
+    void write(uint32_t trainings) const;
     const uint32_t read() const;
 };
 

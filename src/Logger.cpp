@@ -41,16 +41,16 @@ void Logger::showLog(size_t lines_num)
     std::ifstream logfileRead(logFileName, std::ios::in);
 
     std::deque<std::string> lines;
-    char buffer[UINT8_MAX];
+    char buffer[BUFFER_SIZE];
 
-    while (logfileRead.getline(buffer, UINT8_MAX, '\n'))
+    while (logfileRead.getline(buffer, BUFFER_SIZE, '\n'))
     {
         lines.push_back(buffer);
     }
 
     if (lines.empty())
     {
-        out("Log file is empty.", false);
+        out("Log file is empty.", NO_LOG);
         return;
     }
     
@@ -61,7 +61,7 @@ void Logger::showLog(size_t lines_num)
 
     for (auto iterator{ lines.cend() - lines_num }; iterator != lines.cend(); ++iterator)
     {
-        out(std::move(*iterator), false);
+        out((*iterator).c_str(), NO_LOG);
     }
 }
 

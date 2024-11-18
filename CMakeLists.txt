@@ -21,8 +21,8 @@ project(
     LANGUAGES CXX
 )
 
-add_library(OutputManager)
-target_sources(OutputManager
+add_library(Logger)
+target_sources(Logger
     PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Logger.cpp 
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Logger.h
@@ -59,7 +59,7 @@ target_sources(Core
 )
 target_link_libraries(Core
     PRIVATE
-    OutputManager
+    Logger
     Save
     Parser
     PUBLIC

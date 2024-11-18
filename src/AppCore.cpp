@@ -23,7 +23,7 @@ int AppCore::run()
             switch (key)// do job given in argv
             {
             case 'v':
-                out(fmt::format("TrainingCounter {} ", VERSION), NO_LOG);
+                out(fmt::format("TrainingCounter {}", VERSION), Logger::NO_LOG);
                 break;
             case 'm':
                 _markTraining();
@@ -55,7 +55,7 @@ int AppCore::run()
     }
     catch (const std::exception& ex)
     {
-        out(ex.what(), NO_LOG);
+        out(ex.what(), Logger::NO_LOG);
         exit(-1);
     }
     return 0;
@@ -77,7 +77,7 @@ void AppCore::_printHelp() noexcept
             "\tTrainingCounter -l [<num>]\tShow <num> last lines of log. If <num> is not given full log will be printed.\n\n\n"
             "You can pass more than one key, but all keys must be unique.\n\n"
             "Example: TrainingCounter -m -t -l5\n", 
-        NO_LOG
+        Logger::NO_LOG
         );
 }
 
@@ -93,7 +93,7 @@ void AppCore::_markTraining()
     }
     else
     {
-        out("No trainings left", NO_LOG);
+        out("No trainings left", Logger::NO_LOG);
     }
 }
 
@@ -139,7 +139,7 @@ void AppCore::_addTrainings(const uint32_t num)
 void AppCore::_removeLogfile()
 {
     removeLogfile();
-    out("Log file has been removed", NO_LOG);
+    out("Log file has been removed", Logger::NO_LOG);
 }
 
 void AppCore::_drawCat()
@@ -161,5 +161,5 @@ void AppCore::_drawCat()
         "         ; '   : :`-:     _.`* ;\n"
         "[bug] .*' /  .*' ; .*`- +'  `*'\n"
         "      `*-*   `*-*  `*-*'\n\n",
-        NO_LOG);
+        Logger::NO_LOG);
 }

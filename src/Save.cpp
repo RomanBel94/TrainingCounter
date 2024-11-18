@@ -19,7 +19,7 @@ const uint32_t Save::read() const
     uint32_t trainings { 0 };
 
     if (input.is_open()) {
-        input.read((char*)&trainings, sizeof(trainings));
+        input.read(reinterpret_cast<char*>(&trainings), sizeof(trainings));
         input.close();
     }
 
@@ -31,13 +31,13 @@ const uint32_t Save::read() const
 
     @param number to write
 */
-void Save::write(const uint32_t trainings) const
+void Save::write(uint32_t trainings) const
 {
     std::ofstream output(filename, std::ios::out | std::ios::binary);
 
     if (output.is_open())
     {
-        output.write((char*)&trainings, sizeof(trainings));
+        output.write(reinterpret_cast<char*>(&trainings), sizeof(trainings));
         output.close();
     }
 }
