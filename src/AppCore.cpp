@@ -15,24 +15,24 @@ int AppCore::run()
 {
     try
     {   
-        parseCommandLine(argc, argv);
-        setTrainings(read());
+        parser->parseCommandLine(argc, argv);
+        counter->setTrainings(save->read());
        
-        for(char key : getKeys())
+        for(char key : parser->getKeys())
         {
             switch (key)// do job given in argv
             {
             case 'v':
-                out(fmt::format("TrainingCounter {}", VERSION), Logger::NO_LOG);
+                log->out(fmt::format("TrainingCounter {}", VERSION), Logger::NO_LOG);
                 break;
             case 'm':
                 _markTraining();
                 break;
             case 's':
-                _setTrainings(getNum());
+                _setTrainings(parser->getNum());
                 break;
             case 'a':
-                _addTrainings(getNum());
+                _addTrainings(parser->getNum());
                 break;
             case 't':
                 _showTrainings();
@@ -41,7 +41,7 @@ int AppCore::run()
                 _removeLogfile();
                 break;
             case 'l':
-                showLog(getNum());
+                log->showLog(parser->getNum());
                 break;
             case 'C':
                 _drawCat();
@@ -51,11 +51,11 @@ int AppCore::run()
             }
         }
         // write save file
-        write(getTrainings());
+        save->write(counter->getTrainings());
     }
     catch (const std::exception& ex)
     {
-        out(ex.what(), Logger::NO_LOG);
+        log->out(ex.what(), Logger::NO_LOG);
         exit(-1);
     }
     return 0;
@@ -66,7 +66,7 @@ int AppCore::run()
 */
 void AppCore::_printHelp() noexcept
 {
-    out("\nUsage:\n\n"
+    log->out("\nUsage:\n\n"
             "\tTrainingCounter -h \t\tPrint \"Usage\";\n"
             "\tTrainingCounter -a <num>\tAdd <num> trainings;\n"
             "\tTrainingCounter -s <num>\tSet <num> trainings;\n"
@@ -74,7 +74,7 @@ void AppCore::_printHelp() noexcept
             "\tTrainingCounter -t \t\tShow remaining trainings;\n"
             "\tTrainingCounter -v \t\tShow TrainingCounter version;\n"
             "\tTrainingCounter -r \t\tRemove log file;\n"
-            "\tTrainingCounter -l [<num>]\tShow <num> last lines of log. If <num> is not given full log will be printed.\n\n\n"
+            "\tTrainingCounter -l [<num>]\tShow <num> last lines of log. If <num> is not given full log will be printed.\v"
             "You can pass more than one key, but all keys must be unique.\n\n"
             "Example: TrainingCounter -m -t -l5\n", 
         Logger::NO_LOG
@@ -86,14 +86,14 @@ void AppCore::_printHelp() noexcept
 */
 void AppCore::_markTraining()
 {
-    if (getTrainings() > 0)
+    if (counter->getTrainings() > 0)
     {
-        markTraining();
-        out("Training marked");
+        counter->markTraining();
+        log->out("Training marked");
     }
     else
     {
-        out("No trainings left", Logger::NO_LOG);
+        log->out("No trainings left", Logger::NO_LOG);
     }
 }
 
@@ -106,8 +106,8 @@ void AppCore::_setTrainings(const uint32_t num)
 {
     if (num < UINT32_MAX)
     {
-        setTrainings(num);
-        out(fmt::format("Set trainings to {}", num));
+        counter->setTrainings(num);
+        log->out(fmt::format("Set trainings to {}", num));
     }
     else
     {
@@ -122,10 +122,10 @@ void AppCore::_setTrainings(const uint32_t num)
 */
 void AppCore::_addTrainings(const uint32_t num)
 {
-    if (getTrainings() + num < UINT32_MAX)
+    if (counter->getTrainings() + num < UINT32_MAX)
     {
-        addTrainings(num);
-        out(fmt::format("Added {} trainings", num));
+        counter->addTrainings(num);
+        log->out(fmt::format("Added {} trainings", num));
     }
     else
     {
@@ -138,13 +138,13 @@ void AppCore::_addTrainings(const uint32_t num)
 */
 void AppCore::_removeLogfile()
 {
-    removeLogfile();
-    out("Log file has been removed", Logger::NO_LOG);
+    log->removeLogfile();
+    log->out("Log file has been removed", Logger::NO_LOG);
 }
 
 void AppCore::_drawCat()
 {
-    out(
+    log->out(
         "\n"
         "       _\n"
         "       \\`*-.\n"

@@ -7,18 +7,21 @@
 #include "LexerParser.h"
 #include "Version.h"
 
+#include <memory>
+
 #include "../fmt/include/fmt/core.h"
 
-class AppCore final :
-    protected Counter,
-    protected Logger,
-    protected Save,
-    protected LexerParser
+class AppCore final
 {
 private:
 
     int argc;              // number of given arguments
     char** argv;           // value of given arguments
+    
+    std::unique_ptr<Counter> counter = std::make_unique<Counter>();
+    std::unique_ptr<Logger> log = std::make_unique<Logger>();
+    std::unique_ptr<Save> save = std::make_unique<Save>();
+    std::unique_ptr<LexerParser> parser = std::make_unique<LexerParser>();
 
 private:
 
@@ -36,7 +39,7 @@ private:
     void _drawCat();
 
     inline void _showTrainings() { 
-        out(fmt::format("Remaining trainings: {}", getTrainings()), Logger::NO_LOG);
+        log->out(fmt::format("Remaining trainings: {}", counter->getTrainings()), Logger::NO_LOG);
     }
 
 public:
