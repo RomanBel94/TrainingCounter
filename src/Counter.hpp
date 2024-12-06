@@ -3,7 +3,7 @@
 
 #include <cstdint> // uint32_t
 
-class Counter 
+class Counter final
 {
 private:
     uint32_t m_trainings { 0 };    // current value of trainings

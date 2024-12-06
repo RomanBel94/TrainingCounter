@@ -12,10 +12,8 @@
 
 #include "../fmt/include/fmt/core.h"
 
-class Logger 
+class Logger final
 {
-using string = std::string;
-
 private:
 
     std::ofstream logfile;
@@ -27,16 +25,16 @@ private:
 #pragma warning (default: 4996)
 #else
     // cache directory for linux
-    const string cacheDir{ fmt::format("{}/.TrainingCounter", getenv("HOME")) };
+    const std::string cacheDir{ fmt::format("{}/.TrainingCounter", getenv("HOME")) };
 #endif // _WIN32
 
-    const string logFileName{ fmt::format("{}/log.txt", cacheDir) };
+    const std::string logFileName{ fmt::format("{}/log.txt", cacheDir) };
 
 private:
 
     inline static size_t const BUFFER_SIZE = UINT8_MAX;
 
-    const string _datetime() const noexcept;
+    const std::string _datetime() const noexcept;
 
     Logger(const Logger&) = delete;
     Logger(Logger&&) = delete;
@@ -48,7 +46,7 @@ public:
     inline static bool const NO_LOG = false;
 
     Logger();
-    virtual ~Logger();
+    ~Logger();
     
     /*
         Writes message in logfile and console

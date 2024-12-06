@@ -13,7 +13,7 @@ Save::Save()
 
     @return number of trainings
 */
-const uint32_t Save::read() const
+const uint32_t Save::read() const noexcept
 {
     std::ifstream input(filename, std::ios::in | std::ios::binary);
     uint32_t trainings { 0 };
@@ -31,7 +31,7 @@ const uint32_t Save::read() const
 
     @param number to write
 */
-void Save::write(uint32_t trainings) const
+void Save::write(uint32_t trainings) const noexcept
 {
     std::ofstream output(filename, std::ios::out | std::ios::binary);
 

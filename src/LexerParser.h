@@ -12,7 +12,7 @@
 
 #include "../fmt/include/fmt/core.h"    // fmt::format
 
-class LexerParser 
+class LexerParser final
 {
 private:
 
@@ -31,20 +31,19 @@ private:
 
 public:
     LexerParser() = default;
-    virtual ~LexerParser() {}
+    ~LexerParser() = default;
 
     void parseCommandLine(int argc, char** argv);
 
-    inline const std::string& getKeys() const noexcept { return keys; }
+    const auto& getKeys() const noexcept { return keys; }
     const uint32_t getNum() noexcept;
 
 private:
 
-    inline bool _keyExists(const char key) const noexcept { return keys.find(key) != std::string::npos; }
-    inline void _validateKey(const char key) const 
+    bool _keyExists(const char key) const noexcept { return keys.find(key) != std::string::npos; }
+    void _validateKey(const char key) const 
     { 
-        _keyExists(key) ? 
-            throw std::runtime_error(
+        _keyExists(key) ? throw std::runtime_error(
                     fmt::format("Key \"-{}\" is not unique. All keys have to be given once", key
                         ))
             : key;
@@ -55,13 +54,13 @@ private:
     void _extractKey(const char* reader);
     void _extractNum(const char* reader);
 
-    inline bool _numberIsRequired(const char ch) const noexcept
+    bool _numberIsRequired(const char ch) const noexcept
         { return strchr(numberIsRequiredKeys, ch); }
 
-    inline bool _numberIsNotRequired(const char ch) const noexcept
+    bool _numberIsNotRequired(const char ch) const noexcept
         { return strchr(numberIsNotRequiredKeys, ch); } 
 
-    inline bool _numberIsOptional(const char ch) const noexcept
+    bool _numberIsOptional(const char ch) const noexcept
         { return strchr(numberIsOptionalKeys, ch); }
 };
 

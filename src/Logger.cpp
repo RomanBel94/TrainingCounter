@@ -13,7 +13,7 @@ Logger::Logger()
     {
         logfile.open(logFileName, std::ios::out | std::ios::app);
     }
-    catch (std::exception ex)
+    catch (const std::exception& ex)
     {
         out(ex.what());
         exit(-1);

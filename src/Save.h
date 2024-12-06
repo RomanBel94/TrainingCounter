@@ -8,7 +8,7 @@
 
 #include "../fmt/include/fmt/core.h"
 
-class Save 
+class Save final
 {
 private:
 
@@ -29,10 +29,10 @@ private:
     inline static const std::string filename{ fmt::format("{}save", cacheDir) };
 public:
     Save();
-    virtual ~Save() {}
+    ~Save() = default;
 
-    void write(uint32_t trainings) const;
-    const uint32_t read() const;
+    void write(uint32_t trainings) const noexcept;
+    const uint32_t read() const noexcept;
 };
 
 #define SAVE_H
