@@ -43,8 +43,8 @@ target_sources(Parser
 )
 
 configure_file(
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/Version.hpp.in 
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/Version.hpp 
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Version.h.in 
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Version.h 
     NEWLINE_STYLE UNIX
 )
 message(STATUS "File \"Version.h\" configured with version: ${CMAKE_PROJECT_VERSION}")
@@ -53,7 +53,7 @@ add_library(Core)
 target_sources(Core
     PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Counter.hpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/Version.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Version.h
     ${CMAKE_CURRENT_SOURCE_DIR}/src/AppCore.h
     ${CMAKE_CURRENT_SOURCE_DIR}/src/AppCore.cpp
 )

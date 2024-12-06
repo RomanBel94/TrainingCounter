@@ -5,7 +5,7 @@
 #include "Logger.h"
 #include "Save.h"
 #include "LexerParser.h"
-#include "Version.hpp"
+#include "Version.h"
 
 #include "../fmt/include/fmt/core.h"
 
