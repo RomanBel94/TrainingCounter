@@ -21,27 +21,6 @@ project(
     LANGUAGES CXX
 )
 
-add_library(Logger)
-target_sources(Logger
-    PRIVATE
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/Logger.cpp 
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/Logger.h
-)
-
-add_library(Save)
-target_sources(Save
-    PRIVATE
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/Save.cpp 
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/Save.h
-)
-
-add_library(Parser)
-target_sources(Parser
-    PRIVATE
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/LexerParser.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/LexerParser.h
-)
-
 configure_file(
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Version.h.in 
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Version.h 
@@ -49,34 +28,33 @@ configure_file(
 )
 message(STATUS "File \"Version.h\" configured with version: ${CMAKE_PROJECT_VERSION}")
 
-add_library(Core)
-target_sources(Core
+add_library(TrainingCounterCore)
+target_sources(TrainingCounterCore
     PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Counter.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Version.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/AppCore.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/AppCore.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/TrainingCounter.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/TrainingCounter.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/LexerParser.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/LexerParser.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Logger.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Logger.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Save.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Save.cpp
 )
-target_link_libraries(Core
+target_link_libraries(TrainingCounterCore
     PRIVATE
-    Logger
-    Save
-    Parser
-    PUBLIC
     ${FMT_LIB_PATH}
-)
-target_include_directories(Core
-    PRIVATE
 )
 
 add_executable(${MAIN})
 target_sources(${MAIN}
     PRIVATE
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/TrainingCounter.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp
 )
 target_link_libraries(${MAIN}
     PRIVATE
-    Core
+    TrainingCounterCore
 )
 
 install(

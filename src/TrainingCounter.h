@@ -9,9 +9,7 @@
 
 #include <memory>
 
-#include "../fmt/include/fmt/core.h"
-
-class AppCore final
+class TrainingCounter final
 {
 private:
 
@@ -25,11 +23,11 @@ private:
 
 private:
 
-    AppCore() = delete;
-    AppCore(const AppCore&) = delete;
-    AppCore(AppCore&&) = delete;
-    AppCore& operator=(const AppCore&) = delete;
-    AppCore& operator=(AppCore&&) = delete;
+    TrainingCounter() = delete;
+    TrainingCounter(const TrainingCounter&) = delete;
+    TrainingCounter(TrainingCounter&&) = delete;
+    TrainingCounter& operator=(const TrainingCounter&) = delete;
+    TrainingCounter& operator=(TrainingCounter&&) = delete;
 
     void _printHelp() noexcept;
     void _addTrainings(const uint32_t num);
@@ -51,9 +49,9 @@ public:
         @param argc from main
         @param argv from main
     */
-    AppCore(int argc, char** argv) : argc(argc), argv(argv) {};
+    TrainingCounter(int argc, char** argv) : argc(argc), argv(argv) {};
 
-    static AppCore& getInstance(int argc, char** argv) noexcept;
+    static TrainingCounter& getInstance(int argc, char** argv) noexcept;
     int run();
 };
 
