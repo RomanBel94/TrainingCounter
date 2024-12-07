@@ -1,12 +1,12 @@
 #pragma once
 #ifndef LEXERPARSER_H
 
+#include <set>        // set
 #include <cstdint>    // uint32_t
 #include <cstdlib>    // atoi()
 #include <cctype>     // isdigit()
 #include <cstring>    // strchr()
 #include <exception>  // runtime_error
-#include <unordered_set>
 #include <unordered_map>
 
 #include "../fmt/include/fmt/core.h"    // fmt::format
@@ -17,14 +17,14 @@ public:
     enum class jobType {
         undefined = 0,
         show_help,
-        draw_cat,
         add_trainings,
         set_trainings,
-        show_trainings,
         mark_training,
-        show_version,
+        show_trainings,
         show_log,
         remove_logfile,
+        draw_cat,
+        show_version,
     } const job { Task::jobType::undefined };
     const uint32_t number{ 0 };
     
@@ -73,7 +73,7 @@ private:
     static constexpr auto numberIsNotRequiredKeys = "thmvrC";
     static constexpr auto numberIsOptionalKeys = "l";
 
-    std::unordered_set<Task> tasks;
+    std::set<Task> tasks;
 
 public:
     LexerParser() = default;

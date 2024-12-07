@@ -1,9 +1,8 @@
 #include "TrainingCounter.h"
-#include "LexerParser.h"
 
-TrainingCounter& TrainingCounter::getInstance(int argc, char** argv) noexcept
+std::shared_ptr<TrainingCounter> TrainingCounter::getInstance(int argc, char** argv) noexcept
 {
-    static TrainingCounter app(argc, argv);
+    static std::shared_ptr<TrainingCounter> app = std::make_unique<TrainingCounter>(argc, argv);
     return app;
 }
 

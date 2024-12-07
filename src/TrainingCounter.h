@@ -51,7 +51,7 @@ public:
     */
     TrainingCounter(int argc, char** argv) : argc(argc), argv(argv) {};
 
-    static TrainingCounter& getInstance(int argc, char** argv) noexcept;
+    static std::shared_ptr<TrainingCounter> getInstance(int argc, char** argv) noexcept;
     int run();
 };
 
