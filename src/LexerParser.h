@@ -12,6 +12,30 @@
 
 #include "../fmt/include/fmt/core.h"    // fmt::format
 
+struct Task final
+{
+public:
+    enum class job {
+        undefined = 0,
+        show_help,
+        draw_cat,
+        add_trainings,
+        set_trainings,
+        show_trainings,
+        mark_training,
+        show_version,
+        show_log,
+        remove_logfile,
+    }
+
+    task { Task::job::undefined };
+    uint32_t number{ 0 };
+
+    Task(job to_do, uint32_t num = 0)
+    : task(to_do)
+    , number(num) {};
+};
+
 class LexerParser final
 {
 private:
