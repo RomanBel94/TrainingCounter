@@ -3,7 +3,6 @@
 
 #include <fstream>	// ofstream
 #include <filesystem>	// exists(), create_directory()
-#include <string>	// strings
 #include <cstdlib>	// getenv()
 #include <ctime>	// asctime()
 #include <iostream> // cout
