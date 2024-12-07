@@ -35,10 +35,7 @@ private:
     void _markTraining();
     void _removeLogfile();
     void _drawCat();
-
-    inline void _showTrainings() { 
-        log->out(fmt::format("Remaining trainings: {}", counter->getTrainings()), Logger::NO_LOG);
-    }
+    void _showTrainings();
 
 public:
 

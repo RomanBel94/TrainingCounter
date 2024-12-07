@@ -142,6 +142,11 @@ void TrainingCounter::_removeLogfile()
     log->out("Log file has been removed", Logger::NO_LOG);
 }
 
+void TrainingCounter::_showTrainings()
+{
+    log->out(fmt::format("Remaining trainings: {}", counter->getTrainings(), Logger::NO_LOG));
+}
+
 void TrainingCounter::_drawCat()
 {
     log->out(
