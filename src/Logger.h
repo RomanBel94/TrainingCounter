@@ -2,7 +2,6 @@
 #ifndef LOGGER_H
 
 #include <fstream>	// ofstream
-#include <chrono>   // now()
 #include <filesystem>	// exists(), create_directory()
 #include <string>	// strings
 #include <cstdlib>	// getenv()
@@ -44,6 +43,7 @@ private:
 public:
 
     inline static bool const NO_LOG = false;
+    inline static bool const LOG = true;
 
     Logger();
     ~Logger();
@@ -55,7 +55,7 @@ public:
         @param need to write log
     */
     template <class T = char const*>
-    void out(T const* msg, bool log = true) noexcept
+    void out(T const* msg, bool log = LOG) noexcept
     {
         if (log && logfile.is_open())
         {
@@ -65,7 +65,7 @@ public:
     }
     
     template <class T>
-    void out(T const&& msg, bool log = true) noexcept
+    void out(T const&& msg, bool log = LOG) noexcept
     {
         if (log && logfile.is_open())
         {
