@@ -1,4 +1,5 @@
 #include "TrainingCounter.h"
+#include "LexerParser.h"
 
 TrainingCounter& TrainingCounter::getInstance(int argc, char** argv) noexcept
 {
@@ -18,32 +19,32 @@ int TrainingCounter::run()
         parser->parseCommandLine(argc, argv);
         counter->setTrainings(save->read());
        
-        for(char key : parser->getKeys())
+        for(const auto& task : parser->getTasks())
         {
-            switch (key)// do job given in argv
+            switch (task.task)// do job given in argv
             {
-            case 'v':
+            case Task::job::show_version:
                 log->out(fmt::format("TrainingCounter {}", VERSION), Logger::NO_LOG);
                 break;
-            case 'm':
+            case Task::job::mark_training:
                 _markTraining();
                 break;
-            case 's':
-                _setTrainings(parser->getNum());
+            case Task::job::set_trainings:
+                _setTrainings(task.number);
                 break;
-            case 'a':
-                _addTrainings(parser->getNum());
+            case Task::job::add_trainings:
+                _addTrainings(task.number);
                 break;
-            case 't':
+            case Task::job::show_trainings:
                 _showTrainings();
                 break;
-            case 'r':
+            case Task::job::remove_logfile:
                 _removeLogfile();
                 break;
-            case 'l':
-                log->showLog(parser->getNum());
+            case Task::job::show_log:
+                log->showLog(task.number);
                 break;
-            case 'C':
+            case Task::job::draw_cat:
                 _drawCat();
                 break;
             default:

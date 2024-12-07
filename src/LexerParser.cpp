@@ -11,7 +11,7 @@ void LexerParser::parseCommandLine(int argc, char** argv)
 {
     if (argc == 1)
     {
-        keys.push_back('*');
+        tasks.emplace(Task(Task::job::undefined));
         return;
     }
 
@@ -19,18 +19,6 @@ void LexerParser::parseCommandLine(int argc, char** argv)
 
     _collectArguments(arguments, argc, argv);
     _extractTokens(arguments);
-}
-
-/*
-    Returns first number from _nums collection
-
-    @return    uint32_t <number given for key>
-*/
-const uint32_t LexerParser::getNum() noexcept
-{
-    uint32_t ret{ nums.at(0) };
-    nums.pop_front();
-    return ret;
 }
 
 /*
@@ -80,9 +68,7 @@ void LexerParser::_extractKey(const char* reader)
             _numberIsOptional(*reader) && isdigit(*(reader + 1))
             )
         {
-            _validateKey(*reader);
-
-            keys.push_back(*reader);
+            currentKey = *reader;
             //   -a10-t-l-m
             //    ^ push_back('a')
             ++reader;
@@ -94,13 +80,9 @@ void LexerParser::_extractKey(const char* reader)
         //        ^ - *reader == 't' 
         else if (_numberIsNotRequired(*reader) || _numberIsOptional(*reader))
         {
-            _validateKey(*reader);
-
-            keys.push_back(*reader);
+            tasks.emplace(Task::keys[*reader]);
             //   -a10-t-l-m
             //        ^ push_back('t')
-            if (_numberIsOptional(*reader)) nums.push_back(0);
-
             ++reader;
             //   -a10-t-l-m
             //         ^ - *reader == '-'
@@ -140,8 +122,9 @@ void LexerParser::_extractNum(const char* reader)
             //   -a10-t-l-m             |   -a10-t-l-m
             //      ^ - reader          |       ^ - reader
         }
-        nums.push_back(atoi(buffer.c_str()));
+        currentNum = atoi(buffer.c_str());
 
+        tasks.emplace(Task::keys[currentKey], currentNum);
         _extractKey(reader);
     }
     else

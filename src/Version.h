@@ -3,4 +3,4 @@
 	Contains project version.
 */
 
-#define VERSION "v-1.6.1"
+#define VERSION "v-1.6.2"
