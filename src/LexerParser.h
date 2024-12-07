@@ -14,7 +14,7 @@
 struct Task final
 {
 public:
-    enum class job {
+    enum class jobType {
         undefined = 0,
         show_help,
         draw_cat,
@@ -25,43 +25,37 @@ public:
         show_version,
         show_log,
         remove_logfile,
-    }
-
-    const task { Task::job::undefined };
+    } const job { Task::jobType::undefined };
     const uint32_t number{ 0 };
     
-    inline static std::unordered_map<char, Task::job> keys
+    inline static std::unordered_map<char, Task::jobType> keys
     {
-        {'*', Task::job::undefined},
-        {'h', Task::job::show_help},
-        {'C', Task::job::draw_cat},
-        {'a', Task::job::add_trainings},
-        {'s', Task::job::set_trainings},
-        {'t', Task::job::show_trainings},
-        {'m', Task::job::mark_training},
-        {'v', Task::job::show_version},
-        {'l', Task::job::show_log},
-        {'r', Task::job::remove_logfile},
+        {'*', Task::jobType::undefined},
+        {'h', Task::jobType::show_help},
+        {'C', Task::jobType::draw_cat},
+        {'a', Task::jobType::add_trainings},
+        {'s', Task::jobType::set_trainings},
+        {'t', Task::jobType::show_trainings},
+        {'m', Task::jobType::mark_training},
+        {'v', Task::jobType::show_version},
+        {'l', Task::jobType::show_log},
+        {'r', Task::jobType::remove_logfile},
     };
 
-
-    explicit Task(job to_do, uint32_t num = 0) noexcept
-    : task(to_do)
+    explicit Task(jobType job, uint32_t num = 0) noexcept
+    : job(job)
     , number(num) {};
 
-    bool operator==(const Task& rhs) const noexcept { return this->task == rhs.task; }
-    bool operator<(const Task& rhs) const noexcept { return this->task < rhs.task; }
+    bool operator==(const Task& rhs) const noexcept { return this->job == rhs.job; }
+    bool operator<(const Task& rhs) const noexcept { return this->job < rhs.job; }
 };
 
 template<>
 struct std::hash<Task>
 {
-    typedef Task argument_type;
-    typedef std::size_t result_type;
-
-    result_type operator()(argument_type const& task) const
+    uint32_t operator()(Task const& task) const
     {
-        return std::hash<Task::job>()(task.task);
+        return std::hash<Task::jobType>()(task.job);
     }
 };
 

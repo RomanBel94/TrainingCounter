@@ -11,7 +11,7 @@ void LexerParser::parseCommandLine(int argc, char** argv)
 {
     if (argc == 1)
     {
-        tasks.emplace(Task(Task::job::undefined));
+        tasks.emplace(Task(Task::jobType::undefined));
         return;
     }
 

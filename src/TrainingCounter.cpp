@@ -21,30 +21,30 @@ int TrainingCounter::run()
        
         for(const auto& task : parser->getTasks())
         {
-            switch (task.task)// do job given in argv
+            switch (task.job)// do job given in argv
             {
-            case Task::job::show_version:
+            case Task::jobType::show_version:
                 log->out(fmt::format("TrainingCounter {}", VERSION), Logger::NO_LOG);
                 break;
-            case Task::job::mark_training:
+            case Task::jobType::mark_training:
                 _markTraining();
                 break;
-            case Task::job::set_trainings:
+            case Task::jobType::set_trainings:
                 _setTrainings(task.number);
                 break;
-            case Task::job::add_trainings:
+            case Task::jobType::add_trainings:
                 _addTrainings(task.number);
                 break;
-            case Task::job::show_trainings:
+            case Task::jobType::show_trainings:
                 _showTrainings();
                 break;
-            case Task::job::remove_logfile:
+            case Task::jobType::remove_logfile:
                 _removeLogfile();
                 break;
-            case Task::job::show_log:
+            case Task::jobType::show_log:
                 log->showLog(task.number);
                 break;
-            case Task::job::draw_cat:
+            case Task::jobType::draw_cat:
                 _drawCat();
                 break;
             default:
