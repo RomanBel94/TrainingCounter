@@ -28,8 +28,8 @@ configure_file(
 )
 message(STATUS "File \"Version.h\" configured with version: ${CMAKE_PROJECT_VERSION}")
 
-add_library(TrainingCounterCore)
-target_sources(TrainingCounterCore
+add_library(TrainingCounterLib)
+target_sources(TrainingCounterLib
     PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Counter.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Version.h
@@ -42,7 +42,7 @@ target_sources(TrainingCounterCore
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Save.h
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Save.cpp
 )
-target_link_libraries(TrainingCounterCore
+target_link_libraries(TrainingCounterLib
     PRIVATE
     ${FMT_LIB_PATH}
 )
@@ -54,7 +54,7 @@ target_sources(${MAIN}
 )
 target_link_libraries(${MAIN}
     PRIVATE
-    TrainingCounterCore
+    TrainingCounterLib
 )
 
 install(

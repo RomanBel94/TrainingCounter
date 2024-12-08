@@ -182,6 +182,6 @@ void TrainingCounter::_drawMoo() const noexcept
         "          /|____|,'\n"
         "         * /\"\\ /\\\n"
         "wWwWwWwWwWwWwWwWwWwWwWwWwWwWw\n"
-        "~~~ Have you mooed today? ~~~\n\n",
+        "~~~ Have you mooed today? ~~~\n",
         Logger::NO_LOG);
 }
