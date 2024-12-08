@@ -24,6 +24,7 @@ public:
         show_log,
         remove_logfile,
         draw_cat,
+        draw_moo,
         show_version,
     } const job { Task::jobType::undefined };
     const uint32_t number{ 0 };
@@ -33,6 +34,7 @@ public:
         {'*', Task::jobType::undefined},
         {'h', Task::jobType::show_help},
         {'C', Task::jobType::draw_cat},
+        {'M', Task::jobType::draw_moo},
         {'a', Task::jobType::add_trainings},
         {'s', Task::jobType::set_trainings},
         {'t', Task::jobType::show_trainings},
@@ -70,7 +72,7 @@ private:
 
     static constexpr char DIVIDER{ '-' };
     static constexpr auto numberIsRequiredKeys = "as";
-    static constexpr auto numberIsNotRequiredKeys = "thmvrC";
+    static constexpr auto numberIsNotRequiredKeys = "thmvrCM";
     static constexpr auto numberIsOptionalKeys = "l";
 
     std::set<Task> tasks;

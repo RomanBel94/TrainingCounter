@@ -46,6 +46,9 @@ int TrainingCounter::run()
             case Task::jobType::draw_cat:
                 _drawCat();
                 break;
+            case Task::jobType::draw_moo:
+                _drawMoo();
+                break;
             default:
                 _printHelp();
             }
@@ -147,7 +150,7 @@ void TrainingCounter::_showTrainings()
     log->out(fmt::format("Remaining trainings: {}", counter->getTrainings(), Logger::NO_LOG));
 }
 
-void TrainingCounter::_drawCat()
+void TrainingCounter::_drawCat() const noexcept
 {
     log->out(
         "\n"
@@ -166,5 +169,19 @@ void TrainingCounter::_drawCat()
         "         ; '   : :`-:     _.`* ;\n"
         "[bug] .*' /  .*' ; .*`- +'  `*'\n"
         "      `*-*   `*-*  `*-*'\n\n",
+        Logger::NO_LOG);
+}
+
+void TrainingCounter::_drawMoo() const noexcept
+{
+    log->out(
+            "\n"
+        "                 (__)\n"
+        "          ______~(..)~\n"
+        "           ,----\\(oo)\n"
+        "          /|____|,'\n"
+        "         * /\"\\ /\\\n"
+        "wWwWwWwWwWwWwWwWwWwWwWwWwWwWw\n"
+        "~~~ Have you mooed today? ~~~\n\n",
         Logger::NO_LOG);
 }

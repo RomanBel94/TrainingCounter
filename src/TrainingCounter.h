@@ -34,7 +34,8 @@ private:
     void _setTrainings(const uint32_t num);
     void _markTraining();
     void _removeLogfile();
-    void _drawCat();
+    void _drawCat() const noexcept;
+    void _drawMoo() const noexcept;
     void _showTrainings();
 
 public:
