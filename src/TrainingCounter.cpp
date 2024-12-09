@@ -147,7 +147,7 @@ void TrainingCounter::_removeLogfile()
 
 void TrainingCounter::_showTrainings()
 {
-    log->out(fmt::format("Remaining trainings: {}", counter->getTrainings(), Logger::NO_LOG));
+    log->out(fmt::format("Remaining trainings: {}", counter->getTrainings()), Logger::NO_LOG);
 }
 
 void TrainingCounter::_drawCat() const noexcept
