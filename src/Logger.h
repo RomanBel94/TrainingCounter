@@ -19,7 +19,7 @@ private:
 #ifdef _WIN32
 #pragma warning (disable: 4996)
     // cache directory for windows
-    const string cacheDir{ fmt::format("{}\\..\\ProgramData\\TrainingCounter\\", getenv("WINDIR")) };
+    const std::string cacheDir{ fmt::format("{}\\..\\ProgramData\\TrainingCounter\\", getenv("WINDIR")) };
 #pragma warning (default: 4996)
 #else
     // cache directory for linux
