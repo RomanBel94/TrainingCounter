@@ -58,6 +58,7 @@ int TrainingCounter::run()
     }
     catch (const std::exception& ex)
     {
+        save->write(counter->getTrainings());
         log->out(ex.what(), Logger::NO_LOG);
         exit(-1);
     }
