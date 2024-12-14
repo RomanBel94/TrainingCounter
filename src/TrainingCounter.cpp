@@ -68,16 +68,15 @@ int TrainingCounter::run()
 void TrainingCounter::_printHelp() noexcept
 {
     log->out("\nUsage:\n\n"
-            "\tTrainingCounter -h \t\tPrint \"Usage\";\n"
-            "\tTrainingCounter -a <num>\tAdd <num> trainings;\n"
-            "\tTrainingCounter -s <num>\tSet <num> trainings;\n"
-            "\tTrainingCounter -m \t\tMark completed training;\n"
-            "\tTrainingCounter -t \t\tShow remaining trainings;\n"
-            "\tTrainingCounter -v \t\tShow TrainingCounter version;\n"
-            "\tTrainingCounter -r \t\tRemove log file;\n"
-            "\tTrainingCounter -l [<num>]\tShow <num> last lines of log. If <num> is not given full log will be printed.\n\n\n"
-            "You can pass more than one key, but all keys must be unique.\n\n"
-            "Example: TrainingCounter -m -t -l5\n", 
+            "\tTrainingCounter -h, --help\t\tPrint \"Usage\";\n"
+            "\tTrainingCounter -a <num>\t\tAdd <num> trainings;\n"
+            "\tTrainingCounter -s <num>\t\tSet <num> trainings;\n"
+            "\tTrainingCounter -m \t\t\tMark completed training;\n"
+            "\tTrainingCounter -t \t\t\tShow remaining trainings;\n"
+            "\tTrainingCounter -v, --version\t\tShow TrainingCounter version;\n"
+            "\tTrainingCounter --remove_logfile\tRemove log file;\n"
+            "\tTrainingCounter -l [<num>]\t\tShow <num> last lines of log. If <num> is not given full log will be printed.\n\n\n"
+            "Example: TrainingCounter -m -t -l5 --version\n", 
         Logger::NO_LOG
         );
 }

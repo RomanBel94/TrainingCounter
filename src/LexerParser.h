@@ -11,9 +11,6 @@
 
 #include "../fmt/include/fmt/core.h"    // fmt::format
 
-
-#include <iostream>
-
 struct Task final
 {
 public:
@@ -29,21 +26,24 @@ public:
         draw_cat,
         draw_moo,
         show_version,
-    } const job;
+    } const job { jobType::undefined };
     const uint32_t number{ 0 };
     
-    inline static std::unordered_map<char, Task::jobType> jobs
+    inline static std::unordered_map<std::string, Task::jobType> jobs
     {
-        {'h', jobType::show_help},
-        {'C', jobType::draw_cat},
-        {'M', jobType::draw_moo},
-        {'a', jobType::add_trainings},
-        {'s', jobType::set_trainings},
-        {'t', jobType::show_trainings},
-        {'m', jobType::mark_training},
-        {'v', jobType::show_version},
-        {'l', jobType::show_log},
-        {'r', jobType::remove_logfile},
+        {"*", jobType::undefined},
+        {"h", jobType::show_help},
+        {"help", jobType::show_help},
+        {"draw_cat", jobType::draw_cat},
+        {"moo", jobType::draw_moo},
+        {"a", jobType::add_trainings},
+        {"s", jobType::set_trainings},
+        {"t", jobType::show_trainings},
+        {"m", jobType::mark_training},
+        {"v", jobType::show_version},
+        {"version", jobType::show_version},
+        {"l", jobType::show_log},
+        {"remove_logfile", jobType::remove_logfile},
     };
 
     explicit Task(jobType job, uint32_t num = 0) noexcept
@@ -74,7 +74,7 @@ private:
 
     static constexpr char DIVIDER{ '-' };
 
-    std::set<Task> tasks;
+    std::set<Task> tasks{};
 
 public:
     LexerParser() = default;
@@ -86,9 +86,9 @@ public:
 
 private:
 
-    void (LexerParser::*_currentReadingFunction)(const char* reader) = nullptr;
+    void (LexerParser::*_currentArgumentReadingFunction)(const char* reader) = nullptr;
 
-    char currentKey{ '*' };
+    std::string currentKey{ "*" };
     unsigned int currentNum{ 0 };
 
     void _collectArguments(std::string& strArgs, int argc, char** argv) noexcept;
@@ -96,9 +96,6 @@ private:
     void _extractSingleCharKey(const char* reader);
     void _extractMultiCharKey(const char* reader);
     void _extractNum(const char* reader);
-
-    bool _numberIsRequired(char ch) const noexcept
-        { return std::strchr("as", ch); }
 };
 
 #define LEXERPARSER_H
