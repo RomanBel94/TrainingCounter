@@ -66,21 +66,20 @@ void LexerParser::_extractTokens(const std::string& tokensString)
 void LexerParser::_extractSingleCharKey(const char* reader)
 {
     if (*reader == '\0') return;
-    if (*reader == DIVIDER && *(reader + 1) == DIVIDER)
+    if (*reader == DIVIDER)
     {
-        _currentArgumentReadingFunction = &LexerParser::_extractMultiCharKey;
-        (this->*_currentArgumentReadingFunction)(reader + 2);
-        return;
+        if (*(reader + 1) == DIVIDER)
+        {
+            _currentArgumentReadingFunction = &LexerParser::_extractMultiCharKey;
+            (this->*_currentArgumentReadingFunction)(reader + 2);
+            return;
+        }
+        else
+        {
+            ++reader;
+        }
     }
-    else if (*reader == DIVIDER)
-    {
-        ++reader;
-    }
-    //   -a10-t-l-m
-    //    ^ - *reader == 'a' 
     currentKey = *reader;
-    //   -a10-t-l-m
-    //    ^ push_back('a')
     _extractNum(++reader);
 }
 
@@ -108,19 +107,12 @@ void LexerParser::_extractNum(const char* reader)
         throw std::runtime_error(fmt::format("Number is required for key {}", currentKey));
 
     if (isdigit(*reader))
-        //   -a10-t-l-m
-        //     ^ *reader == 1
     {
         std::string buffer;
-
         while (isdigit(*reader))
         {
             buffer.push_back(*reader);
-            //   -a10-t-l-m             |   -a10-t-l-m
-            //     ^ push_back('1')     |      ^ push_back('0')
             ++reader;
-            //   -a10-t-l-m             |   -a10-t-l-m
-            //      ^ - reader          |       ^ - reader
         }
         currentNum = atoi(buffer.c_str());
     }
