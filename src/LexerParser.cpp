@@ -41,7 +41,10 @@ void LexerParser::_collectArguments(std::string& strArgs, int argc, char** argv)
 void LexerParser::_extractTokens(const std::string& tokensString)
 {
     if (tokensString[0] == DIVIDER && tokensString[1] != DIVIDER)
+    {
+        _currentReadingFunction = &LexerParser::_extractSingleCharKey;
         (this->*_currentReadingFunction)(tokensString.c_str() + 1);
+    }
     else throw std::runtime_error(fmt::format("Unexpected token {}", tokensString[0]));
 }
 
