@@ -78,7 +78,7 @@ private:
     std::set<Task> tasks;
 
 public:
-    LexerParser() = default;
+    LexerParser() : _currentReadingFunction(&LexerParser::_extractSingleCharKey) {};
     ~LexerParser() = default;
 
     void parseCommandLine(int argc, char** argv);
@@ -87,12 +87,15 @@ public:
 
 private:
 
+    void (LexerParser::*_currentReadingFunction)(const char* reader);
+
     unsigned char currentKey{ '*' };
     unsigned int currentNum{ 0 };
 
     void _collectArguments(std::string& strArgs, int argc, char** argv) noexcept;
     void _extractTokens(const std::string& tokensString);
-    void _extractKey(const char* reader);
+    void _extractSingleCharKey(const char* reader);
+    void _extractMultiCharKey(const char* reader);
     void _extractNum(const char* reader);
 
     bool _numberIsRequired(const char ch) const noexcept

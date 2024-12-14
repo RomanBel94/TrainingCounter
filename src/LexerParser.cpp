@@ -41,7 +41,7 @@ void LexerParser::_collectArguments(std::string& strArgs, int argc, char** argv)
 void LexerParser::_extractTokens(const std::string& tokensString)
 {
     if (tokensString[0] == DIVIDER && tokensString[1] != DIVIDER)
-        _extractKey(tokensString.c_str() + 1);
+        (this->*_currentReadingFunction)(tokensString.c_str() + 1);
     else throw std::runtime_error(fmt::format("Unexpected token {}", tokensString[0]));
 }
 
@@ -50,7 +50,7 @@ void LexerParser::_extractTokens(const std::string& tokensString)
 
     @param1    buffer string pointer
 */
-void LexerParser::_extractKey(const char* reader)
+void LexerParser::_extractSingleCharKey(const char* reader)
 {
     //   -a10-t-l-m
     //   ^ - *reader == '-'
@@ -86,7 +86,7 @@ void LexerParser::_extractKey(const char* reader)
             ++reader;
             //   -a10-t-l-m
             //         ^ - *reader == '-'
-            _extractKey(reader);
+            (this->*_currentReadingFunction)(reader);
         }
         else
         {
@@ -125,7 +125,7 @@ void LexerParser::_extractNum(const char* reader)
         currentNum = atoi(buffer.c_str());
 
         tasks.emplace(Task::keys[currentKey], currentNum);
-        _extractKey(reader);
+        (this->*_currentReadingFunction)(reader);
     }
     else
     {
