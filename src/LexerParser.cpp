@@ -104,6 +104,9 @@ void LexerParser::_extractMultiCharKey(const char* reader)
 */
 void LexerParser::_extractNum(const char* reader)
 {
+    if (currentKey.size() == 1 && _numberIsRequired(currentKey[0]) && !std::isdigit(*reader))
+        throw std::runtime_error(fmt::format("Number is required for key {}", currentKey));
+
     if (isdigit(*reader))
         //   -a10-t-l-m
         //     ^ *reader == 1

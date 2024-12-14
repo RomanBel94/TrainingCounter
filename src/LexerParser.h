@@ -96,6 +96,9 @@ private:
     void _extractSingleCharKey(const char* reader);
     void _extractMultiCharKey(const char* reader);
     void _extractNum(const char* reader);
+
+    bool _numberIsRequired(char ch)
+    { return std::strchr("as", ch); }
 };
 
 #define LEXERPARSER_H
