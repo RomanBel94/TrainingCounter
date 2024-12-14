@@ -49,7 +49,12 @@ public:
     */
     TrainingCounter(int argc, char** argv) : argc(argc), argv(argv) {};
 
-    static std::shared_ptr<TrainingCounter> getInstance(int argc, char** argv) noexcept;
+    template<class... Args>
+    static std::shared_ptr<TrainingCounter> getInstance(Args&& ...args) noexcept
+    {
+        auto ptr(std::make_shared<TrainingCounter>(args...));
+        return ptr;
+    };
     int run();
 };
 

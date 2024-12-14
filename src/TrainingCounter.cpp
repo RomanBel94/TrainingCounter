@@ -1,10 +1,5 @@
 #include "TrainingCounter.h"
 
-std::shared_ptr<TrainingCounter> TrainingCounter::getInstance(int argc, char** argv) noexcept
-{
-    static std::shared_ptr<TrainingCounter> app = std::make_unique<TrainingCounter>(argc, argv);
-    return app;
-}
 
 /*
     Main program function
