@@ -11,7 +11,7 @@ void LexerParser::parseCommandLine(int argc, char** argv)
 {
     if (argc == 1)
     {
-        tasks.emplace(Task::jobType::undefined);
+        tasks.emplace(Task::jobType::show_help);
         return;
     }
 
@@ -130,6 +130,6 @@ void LexerParser::_extractNum(const char* reader)
     std::cout << "currentNum: " << currentNum << std::endl;
 #endif
 
-    tasks.emplace(Task::keys[currentKey], currentNum);
+    tasks.emplace(Task::jobs[currentKey], currentNum);
     (this->*_currentReadingFunction)(reader);
 }

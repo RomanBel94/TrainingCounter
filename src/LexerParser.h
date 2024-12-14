@@ -29,22 +29,21 @@ public:
         draw_cat,
         draw_moo,
         show_version,
-    } const job { Task::jobType::undefined };
+    } const job;
     const uint32_t number{ 0 };
     
-    inline static std::unordered_map<char, Task::jobType> keys
+    inline static std::unordered_map<char, Task::jobType> jobs
     {
-        {'*', Task::jobType::undefined},
-        {'h', Task::jobType::show_help},
-        {'C', Task::jobType::draw_cat},
-        {'M', Task::jobType::draw_moo},
-        {'a', Task::jobType::add_trainings},
-        {'s', Task::jobType::set_trainings},
-        {'t', Task::jobType::show_trainings},
-        {'m', Task::jobType::mark_training},
-        {'v', Task::jobType::show_version},
-        {'l', Task::jobType::show_log},
-        {'r', Task::jobType::remove_logfile},
+        {'h', jobType::show_help},
+        {'C', jobType::draw_cat},
+        {'M', jobType::draw_moo},
+        {'a', jobType::add_trainings},
+        {'s', jobType::set_trainings},
+        {'t', jobType::show_trainings},
+        {'m', jobType::mark_training},
+        {'v', jobType::show_version},
+        {'l', jobType::show_log},
+        {'r', jobType::remove_logfile},
     };
 
     explicit Task(jobType job, uint32_t num = 0) noexcept

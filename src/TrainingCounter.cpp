@@ -1,6 +1,5 @@
 #include "TrainingCounter.h"
 
-
 /*
     Main program function
 
@@ -44,8 +43,11 @@ int TrainingCounter::run()
             case Task::jobType::draw_moo:
                 _drawMoo();
                 break;
-            default:
+            case Task::jobType::show_help:
                 _printHelp();
+                break;
+            default:
+                log->out("Uknown task, use flag -h to see help.", Logger::NO_LOG);
             }
         }
         // write save file
