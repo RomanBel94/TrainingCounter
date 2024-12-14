@@ -55,9 +55,9 @@ int TrainingCounter::run()
     {
         save->write(counter->getTrainings());
         log->out(ex.what(), Logger::NO_LOG);
-        exit(-1);
+        exit(EXIT_FAILURE);
     }
-    return 0;
+    return EXIT_SUCCESS;
 }
 
 /*
@@ -103,15 +103,8 @@ void TrainingCounter::_markTraining()
 */
 void TrainingCounter::_setTrainings(const uint32_t num)
 {
-    if (num < UINT32_MAX)
-    {
-        counter->setTrainings(num);
-        log->out(fmt::format("Set trainings to {}", num));
-    }
-    else
-    {
-        throw std::runtime_error(fmt::format("{} is too large number", num));
-    }    
+    counter->setTrainings(num);
+    log->out(fmt::format("Set trainings to {}", num));
 }
 
 /*
@@ -141,7 +134,7 @@ void TrainingCounter::_removeLogfile()
     log->out("Log file has been removed", Logger::NO_LOG);
 }
 
-void TrainingCounter::_showTrainings()
+void TrainingCounter::_showTrainings() const noexcept
 {
     log->out(fmt::format("Remaining trainings: {}", counter->getTrainings()), Logger::NO_LOG);
 }

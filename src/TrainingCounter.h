@@ -8,6 +8,7 @@
 #include "Version.h"
 
 #include <memory>
+#include <cstdlib>
 
 class TrainingCounter final
 {
@@ -36,7 +37,7 @@ private:
     void _removeLogfile();
     void _drawCat() const noexcept;
     void _drawMoo() const noexcept;
-    void _showTrainings();
+    void _showTrainings() const noexcept;
 
 public:
 
@@ -50,11 +51,15 @@ public:
     TrainingCounter(int argc, char** argv) : argc(argc), argv(argv) {};
 
     template<class... Args>
-    static std::shared_ptr<TrainingCounter> getInstance(Args&& ...args) noexcept
+    static std::shared_ptr<TrainingCounter>& getInstance(Args ...args) noexcept
     {
-        auto ptr(std::make_shared<TrainingCounter>(args...));
+        auto&& ptr(std::make_shared<TrainingCounter>(args...));
         return ptr;
     };
+
+    /*
+     * Main program function
+    */
     int run();
 };
 
