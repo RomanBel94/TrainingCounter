@@ -89,7 +89,7 @@ private:
 
     void (LexerParser::*_currentReadingFunction)(const char* reader) = nullptr;
 
-    unsigned char currentKey{ '*' };
+    char currentKey{ '*' };
     unsigned int currentNum{ 0 };
 
     void _collectArguments(std::string& strArgs, int argc, char** argv) noexcept;
@@ -98,6 +98,8 @@ private:
     void _extractMultiCharKey(const char* reader);
     void _extractNum(const char* reader);
 
+    bool _numberIsRequired(char ch) const noexcept
+        { return std::strchr("as", ch); }
 };
 
 #define LEXERPARSER_H

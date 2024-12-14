@@ -11,7 +11,7 @@ void LexerParser::parseCommandLine(int argc, char** argv)
 {
     if (argc == 1)
     {
-        tasks.emplace(Task(Task::jobType::undefined));
+        tasks.emplace(Task::jobType::undefined);
         return;
     }
 
@@ -40,15 +40,26 @@ void LexerParser::_collectArguments(std::string& strArgs, int argc, char** argv)
 */
 void LexerParser::_extractTokens(const std::string& tokensString)
 {
+
+#ifndef NDEBUG
+        std::cout << "tokensString: " << tokensString << std::endl;
+#endif
+
     if (tokensString[0] == DIVIDER && tokensString[1] != DIVIDER)
     {
-        std::cout << "before current reading function" << std::endl;
         _currentReadingFunction = &LexerParser::_extractSingleCharKey;
-        std::cout << "after current reading function" << std::endl;
-        std::cout << "tokensString: " << tokensString << std::endl;
         (this->*_currentReadingFunction)(tokensString.c_str() + 1);
     }
-    else throw std::runtime_error(fmt::format("Unexpected token {}", tokensString[0]));
+    else if (tokensString[0] == DIVIDER && tokensString[1] == DIVIDER)
+    {
+        _currentReadingFunction = &LexerParser::_extractMultiCharKey;
+        (this->*_currentReadingFunction)(tokensString.c_str() + 2);
+    }
+    else 
+    {
+        throw std::runtime_error(fmt::format("Unexpected token {}", tokensString[0]));
+    }
+
 }
 
 /*
@@ -59,14 +70,25 @@ void LexerParser::_extractTokens(const std::string& tokensString)
 void LexerParser::_extractSingleCharKey(const char* reader)
 {
     if (*reader == '\0') return;
+    if (*reader == DIVIDER && *(reader + 1) != DIVIDER) ++reader;
+
+#ifndef NDEBUG
     std::cout << "reader: " << *reader << std::endl;
+#endif
     //   -a10-t-l-m
     //    ^ - *reader == 'a' 
     currentKey = *reader;
+
+#ifndef NDEBUG
     std::cout << "currentKey: " << currentKey << std::endl;
+#endif
     //   -a10-t-l-m
     //    ^ push_back('a')
     _extractNum(++reader);
+}
+
+void LexerParser::_extractMultiCharKey(const char* reader)
+{
 }
 
 /*
@@ -77,7 +99,12 @@ void LexerParser::_extractSingleCharKey(const char* reader)
 void LexerParser::_extractNum(const char* reader)
 {
 
-    if (isdigit(*reader))
+    if (_numberIsRequired(currentKey) && !isdigit(*reader))
+    {
+        throw std::runtime_error(
+                fmt::format("Number is required for key: {}", currentKey));
+    }
+    else if (isdigit(*reader))
         //   -a10-t-l-m
         //     ^ *reader == 1
     {
@@ -98,8 +125,11 @@ void LexerParser::_extractNum(const char* reader)
     {
         currentNum = 0;
     }
-    
+   
+#ifndef NDEBUG
     std::cout << "currentNum: " << currentNum << std::endl;
+#endif
+
     tasks.emplace(Task::keys[currentKey], currentNum);
     (this->*_currentReadingFunction)(reader);
 }
