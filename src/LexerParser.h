@@ -11,6 +11,9 @@
 
 #include "../fmt/include/fmt/core.h"    // fmt::format
 
+
+#include <iostream>
+
 struct Task final
 {
 public:
@@ -71,9 +74,6 @@ private:
     LexerParser& operator=(LexerParser&&) = delete;
 
     static constexpr char DIVIDER{ '-' };
-    static constexpr auto numberIsRequiredKeys = "as";
-    static constexpr auto numberIsNotRequiredKeys = "thmvrCM";
-    static constexpr auto numberIsOptionalKeys = "l";
 
     std::set<Task> tasks;
 
@@ -87,7 +87,7 @@ public:
 
 private:
 
-    void (LexerParser::*_currentReadingFunction)(const char* reader) = nullptr;;
+    void (LexerParser::*_currentReadingFunction)(const char* reader) = nullptr;
 
     unsigned char currentKey{ '*' };
     unsigned int currentNum{ 0 };
@@ -98,15 +98,8 @@ private:
     void _extractMultiCharKey(const char* reader);
     void _extractNum(const char* reader);
 
-    bool _numberIsRequired(const char ch) const noexcept
-        { return strchr(numberIsRequiredKeys, ch); }
-
-    bool _numberIsNotRequired(const char ch) const noexcept
-        { return strchr(numberIsNotRequiredKeys, ch); } 
-
-    bool _numberIsOptional(const char ch) const noexcept
-        { return strchr(numberIsOptionalKeys, ch); }
 };
 
 #define LEXERPARSER_H
 #endif
+

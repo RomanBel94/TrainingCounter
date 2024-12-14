@@ -42,7 +42,10 @@ void LexerParser::_extractTokens(const std::string& tokensString)
 {
     if (tokensString[0] == DIVIDER && tokensString[1] != DIVIDER)
     {
+        std::cout << "before current reading function" << std::endl;
         _currentReadingFunction = &LexerParser::_extractSingleCharKey;
+        std::cout << "after current reading function" << std::endl;
+        std::cout << "tokensString: " << tokensString << std::endl;
         (this->*_currentReadingFunction)(tokensString.c_str() + 1);
     }
     else throw std::runtime_error(fmt::format("Unexpected token {}", tokensString[0]));
@@ -55,51 +58,15 @@ void LexerParser::_extractTokens(const std::string& tokensString)
 */
 void LexerParser::_extractSingleCharKey(const char* reader)
 {
+    if (*reader == '\0') return;
+    std::cout << "reader: " << *reader << std::endl;
     //   -a10-t-l-m
-    //   ^ - *reader == '-'
-    if (!*reader && *(reader - 1) != DIVIDER)
-    {
-        return;
-    }
-    else if (*reader == DIVIDER || std::isalpha(*reader))
-    {
-        *reader == DIVIDER ? ++reader : reader;
-        //   -a10-t-l-m
-        //    ^ - *reader == 'a' 
-        if (
-            _numberIsRequired(*reader) ||
-            _numberIsOptional(*reader) && isdigit(*(reader + 1))
-            )
-        {
-            currentKey = *reader;
-            //   -a10-t-l-m
-            //    ^ push_back('a')
-            ++reader;
-            //   -a10-t-l-m
-            //     ^ - *reader == '1'
-            _extractNum(reader);
-        }
-        //   -a10-t-l-m
-        //        ^ - *reader == 't' 
-        else if (_numberIsNotRequired(*reader) || _numberIsOptional(*reader))
-        {
-            tasks.emplace(Task::keys[*reader]);
-            //   -a10-t-l-m
-            //        ^ push_back('t')
-            ++reader;
-            //   -a10-t-l-m
-            //         ^ - *reader == '-'
-            (this->*_currentReadingFunction)(reader);
-        }
-        else
-        {
-            throw std::runtime_error(fmt::format("Unexpected token {}", *reader));
-        }
-    }
-    else
-    {
-        throw std::runtime_error(fmt::format("Unexpected token {}", *reader));
-    }
+    //    ^ - *reader == 'a' 
+    currentKey = *reader;
+    std::cout << "currentKey: " << currentKey << std::endl;
+    //   -a10-t-l-m
+    //    ^ push_back('a')
+    _extractNum(++reader);
 }
 
 /*
@@ -126,12 +93,13 @@ void LexerParser::_extractNum(const char* reader)
             //      ^ - reader          |       ^ - reader
         }
         currentNum = atoi(buffer.c_str());
-
-        tasks.emplace(Task::keys[currentKey], currentNum);
-        (this->*_currentReadingFunction)(reader);
     }
     else
     {
-        throw std::runtime_error("Number is required");
+        currentNum = 0;
     }
+    
+    std::cout << "currentNum: " << currentNum << std::endl;
+    tasks.emplace(Task::keys[currentKey], currentNum);
+    (this->*_currentReadingFunction)(reader);
 }
