@@ -29,6 +29,16 @@ public:
     } const job { jobType::undefined };
     const uint32_t number{ 0 };
     
+
+    explicit Task(const std::string& key, uint32_t num = 0) noexcept
+    : job(jobs[key])
+    , number(num) {};
+
+    bool operator==(const Task& rhs) const noexcept { return this->job == rhs.job; }
+    bool operator<(const Task& rhs) const noexcept { return this->job < rhs.job; }
+
+private:
+
     inline static std::unordered_map<std::string, Task::jobType> jobs
     {
         {"*", jobType::undefined},
@@ -45,13 +55,6 @@ public:
         {"l", jobType::show_log},
         {"remove_logfile", jobType::remove_logfile},
     };
-
-    explicit Task(jobType job, uint32_t num = 0) noexcept
-    : job(job)
-    , number(num) {};
-
-    bool operator==(const Task& rhs) const noexcept { return this->job == rhs.job; }
-    bool operator<(const Task& rhs) const noexcept { return this->job < rhs.job; }
 };
 
 template<>
@@ -88,7 +91,7 @@ private:
 
     void (LexerParser::*_currentArgumentReadingFunction)(const char* reader) = nullptr;
 
-    std::string currentKey{ "*" };
+    std::string currentKey{ "h" };
     unsigned int currentNum{ 0 };
 
     void _collectArguments(std::string& strArgs, int argc, char** argv) noexcept;
