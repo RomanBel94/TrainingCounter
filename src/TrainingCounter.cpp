@@ -10,6 +10,8 @@ int TrainingCounter::run()
     try
     {   
         counter->setTrainings(save->read());
+
+        const auto parser = std::make_unique<LexerParser>();
         parser->parseCommandLine(argc, argv);
        
         for(const auto& task : parser->getTasks())

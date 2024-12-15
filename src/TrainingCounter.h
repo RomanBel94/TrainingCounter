@@ -20,7 +20,6 @@ private:
     std::unique_ptr<Counter> counter = std::make_unique<Counter>();
     std::unique_ptr<Logger> log = std::make_unique<Logger>();
     std::unique_ptr<Save> save = std::make_unique<Save>();
-    std::unique_ptr<LexerParser> parser = std::make_unique<LexerParser>();
 
 private:
 
