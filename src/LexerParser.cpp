@@ -79,7 +79,10 @@ void LexerParser::_extractSingleCharKey(const char* reader)
             ++reader;
         }
     }
-    currentKey = *reader;
+    if (_isAllowedSingleKey(*reader))
+        currentKey = *reader;
+    else
+        throw std::runtime_error(fmt::format("Token {} is not allowed", *reader));
     _extractNum(++reader);
 }
 

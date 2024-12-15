@@ -44,8 +44,11 @@ private:
     void _extractMultiCharKey(const char* reader);
     void _extractNum(const char* reader);
 
-    bool _numberIsRequired(char ch)
+    bool _numberIsRequired(char ch) const noexcept
     { return std::strchr("as", ch); }
+
+    bool _isAllowedSingleKey(char ch) const noexcept
+    { return strchr("astvmlh", ch); }
 };
 
 struct Task final

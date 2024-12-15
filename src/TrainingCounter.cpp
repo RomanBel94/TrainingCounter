@@ -9,8 +9,8 @@ int TrainingCounter::run()
 {
     try
     {   
-        parser->parseCommandLine(argc, argv);
         counter->setTrainings(save->read());
+        parser->parseCommandLine(argc, argv);
        
         for(const auto& task : parser->getTasks())
         {
