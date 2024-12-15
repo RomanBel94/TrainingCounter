@@ -10,6 +10,44 @@
 
 #include "../fmt/include/fmt/format.h"
 
+class Task;
+
+class LexerParser final
+{
+public:
+    LexerParser() = default;
+    ~LexerParser() = default;
+
+    void parseCommandLine(int argc, char** argv);
+
+    const auto& getTasks() const noexcept { return tasks; }
+
+private:
+    
+    LexerParser(const LexerParser&) = delete;
+    LexerParser(LexerParser&&) = delete;
+    LexerParser& operator=(const LexerParser&) = delete;
+    LexerParser& operator=(LexerParser&&) = delete;
+
+    static constexpr char DIVIDER{ '-' };
+    
+    std::set<Task> tasks{};
+    std::string currentKey{ "h" };
+
+    unsigned int currentNum{ 0 };
+
+    void (LexerParser::*_currentArgumentReadingFunction)(const char* reader) = nullptr;
+
+    void _collectArguments(std::string& strArgs, int argc, char** argv) noexcept;
+    void _extractTokens(const std::string& tokensString);
+    void _extractSingleCharKey(const char* reader);
+    void _extractMultiCharKey(const char* reader);
+    void _extractNum(const char* reader);
+
+    bool _numberIsRequired(char ch)
+    { return std::strchr("as", ch); }
+};
+
 struct Task final
 {
 public:
@@ -29,7 +67,6 @@ public:
     } const job { jobType::undefined };
     const uint32_t number{ 0 };
     
-
     explicit Task(const std::string& key, uint32_t num = 0) noexcept
     : job(jobs[key])
     , number(num) {};
@@ -65,44 +102,6 @@ struct std::hash<Task>
     {
         return std::hash<Task::jobType>()(task.job);
     }
-};
-
-class LexerParser final
-{
-private:
-
-    LexerParser(const LexerParser&) = delete;
-    LexerParser(LexerParser&&) = delete;
-    LexerParser& operator=(const LexerParser&) = delete;
-    LexerParser& operator=(LexerParser&&) = delete;
-
-    static constexpr char DIVIDER{ '-' };
-
-    std::set<Task> tasks{};
-
-public:
-    LexerParser() = default;
-    ~LexerParser() = default;
-
-    void parseCommandLine(int argc, char** argv);
-
-    const auto& getTasks() const noexcept { return tasks; }
-
-private:
-
-    void (LexerParser::*_currentArgumentReadingFunction)(const char* reader) = nullptr;
-
-    std::string currentKey{ "h" };
-    unsigned int currentNum{ 0 };
-
-    void _collectArguments(std::string& strArgs, int argc, char** argv) noexcept;
-    void _extractTokens(const std::string& tokensString);
-    void _extractSingleCharKey(const char* reader);
-    void _extractMultiCharKey(const char* reader);
-    void _extractNum(const char* reader);
-
-    bool _numberIsRequired(char ch)
-    { return std::strchr("as", ch); }
 };
 
 #define LEXERPARSER_H
