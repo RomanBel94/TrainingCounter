@@ -32,10 +32,10 @@ private:
     void _printHelp() noexcept;
     void _addTrainings(const uint32_t num);
     void _setTrainings(const uint32_t num);
-    void _markTraining();
-    void _removeLogfile() const;
-    void _removeSaveFile() const;
-    void _removeCache() const;
+    void _markTraining() noexcept;
+    void _removeLogfile() const noexcept;
+    void _removeSaveFile() const noexcept;
+    void _removeCache() const noexcept;
     void _drawCat() const noexcept;
     void _drawMoo() const noexcept;
     void _showTrainings() const noexcept;

@@ -95,7 +95,7 @@ void TrainingCounter::_printHelp() noexcept
 /*
     Marks the completed training
 */
-void TrainingCounter::_markTraining()
+void TrainingCounter::_markTraining() noexcept
 {
     if (counter->getTrainings() > 0)
     {
@@ -140,19 +140,19 @@ void TrainingCounter::_addTrainings(const uint32_t num)
 /*
     Removes log file
 */
-void TrainingCounter::_removeLogfile() const
+void TrainingCounter::_removeLogfile() const noexcept
 {
     log->removeLogfile();
     log->out("Log file has been removed", Logger::NO_LOG);
 }
 
-void TrainingCounter::_removeSaveFile() const
+void TrainingCounter::_removeSaveFile() const noexcept
 {
     save->removeSavefile();
     log->out("Savefile has been removed");
 }
 
-void TrainingCounter::_removeCache() const
+void TrainingCounter::_removeCache() const noexcept
 {
     _removeSaveFile();
     _removeLogfile();
