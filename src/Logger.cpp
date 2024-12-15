@@ -6,8 +6,7 @@
 */
 Logger::Logger()
 {
-    if (!std::filesystem::exists(cacheDir))
-        std::filesystem::create_directory(cacheDir);
+    std::filesystem::create_directory(cacheDir);
     
     try
     {
