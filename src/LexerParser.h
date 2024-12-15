@@ -60,6 +60,7 @@ public:
         show_trainings,
         show_log,
         remove_logfile,
+        remove_savefile,
         remove_cache,
         draw_cat,
         draw_moo,
@@ -92,6 +93,7 @@ private:
         {"l", jobType::show_log},
         {"remove_logfile", jobType::remove_logfile},
         {"remove_cache", jobType::remove_cache},
+        {"remove_savefile", jobType::remove_savefile},
     };
 };
 

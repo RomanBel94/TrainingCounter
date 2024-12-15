@@ -34,6 +34,9 @@ int TrainingCounter::run()
             case Task::jobType::remove_logfile:
                 _removeLogfile();
                 break;
+            case Task::jobType::remove_savefile:
+                _removeSaveFile();
+                break;
             case Task::jobType::show_log:
                 log->showLog(task.number);
                 break;
@@ -77,9 +80,11 @@ void TrainingCounter::_printHelp() noexcept
             "\tTrainingCounter -m \t\t\tMark completed training;\n"
             "\tTrainingCounter -t \t\t\tShow remaining trainings;\n"
             "\tTrainingCounter -v, --version\t\tShow TrainingCounter version;\n"
+            "\tTrainingCounter -l [<num>]\t\tShow <num> last lines of log.\n"
+            "\t\t\t\t\t\tIf <num> is not given full log will be printed;\n"
             "\tTrainingCounter --remove_logfile\tRemove log file;\n"
-            "\tTrainingCounter --remove_cache\tRemove cache directory;\n"
-            "\tTrainingCounter -l [<num>]\t\tShow <num> last lines of log. If <num> is not given full log will be printed.\n\n\n"
+            "\tTrainingCounter --remove_savefile\tRemove save file;\n"
+            "\tTrainingCounter --remove_cache\t\tRemove cache directory.\n\n"
             "Example: TrainingCounter -m -t -l5 --version\n", 
         Logger::NO_LOG
         );
@@ -139,10 +144,15 @@ void TrainingCounter::_removeLogfile() const
     log->out("Log file has been removed", Logger::NO_LOG);
 }
 
-void TrainingCounter::_removeCache() const
+void TrainingCounter::_removeSaveFile() const
 {
     save->removeSavefile();
     log->out("Savefile has been removed");
+}
+
+void TrainingCounter::_removeCache() const
+{
+    _removeSaveFile();
     _removeLogfile();
     std::filesystem::remove_all(log->getCacheDir());
     log->out("Cache directory has been removed");
