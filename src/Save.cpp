@@ -1,4 +1,5 @@
 #include "Save.h"
+#include <filesystem>
 
 /*
     Creates cache directory if it's not exists
@@ -40,4 +41,9 @@ void Save::write(uint32_t trainings) const noexcept
         output.write(reinterpret_cast<char*>(&trainings), sizeof(trainings));
         output.close();
     }
+}
+
+void Save::removeSavefile() const
+{
+    std::filesystem::remove(filename);
 }

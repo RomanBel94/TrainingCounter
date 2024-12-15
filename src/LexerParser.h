@@ -6,10 +6,9 @@
 #include <cstdlib>    // atoi()
 #include <cctype>     // isdigit()
 #include <cstring>    // strchr()
-#include <exception>  // runtime_error
 #include <unordered_map>
 
-#include "../fmt/include/fmt/core.h"    // fmt::format
+#include "../fmt/include/fmt/format.h"
 
 struct Task final
 {
@@ -23,6 +22,7 @@ public:
         show_trainings,
         show_log,
         remove_logfile,
+        remove_cache,
         draw_cat,
         draw_moo,
         show_version,
@@ -54,6 +54,7 @@ private:
         {"version", jobType::show_version},
         {"l", jobType::show_log},
         {"remove_logfile", jobType::remove_logfile},
+        {"remove_cache", jobType::remove_cache},
     };
 };
 

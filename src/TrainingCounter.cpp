@@ -46,16 +46,21 @@ int TrainingCounter::run()
             case Task::jobType::show_help:
                 _printHelp();
                 break;
+            case Task::jobType::remove_cache:
+                _removeCache();
+                break;
             default:
                 log->out("Uknown task, use flag -h to see help.", Logger::NO_LOG);
             }
         }
         // write save file
-        save->write(counter->getTrainings());
+        if (!cacheRemoved)
+            save->write(counter->getTrainings());
     }
     catch (const std::exception& ex)
     {
-        save->write(counter->getTrainings());
+        if (!cacheRemoved)
+            save->write(counter->getTrainings());
         log->out(ex.what(), Logger::NO_LOG);
         exit(EXIT_FAILURE);
     }
@@ -75,6 +80,7 @@ void TrainingCounter::_printHelp() noexcept
             "\tTrainingCounter -t \t\t\tShow remaining trainings;\n"
             "\tTrainingCounter -v, --version\t\tShow TrainingCounter version;\n"
             "\tTrainingCounter --remove_logfile\tRemove log file;\n"
+            "\tTrainingCounter --remove_cache\tRemove cache directory;\n"
             "\tTrainingCounter -l [<num>]\t\tShow <num> last lines of log. If <num> is not given full log will be printed.\n\n\n"
             "Example: TrainingCounter -m -t -l5 --version\n", 
         Logger::NO_LOG
@@ -129,10 +135,20 @@ void TrainingCounter::_addTrainings(const uint32_t num)
 /*
     Removes log file
 */
-void TrainingCounter::_removeLogfile()
+void TrainingCounter::_removeLogfile() const
 {
     log->removeLogfile();
     log->out("Log file has been removed", Logger::NO_LOG);
+}
+
+void TrainingCounter::_removeCache() 
+{
+    save->removeSavefile();
+    log->out("Savefile has been removed");
+    _removeLogfile();
+    std::filesystem::remove_all(log->getCacheDir());
+    log->out("Cache directory has been removed");
+    cacheRemoved = true;
 }
 
 void TrainingCounter::_showTrainings() const noexcept

@@ -8,7 +8,7 @@
 #include <iostream> // cout
 #include <deque>    // deque
 
-#include "../fmt/include/fmt/core.h"
+#include "../fmt/include/fmt/format.h"
 
 class Logger final
 {
@@ -72,6 +72,8 @@ public:
         }
         std::cout << msg << std::endl;
     }
+
+    const auto& getCacheDir() const noexcept { return cacheDir; }
 
     void removeLogfile();
     void showLog(size_t lines_num = 0);

@@ -33,6 +33,9 @@ public:
 
     void write(uint32_t trainings) const noexcept;
     const uint32_t read() const noexcept;
+
+    void removeSavefile() const;
+    const auto& getCacheDir() const noexcept { return cacheDir; }
 };
 
 #define SAVE_H
