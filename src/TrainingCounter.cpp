@@ -54,13 +54,11 @@ int TrainingCounter::run()
             }
         }
         // write save file
-        if (!cacheRemoved)
-            save->write(counter->getTrainings());
+        save->write(counter->getTrainings());
     }
     catch (const std::exception& ex)
     {
-        if (!cacheRemoved)
-            save->write(counter->getTrainings());
+        save->write(counter->getTrainings());
         log->out(ex.what(), Logger::NO_LOG);
         exit(EXIT_FAILURE);
     }
@@ -141,14 +139,13 @@ void TrainingCounter::_removeLogfile() const
     log->out("Log file has been removed", Logger::NO_LOG);
 }
 
-void TrainingCounter::_removeCache() 
+void TrainingCounter::_removeCache() const
 {
     save->removeSavefile();
     log->out("Savefile has been removed");
     _removeLogfile();
     std::filesystem::remove_all(log->getCacheDir());
     log->out("Cache directory has been removed");
-    cacheRemoved = true;
 }
 
 void TrainingCounter::_showTrainings() const noexcept

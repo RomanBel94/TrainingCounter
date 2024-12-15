@@ -17,8 +17,6 @@ private:
     int argc;              // number of given arguments
     char** argv;           // value of given arguments
     
-    bool cacheRemoved = false;
-
     std::unique_ptr<Counter> counter = std::make_unique<Counter>();
     std::unique_ptr<Logger> log = std::make_unique<Logger>();
     std::unique_ptr<Save> save = std::make_unique<Save>();
@@ -37,7 +35,7 @@ private:
     void _setTrainings(const uint32_t num);
     void _markTraining();
     void _removeLogfile() const;
-    void _removeCache();
+    void _removeCache() const;
     void _drawCat() const noexcept;
     void _drawMoo() const noexcept;
     void _showTrainings() const noexcept;
