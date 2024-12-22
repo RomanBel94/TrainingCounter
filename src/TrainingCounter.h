@@ -4,11 +4,12 @@
 #include "Counter.hpp"
 #include "Logger.h"
 #include "Save.h"
-#include "LexerParser.h"
 #include "Version.h"
 
 #include <memory>
 #include <cstdlib>
+
+#include "../CLIlib/src/CLIlib.h"
 
 class TrainingCounter final
 {
@@ -61,7 +62,7 @@ public:
     /*
      * Main program function
     */
-    int run();
+    int run() noexcept;
 };
 
 #define CORE_H

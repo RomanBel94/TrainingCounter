@@ -5,57 +5,63 @@
 
     @return exit code
 */
-int TrainingCounter::run()
+int TrainingCounter::run() noexcept
 {
+    const auto& cli{ CLI::CLI::get_instance() };
+    cli->add_opt('v', 'm', 's', 'a', 't', 'l', 'h');
+    cli->add_long_opt("remove_logfile", "remove_savefile", "remove_cache", "draw_cat", "draw_moo");
+
     try
     {   
         counter->setTrainings(save->read());
 
-        const auto parser = std::make_unique<LexerParser>();
-        parser->parseCommandLine(argc, argv);
+        cli->parse_args(argc, argv);
        
-        for(const auto& task : parser->getTasks())
+        for(const auto& [task, value] : cli->tokens())
         {
-            switch (task.job)// do job given in argv
+            if (!cli->is_valid_token(task))
             {
-            case Task::jobType::show_version:
-                log->out(fmt::format("TrainingCounter {}", VERSION), Logger::NO_LOG);
-                break;
-            case Task::jobType::mark_training:
-                _markTraining();
-                break;
-            case Task::jobType::set_trainings:
-                _setTrainings(task.number);
-                break;
-            case Task::jobType::add_trainings:
-                _addTrainings(task.number);
-                break;
-            case Task::jobType::show_trainings:
-                _showTrainings();
-                break;
-            case Task::jobType::remove_logfile:
-                _removeLogfile();
-                break;
-            case Task::jobType::remove_savefile:
-                _removeSaveFile();
-                break;
-            case Task::jobType::show_log:
-                log->showLog(task.number);
-                break;
-            case Task::jobType::draw_cat:
-                _drawCat();
-                break;
-            case Task::jobType::draw_moo:
-                _drawMoo();
-                break;
-            case Task::jobType::show_help:
-                _printHelp();
-                break;
-            case Task::jobType::remove_cache:
-                _removeCache();
-                break;
-            default:
-                log->out("Uknown task, use flag -h to see help.", Logger::NO_LOG);
+                log->out(fmt::format("Unknown task: {}, use key \"-h\" for help.", task));
+                continue;
+            }
+
+            if (task.size() == 1)
+                switch (task[0])// do job given in argv
+                {
+                case 'v':
+                    log->out(fmt::format("TrainingCounter {}", VERSION), Logger::NO_LOG);
+                    break;
+                case 'm':
+                    _markTraining();
+                    break;
+                case 's':
+                    _setTrainings(value.empty() ? counter->getTrainings() : std::atoi(value.c_str()));
+                    break;
+                case 'a':
+                    _addTrainings(value.empty() ? 0 : atoi(value.c_str()));
+                    break;
+                case 't':
+                    _showTrainings();
+                    break;
+                case 'l':
+                    log->showLog(value.empty() ? 0 : std::atoi(value.c_str()));
+                    break;
+                case 'h':
+                    _printHelp();
+                    break;
+                }
+            else
+            {
+                if (task == "remove_logfile")
+                    _removeLogfile();
+                else if (task == "remove_savefile")
+                    _removeSaveFile();
+                else if (task == "draw_cat")
+                    _drawCat();
+                else if (task == "draw_moo")
+                    _drawMoo();
+                else if (task == "remove_cache")
+                    _removeCache();
             }
         }
         // write save file
