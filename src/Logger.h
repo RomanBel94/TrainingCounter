@@ -8,7 +8,7 @@
 #include <iostream> // cout
 #include <deque>    // deque
 
-#include "../fmt/include/fmt/format.h"
+#include "../external/fmt/include/fmt/format.h"
 
 class Logger final
 {

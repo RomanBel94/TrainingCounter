@@ -6,18 +6,11 @@ set(CMAKE_BUILD_TYPE Release)
 message(STATUS "Build type is: ${CMAKE_BUILD_TYPE}")
 
 if(${WIN32})
-    #set(CLI_LIB_PATH ${CMAKE_CURRENT_SOURCE_DIR}/CLIlib/CLIlib.lib)
-    #set(FMT_LIB_PATH ${CMAKE_CURRENT_SOURCE_DIR}/fmt/fmt.lib)
-    include_directories(${CMAKE_CURRENT_SOURCE_DIR}/fmt/include/fmt/)
-    include_directories(${CMAKE_CURRENT_SOURCE_DIR}/CLIlib/src/)
     add_compile_options("/utf-8")
-elseif(${LINUX})
-    set(CLI_LIB_PATH ${CMAKE_CURRENT_SOURCE_DIR}/CLIlib/libCLIlib.a)
-    set(FMT_LIB_PATH ${CMAKE_CURRENT_SOURCE_DIR}/fmt/libfmt.a)
 endif()
 
-add_subdirectory(CLIlib)
-add_subdirectory(fmt)
+add_subdirectory(external/CLIlib)
+add_subdirectory(external/fmt)
 
 project(
     ${MAIN}

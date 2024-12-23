@@ -1,6 +1,6 @@
 [submodule "fmt"]
-	path = fmt
+	path = external/fmt
 	url = https://github.com/fmtlib/fmt.git
 [submodule "CLIlib"]
-	path = CLIlib
+	path = external/CLIlib
 	url = https://github.com/RomanBel94/CLIlib.git

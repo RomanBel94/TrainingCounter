@@ -10,3 +10,5 @@ src/Version.h
 *.exe
 *.pdb
 *.ilk
+CLIlib/
+fmt/

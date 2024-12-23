@@ -9,7 +9,7 @@
 #include <memory>
 #include <cstdlib>
 
-#include "../CLIlib/src/CLIlib.h"
+#include "../CLIlib/include/CLIlib.h"
 
 class TrainingCounter final
 {
