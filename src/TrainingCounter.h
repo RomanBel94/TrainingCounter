@@ -3,7 +3,6 @@
 
 #include "Counter.hpp"
 #include "Logger.h"
-#include "Save.h"
 #include "Version.h"
 
 #include <memory>
@@ -20,7 +19,6 @@ private:
     
     std::unique_ptr<Counter> counter = std::make_unique<Counter>();
     std::unique_ptr<Logger> log = std::make_unique<Logger>();
-    std::unique_ptr<Save> save = std::make_unique<Save>();
 
 private:
 

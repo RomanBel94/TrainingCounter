@@ -9,22 +9,14 @@ int TrainingCounter::run() noexcept
 {
     const auto& cli{ CLI::CLI::get_instance() };
     cli->add_opt('v', 'm', 's', 'a', 't', 'l', 'h');
-    cli->add_long_opt("remove_logfile", "remove_savefile", "remove_cache", "draw_cat", "draw_moo");
+    cli->add_long_opt("remove_logfile", "remove_savefile", "remove_cache", "draw_cat", "draw_moo", "version");
 
     try
     {   
-        counter->setTrainings(save->read());
-
         cli->parse_args(argc, argv);
        
         for(const auto& [task, value] : cli->tokens())
         {
-            if (!cli->is_valid_token(task))
-            {
-                log->out(fmt::format("Unknown task: {}, use key \"-h\" for help.", task));
-                continue;
-            }
-
             if (task.size() == 1)
                 switch (task[0])// do job given in argv
                 {
@@ -64,14 +56,11 @@ int TrainingCounter::run() noexcept
                     _removeCache();
             }
         }
-        // write save file
-        save->write(counter->getTrainings());
     }
     catch (const std::exception& ex)
     {
-        save->write(counter->getTrainings());
         log->out(ex.what(), Logger::NO_LOG);
-        exit(EXIT_FAILURE);
+        return EXIT_FAILURE;
     }
     return EXIT_SUCCESS;
 }
@@ -154,7 +143,7 @@ void TrainingCounter::_removeLogfile() const noexcept
 
 void TrainingCounter::_removeSaveFile() const noexcept
 {
-    save->removeSavefile();
+    counter->removeSavefile();
     log->out("Savefile has been removed");
 }
 
