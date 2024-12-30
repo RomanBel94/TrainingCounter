@@ -7,7 +7,7 @@
 Logger::Logger()
 {
     std::filesystem::create_directory(cacheDir);
-    
+
     try
     {
         logfile.open(logFileName, std::ios::out | std::ios::app);
@@ -23,10 +23,7 @@ Logger::Logger()
     Destructor
     Closes log file
 */
-Logger::~Logger()
-{
-    logfile.close();
-}
+Logger::~Logger() { logfile.close(); }
 
 /*
     Shows log from logfile, if number is 0 shows full log
@@ -52,20 +49,21 @@ void Logger::showLog(size_t lines_num)
         out("Log file is empty.", NO_LOG);
         return;
     }
-    
+
     if (lines_num > lines.size() || lines_num == 0)
     {
         lines_num = lines.size();
     }
 
-    for (auto iterator{ lines.cend() - lines_num }; iterator != lines.cend(); ++iterator)
+    for (auto iterator{lines.cend() - lines_num}; iterator != lines.cend();
+         ++iterator)
     {
         out((*iterator).c_str(), NO_LOG);
     }
 }
 
 #ifdef _WIN32
-#pragma warning (disable: 4996)
+#pragma warning(disable : 4996)
 #endif // _WIN32
 /*
     Returns current date and time
@@ -73,12 +71,12 @@ void Logger::showLog(size_t lines_num)
 const std::string Logger::_datetime() const noexcept
 {
     time_t seconds = time(nullptr);
-    std::string time{ asctime(localtime(&seconds)) };
+    std::string time{asctime(localtime(&seconds))};
     time[time.size() - 1] = '\t';
     return time;
 }
 #ifdef _WIN32
-#pragma warning (default: 4996)
+#pragma warning(default : 4996)
 #endif // _WIN32
 
 /*

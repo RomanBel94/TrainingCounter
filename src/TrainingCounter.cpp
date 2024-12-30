@@ -7,27 +7,30 @@
 */
 int TrainingCounter::run() noexcept
 {
-    const auto& cli{ CLI::CLI::get_instance() };
+    const auto& cli{CLI::CLI::get_instance()};
     cli->add_opt('v', 'm', 's', 'a', 't', 'l', 'h');
-    cli->add_long_opt("remove_logfile", "remove_savefile", "remove_cache", "draw_cat", "draw_moo", "version");
+    cli->add_long_opt("remove_logfile", "remove_savefile", "remove_cache",
+                      "draw_cat", "draw_moo", "version");
 
     try
-    {   
+    {
         cli->parse_args(argc, argv);
-       
-        for(const auto& [task, value] : cli->tokens())
+
+        for (const auto& [task, value] : cli->tokens())
         {
             if (task.size() == 1)
-                switch (task[0])// do job given in argv
+                switch (task[0]) // do job given in argv
                 {
                 case 'v':
-                    log->out(fmt::format("TrainingCounter {}", VERSION), Logger::NO_LOG);
+                    log->out(fmt::format("TrainingCounter {}", VERSION),
+                             Logger::NO_LOG);
                     break;
                 case 'm':
                     _markTraining();
                     break;
                 case 's':
-                    _setTrainings(value.empty() ? counter->getTrainings() : std::atoi(value.c_str()));
+                    _setTrainings(value.empty() ? counter->getTrainings()
+                                                : std::atoi(value.c_str()));
                     break;
                 case 'a':
                     _addTrainings(value.empty() ? 0 : atoi(value.c_str()));
@@ -70,21 +73,21 @@ int TrainingCounter::run() noexcept
 */
 void TrainingCounter::_printHelp() noexcept
 {
-    log->out("\nUsage:\n\n"
-            "\tTrainingCounter -h, --help\t\tPrint \"Usage\";\n"
-            "\tTrainingCounter -a <num>\t\tAdd <num> trainings;\n"
-            "\tTrainingCounter -s <num>\t\tSet <num> trainings;\n"
-            "\tTrainingCounter -m \t\t\tMark completed training;\n"
-            "\tTrainingCounter -t \t\t\tShow remaining trainings;\n"
-            "\tTrainingCounter -v, --version\t\tShow TrainingCounter version;\n"
-            "\tTrainingCounter -l [<num>]\t\tShow <num> last lines of log.\n"
-            "\t\t\t\t\t\tIf <num> is not given full log will be printed;\n"
-            "\tTrainingCounter --remove_logfile\tRemove log file;\n"
-            "\tTrainingCounter --remove_savefile\tRemove save file;\n"
-            "\tTrainingCounter --remove_cache\t\tRemove cache directory.\n\n"
-            "Example: TrainingCounter -m -t -l5 --version\n", 
-        Logger::NO_LOG
-        );
+    log->out(
+        "\nUsage:\n\n"
+        "\tTrainingCounter -h, --help\t\tPrint \"Usage\";\n"
+        "\tTrainingCounter -a <num>\t\tAdd <num> trainings;\n"
+        "\tTrainingCounter -s <num>\t\tSet <num> trainings;\n"
+        "\tTrainingCounter -m \t\t\tMark completed training;\n"
+        "\tTrainingCounter -t \t\t\tShow remaining trainings;\n"
+        "\tTrainingCounter -v, --version\t\tShow TrainingCounter version;\n"
+        "\tTrainingCounter -l [<num>]\t\tShow <num> last lines of log.\n"
+        "\t\t\t\t\t\tIf <num> is not given full log will be printed;\n"
+        "\tTrainingCounter --remove_logfile\tRemove log file;\n"
+        "\tTrainingCounter --remove_savefile\tRemove save file;\n"
+        "\tTrainingCounter --remove_cache\t\tRemove cache directory.\n\n"
+        "Example: TrainingCounter -m -t -l5 --version\n",
+        Logger::NO_LOG);
 }
 
 /*
@@ -157,41 +160,40 @@ void TrainingCounter::_removeCache() const noexcept
 
 void TrainingCounter::_showTrainings() const noexcept
 {
-    log->out(fmt::format("Remaining trainings: {}", counter->getTrainings()), Logger::NO_LOG);
+    log->out(fmt::format("Remaining trainings: {}", counter->getTrainings()),
+             Logger::NO_LOG);
 }
 
 void TrainingCounter::_drawCat() const noexcept
 {
-    log->out(
-        "\n"
-        "       _\n"
-        "       \\`*-.\n"
-        "        )  _`-.\n"
-        "       .  : `. .\n"
-        "       : _   '  \\\n"
-        "       ; *` _.   `*-._\n"
-        "       `-.-'          `-.\n"
-        "         ;       `       `.\n"
-        "         :.       .        \\\n"
-        "         . \\  .   :   .-'   .\n"
-        "         '  `+.;  ;  '      :\n"
-        "         :  '  |    ;       ;-.\n"
-        "         ; '   : :`-:     _.`* ;\n"
-        "[bug] .*' /  .*' ; .*`- +'  `*'\n"
-        "      `*-*   `*-*  `*-*'\n\n",
-        Logger::NO_LOG);
+    log->out("\n"
+             "       _\n"
+             "       \\`*-.\n"
+             "        )  _`-.\n"
+             "       .  : `. .\n"
+             "       : _   '  \\\n"
+             "       ; *` _.   `*-._\n"
+             "       `-.-'          `-.\n"
+             "         ;       `       `.\n"
+             "         :.       .        \\\n"
+             "         . \\  .   :   .-'   .\n"
+             "         '  `+.;  ;  '      :\n"
+             "         :  '  |    ;       ;-.\n"
+             "         ; '   : :`-:     _.`* ;\n"
+             "[bug] .*' /  .*' ; .*`- +'  `*'\n"
+             "      `*-*   `*-*  `*-*'\n\n",
+             Logger::NO_LOG);
 }
 
 void TrainingCounter::_drawMoo() const noexcept
 {
-    log->out(
-            "\n"
-        "                 (__)\n"
-        "          ______~(..)~\n"
-        "           ,----\\(oo)\n"
-        "          /|____|,'\n"
-        "         * /\"\\ /\\\n"
-        "wWwWwWwWwWwWwWwWwWwWwWwWwWwWw\n"
-        "~~~ Have you mooed today? ~~~\n",
-        Logger::NO_LOG);
+    log->out("\n"
+             "                 (__)\n"
+             "          ______~(..)~\n"
+             "           ,----\\(oo)\n"
+             "          /|____|,'\n"
+             "         * /\"\\ /\\\n"
+             "wWwWwWwWwWwWwWwWwWwWwWwWwWwWw\n"
+             "~~~ Have you mooed today? ~~~\n",
+             Logger::NO_LOG);
 }

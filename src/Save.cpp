@@ -4,10 +4,7 @@
 /*
     Creates cache directory if it's not exists
 */
-Save::Save()
-{
-    std::filesystem::create_directory(cacheDir);
-}
+Save::Save() { std::filesystem::create_directory(cacheDir); }
 
 /*
     Reads save file
@@ -17,9 +14,10 @@ Save::Save()
 const uint32_t Save::read() const noexcept
 {
     std::ifstream input(filename, std::ios::in | std::ios::binary);
-    uint32_t trainings { 0 };
+    uint32_t trainings{0};
 
-    if (input.is_open()) {
+    if (input.is_open())
+    {
         input.read(reinterpret_cast<char*>(&trainings), sizeof(trainings));
         input.close();
     }
@@ -43,7 +41,4 @@ void Save::write(uint32_t trainings) const noexcept
     }
 }
 
-void Save::removeSavefile() const
-{
-    std::filesystem::remove(filename);
-}
+void Save::removeSavefile() const { std::filesystem::remove(filename); }
