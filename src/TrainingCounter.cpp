@@ -63,6 +63,7 @@ int TrainingCounter::run() noexcept
     catch (const std::exception& ex)
     {
         log->out(ex.what(), Logger::NO_LOG);
+        _printHelp();
         return EXIT_FAILURE;
     }
     return EXIT_SUCCESS;
