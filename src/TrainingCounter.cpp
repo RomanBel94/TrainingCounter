@@ -10,7 +10,7 @@ int TrainingCounter::run() noexcept
     const auto& cli{CLI::CLI::get_instance()};
     cli->add_opt('v', 'm', 's', 'a', 't', 'l', 'h');
     cli->add_long_opt("remove_logfile", "remove_savefile", "remove_cache",
-                      "draw_cat", "draw_moo", "version");
+                      "draw_cat", "draw_moo", "version", "help");
 
     try
     {
@@ -57,6 +57,8 @@ int TrainingCounter::run() noexcept
                     _drawMoo();
                 else if (task == "remove_cache")
                     _removeCache();
+                else if (task == "help")
+                    _printHelp();
             }
         }
     }
