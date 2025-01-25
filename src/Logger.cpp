@@ -33,16 +33,13 @@ Logger::~Logger() { logfile.close(); }
 void Logger::showLog(size_t lines_num)
 {
     logfile.close();
-
     std::ifstream logfileRead(logFileName, std::ios::in);
 
     std::deque<std::string> lines;
     char buffer[BUFFER_SIZE];
 
     while (logfileRead.getline(buffer, BUFFER_SIZE, '\n'))
-    {
         lines.push_back(buffer);
-    }
 
     if (lines.empty())
     {
@@ -51,15 +48,10 @@ void Logger::showLog(size_t lines_num)
     }
 
     if (lines_num > lines.size() || lines_num == 0)
-    {
         lines_num = lines.size();
-    }
 
-    for (auto iterator{lines.cend() - lines_num}; iterator != lines.cend();
-         ++iterator)
-    {
-        out((*iterator).c_str(), NO_LOG);
-    }
+    for (auto it{lines.cend() - lines_num}; it != lines.cend(); ++it)
+        out((*it).c_str(), NO_LOG);
 }
 
 #ifdef _WIN32
@@ -70,7 +62,7 @@ void Logger::showLog(size_t lines_num)
 */
 const std::string Logger::_datetime() const noexcept
 {
-    time_t seconds = time(nullptr);
+    auto seconds = time(nullptr);
     std::string time{asctime(localtime(&seconds))};
     time[time.size() - 1] = '\t';
     return time;
