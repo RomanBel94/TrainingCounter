@@ -54,23 +54,6 @@ void Logger::showLog(size_t lines_num)
         out((*it).c_str(), NO_LOG);
 }
 
-#ifdef _WIN32
-#pragma warning(disable : 4996)
-#endif // _WIN32
-/*
-    Returns current date and time
-*/
-const std::string Logger::_datetime() const noexcept
-{
-    auto seconds = time(nullptr);
-    std::string time{asctime(localtime(&seconds))};
-    time[time.size() - 1] = '\t';
-    return time;
-}
-#ifdef _WIN32
-#pragma warning(default : 4996)
-#endif // _WIN32
-
 /*
     Removes logfile
 */

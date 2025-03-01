@@ -31,8 +31,7 @@ private:
 
 private:
     inline static size_t const BUFFER_SIZE = UINT8_MAX;
-
-    const std::string _datetime() const noexcept;
+    inline static std::time_t seconds = time(nullptr);
 
     Logger(const Logger&) = delete;
     Logger(Logger&&) = delete;
@@ -57,16 +56,19 @@ public:
     {
         if (log && logfile.is_open())
         {
-            logfile << fmt::format("{0}{1}\n", _datetime(), msg);
+            logfile << std::put_time(localtime(&seconds), "%A %d.%m.%Y %H:%M%t")
+                    << msg << '\n';
         }
         std::cout << msg << std::endl;
     }
 
-    template <class T> void out(T const&& msg, bool log = LOG) noexcept
+    template <class T>
+    void out(T const&& msg, bool log = LOG) noexcept
     {
         if (log && logfile.is_open())
         {
-            logfile << fmt::format("{0}{1}\n", _datetime(), msg);
+            logfile << std::put_time(localtime(&seconds), "%A %d.%m.%Y %H:%M%t")
+                    << msg << '\n';
         }
         std::cout << msg << std::endl;
     }
