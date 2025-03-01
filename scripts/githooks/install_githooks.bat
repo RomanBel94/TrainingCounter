@@ -1,1 +1,1 @@
-Copy-Item pre-commit ../../.git/hooks/
+cp pre-commit ../../.git/hooks/
