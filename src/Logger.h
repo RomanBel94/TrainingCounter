@@ -32,6 +32,7 @@ private:
 private:
     inline static size_t const BUFFER_SIZE = UINT8_MAX;
     inline static std::time_t seconds = time(nullptr);
+    inline static char const* const date_time_format = "%A %d.%m.%Y %H:%M%t";
 
     Logger(const Logger&) = delete;
     Logger(Logger&&) = delete;
@@ -56,7 +57,7 @@ public:
     {
         if (log && logfile.is_open())
         {
-            logfile << std::put_time(localtime(&seconds), "%A %d.%m.%Y %H:%M%t")
+            logfile << std::put_time(localtime(&seconds), date_time_format)
                     << msg << '\n';
         }
         std::cout << msg << std::endl;
@@ -67,7 +68,7 @@ public:
     {
         if (log && logfile.is_open())
         {
-            logfile << std::put_time(localtime(&seconds), "%A %d.%m.%Y %H:%M%t")
+            logfile << std::put_time(localtime(&seconds), date_time_format)
                     << msg << '\n';
         }
         std::cout << msg << std::endl;
