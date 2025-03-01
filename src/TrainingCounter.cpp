@@ -10,7 +10,7 @@ int TrainingCounter::run() noexcept
     const auto& cli{CLI::CLI::get_instance()};
     cli->add_opt('v', 'm', 's', 'a', 't', 'l', 'h');
     cli->add_long_opt("remove_logfile", "remove_savefile", "remove_cache",
-                      "draw_cat", "draw_moo", "version", "help");
+                      "meow", "moo", "version", "help");
 
     try
     {
@@ -51,9 +51,9 @@ int TrainingCounter::run() noexcept
                     _removeLogfile();
                 else if (task == "remove_savefile")
                     _removeSaveFile();
-                else if (task == "draw_cat")
+                else if (task == "meow")
                     _drawCat();
-                else if (task == "draw_moo")
+                else if (task == "moo")
                     _drawMoo();
                 else if (task == "remove_cache")
                     _removeCache();
