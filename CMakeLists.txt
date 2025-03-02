@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.10 FATAL_ERROR)
 set(CMAKE_CXX_STANDARD 17)
 set(MAIN TrainingCounter)
 set(CMAKE_BUILD_TYPE Release)
-message(STATUS "Build type is: ${CMAKE_BUILD_TYPE}")
+message(STATUS "Build type: ${CMAKE_BUILD_TYPE}")
 
 if(${WIN32})
     add_compile_options("/utf-8")
@@ -42,9 +42,7 @@ target_sources(TrainingCounterLib
 target_link_libraries(TrainingCounterLib
     PRIVATE
     fmt::fmt
-    #${FMT_LIB_PATH}
     CLIlib
-    #${CLI_LIB_PATH}
 )
 
 add_executable(${MAIN})
@@ -62,3 +60,4 @@ install(
     DESTINATION ${CMAKE_INSTALL_PREFIX}/bin
     CONFIGURATIONS Release 
 )
+
