@@ -1,8 +1,6 @@
 #pragma once
 #ifndef COUNTER_H
 
-#include <cstdint> // uint32_t
-
 #include "Save.h"
 
 class Counter final
@@ -14,15 +12,14 @@ public:
     // set <num> of trainings if <num> is greater than 0
     inline void setTrainings(const uint32_t num) noexcept
     {
-        num >= 0 && num <= UINT32_MAX ? _trainings = num
-                                      : _trainings = UINT32_MAX;
+        num <= UINT32_MAX ? _trainings = num : _trainings = UINT32_MAX;
     }
 
     // add <num> of trainings if <num> is greater than 0
     inline void addTrainings(const uint32_t num) noexcept
     {
-        num >= 0 && (_trainings + num) <= UINT32_MAX ? _trainings += num
-                                                     : _trainings = UINT32_MAX;
+        _trainings + num <= UINT32_MAX ? _trainings += num
+                                       : _trainings = UINT32_MAX;
     }
 
     // returns trainings
