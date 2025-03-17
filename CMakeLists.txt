@@ -14,7 +14,7 @@ add_subdirectory(external/fmt)
 
 project(
     ${MAIN}
-    VERSION 1.7.3
+    VERSION 1.7.4
     DESCRIPTION "A small utility for counting remaining workouts."
     HOMEPAGE_URL https://github.com/RomanBel94/TrainingCounter.git
     LANGUAGES CXX
