@@ -63,6 +63,12 @@ public:
         std::cout << msg << std::endl;
     }
 
+    /*
+        Writes message in logfile and console
+
+        @param message
+        @param need to write log
+    */
     template <class T>
     void out(T const&& msg, bool log = LOG) noexcept
     {
