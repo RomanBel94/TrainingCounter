@@ -22,7 +22,8 @@ int TrainingCounter::run() noexcept
                 switch (task[0]) // do job given in argv
                 {
                 case 'v':
-                    log->out(fmt::format("TrainingCounter {}", VERSION),
+                    log->out(fmt::format("TrainingCounter {}\nCompiled at {}",
+                                         VERSION, __TIMESTAMP__),
                              Logger::NO_LOG);
                     break;
                 case 'm':
@@ -74,7 +75,7 @@ int TrainingCounter::run() noexcept
 /*
     Prints help (usage)
 */
-void TrainingCounter::_printHelp() noexcept
+void TrainingCounter::_printHelp() const noexcept
 {
     log->out(
         "\nUsage:\n\n"

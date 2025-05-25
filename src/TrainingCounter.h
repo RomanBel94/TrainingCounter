@@ -26,7 +26,7 @@ private:
     TrainingCounter& operator=(const TrainingCounter&) = delete;
     TrainingCounter& operator=(TrainingCounter&&) = delete;
 
-    void _printHelp() noexcept;
+    void _printHelp() const noexcept;
     void _addTrainings(const uint32_t num);
     void _setTrainings(const uint32_t num);
     void _markTraining() noexcept;
