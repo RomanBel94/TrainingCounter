@@ -33,11 +33,11 @@ public:
     Save();
     ~Save() = default;
 
-    void write(uint32_t trainings) const noexcept;
-    const uint32_t read() const noexcept;
+    static void write(const uint32_t trainings) noexcept;
+    static const uint32_t read() noexcept;
 
-    void removeSavefile() const;
-    const auto& getCacheDir() const noexcept { return cacheDir; }
+    static void removeSavefile();
+    static const auto& getCacheDir() noexcept { return cacheDir; }
 };
 
 #define SAVE_H

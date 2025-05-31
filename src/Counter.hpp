@@ -6,7 +6,7 @@
 class Counter final
 {
 private:
-    std::unique_ptr<Save> save = std::make_unique<Save>();
+    std::unique_ptr<Save> _save = std::make_unique<Save>();
     uint32_t _trainings{0}; // current value of trainings
 public:
     // set <num> of trainings if <num> is greater than 0
@@ -31,10 +31,10 @@ public:
         _trainings > 0 ? --_trainings : _trainings;
     }
 
-    inline void removeSavefile() { save->removeSavefile(); }
+    inline void removeSavefile() { _save->removeSavefile(); }
 
-    Counter() : _trainings(save->read()) {}
-    ~Counter() { save->write(_trainings); }
+    Counter() : _trainings(_save->read()) {}
+    ~Counter() { _save->write(_trainings); }
 };
 
 #define COUNTER_H

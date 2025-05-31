@@ -13,21 +13,22 @@
 class Logger final
 {
 private:
-    std::ofstream logfile;
+    inline static std::ofstream logfile;
 
 #ifdef _WIN32
 #pragma warning(disable : 4996)
     // cache directory for windows
-    const std::string cacheDir{fmt::format(
+    inline const static std::string cacheDir{fmt::format(
         "{}\\..\\ProgramData\\TrainingCounter\\", getenv("WINDIR"))};
 #pragma warning(default : 4996)
 #else
     // cache directory for linux
-    const std::string cacheDir{
+    inline const static std::string cacheDir{
         fmt::format("{}/.TrainingCounter", getenv("HOME"))};
 #endif // _WIN32
 
-    const std::string logFileName{fmt::format("{}/log.txt", cacheDir)};
+    inline const static std::string logFileName{
+        fmt::format("{}/log.txt", cacheDir)};
 
 private:
     inline static size_t const BUFFER_SIZE = UINT8_MAX;
@@ -53,7 +54,7 @@ public:
         @param need to write log
     */
     template <class T = char const*>
-    void out(T const* msg, bool log = LOG) noexcept
+    static void out(T const* msg, bool log = LOG) noexcept
     {
         if (log && logfile.is_open())
         {
@@ -70,7 +71,7 @@ public:
         @param need to write log
     */
     template <class T>
-    void out(T const&& msg, bool log = LOG) noexcept
+    static void out(T const&& msg, bool log = LOG) noexcept
     {
         if (log && logfile.is_open())
         {
