@@ -14,7 +14,7 @@ Logger::Logger()
     }
     catch (const std::exception& ex)
     {
-        out(ex.what());
+        write(ex.what());
         exit(-1);
     }
 }
@@ -43,7 +43,7 @@ void Logger::showLog(size_t lines_num)
 
     if (lines.empty())
     {
-        out("Log file is empty.", NO_LOG);
+        write("Log file is empty.", NO_LOG);
         return;
     }
 
@@ -51,7 +51,7 @@ void Logger::showLog(size_t lines_num)
         lines_num = lines.size();
 
     for (auto it{lines.cend() - lines_num}; it != lines.cend(); ++it)
-        out((*it).c_str(), NO_LOG);
+        write((*it).c_str(), NO_LOG);
 }
 
 /*

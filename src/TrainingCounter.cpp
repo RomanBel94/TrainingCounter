@@ -65,7 +65,7 @@ int TrainingCounter::run() noexcept
     }
     catch (const std::exception& ex)
     {
-        log->out(ex.what(), Logger::NO_LOG);
+        log->write(ex.what(), Logger::NO_LOG);
         _printHelp();
         return EXIT_FAILURE;
     }
@@ -77,9 +77,9 @@ int TrainingCounter::run() noexcept
 */
 void TrainingCounter::_printVersion() const noexcept
 {
-    log->out(fmt::format("TrainingCounter {}\nCompiled at {}", VERSION,
-                         __TIMESTAMP__),
-             Logger::NO_LOG);
+    log->write(fmt::format("TrainingCounter {}\nCompiled at {}", VERSION,
+                           __TIMESTAMP__),
+               Logger::NO_LOG);
 }
 
 /*
@@ -87,7 +87,7 @@ void TrainingCounter::_printVersion() const noexcept
 */
 void TrainingCounter::_printHelp() const noexcept
 {
-    log->out(
+    log->write(
         "\nUsage:\n\n"
         "\tTrainingCounter -h, --help\t\tPrint \"Usage\";\n"
         "\tTrainingCounter -a <num>\t\tAdd <num> trainings;\n"
@@ -112,11 +112,11 @@ void TrainingCounter::_markTraining() noexcept
     if (counter->getTrainings() > 0)
     {
         counter->markTraining();
-        log->out("Training marked");
+        log->write("Training marked");
     }
     else
     {
-        log->out("No trainings left", Logger::NO_LOG);
+        log->write("No trainings left", Logger::NO_LOG);
     }
 }
 
@@ -128,7 +128,7 @@ void TrainingCounter::_markTraining() noexcept
 void TrainingCounter::_setTrainings(const uint32_t num)
 {
     counter->setTrainings(num);
-    log->out(fmt::format("Set trainings to {}", num));
+    log->write(fmt::format("Set trainings to {}", num));
 }
 
 /*
@@ -141,7 +141,7 @@ void TrainingCounter::_addTrainings(const uint32_t num)
     if (counter->getTrainings() + num < UINT32_MAX)
     {
         counter->addTrainings(num);
-        log->out(fmt::format("Added {} trainings", num));
+        log->write(fmt::format("Added {} trainings", num));
     }
     else
     {
@@ -155,13 +155,13 @@ void TrainingCounter::_addTrainings(const uint32_t num)
 void TrainingCounter::_removeLogfile() const noexcept
 {
     log->removeLogfile();
-    log->out("Log file has been removed", Logger::NO_LOG);
+    log->write("Log file has been removed", Logger::NO_LOG);
 }
 
 void TrainingCounter::_removeSaveFile() const noexcept
 {
     counter->removeSavefile();
-    log->out("Savefile has been removed");
+    log->write("Savefile has been removed");
 }
 
 void TrainingCounter::_removeCache() const noexcept
@@ -169,45 +169,45 @@ void TrainingCounter::_removeCache() const noexcept
     _removeSaveFile();
     _removeLogfile();
     std::filesystem::remove_all(log->getCacheDir());
-    log->out("Cache directory has been removed");
+    log->write("Cache directory has been removed");
 }
 
 void TrainingCounter::_showTrainings() const noexcept
 {
-    log->out(fmt::format("Remaining trainings: {}", counter->getTrainings()),
-             Logger::NO_LOG);
+    log->write(fmt::format("Remaining trainings: {}", counter->getTrainings()),
+               Logger::NO_LOG);
 }
 
 void TrainingCounter::_drawCat() const noexcept
 {
-    log->out("\n"
-             "       _\n"
-             "       \\`*-.\n"
-             "        )  _`-.\n"
-             "       .  : `. .\n"
-             "       : _   '  \\\n"
-             "       ; *` _.   `*-._\n"
-             "       `-.-'          `-.\n"
-             "         ;       `       `.\n"
-             "         :.       .        \\\n"
-             "         . \\  .   :   .-'   .\n"
-             "         '  `+.;  ;  '      :\n"
-             "         :  '  |    ;       ;-.\n"
-             "         ; '   : :`-:     _.`* ;\n"
-             "[bug] .*' /  .*' ; .*`- +'  `*'\n"
-             "      `*-*   `*-*  `*-*'\n\n",
-             Logger::NO_LOG);
+    log->write("\n"
+               "       _\n"
+               "       \\`*-.\n"
+               "        )  _`-.\n"
+               "       .  : `. .\n"
+               "       : _   '  \\\n"
+               "       ; *` _.   `*-._\n"
+               "       `-.-'          `-.\n"
+               "         ;       `       `.\n"
+               "         :.       .        \\\n"
+               "         . \\  .   :   .-'   .\n"
+               "         '  `+.;  ;  '      :\n"
+               "         :  '  |    ;       ;-.\n"
+               "         ; '   : :`-:     _.`* ;\n"
+               "[bug] .*' /  .*' ; .*`- +'  `*'\n"
+               "      `*-*   `*-*  `*-*'\n\n",
+               Logger::NO_LOG);
 }
 
 void TrainingCounter::_drawMoo() const noexcept
 {
-    log->out("\n"
-             "                 (__)\n"
-             "          ______~(..)~\n"
-             "           ,----\\(oo)\n"
-             "          /|____|,'\n"
-             "         * /\"\\ /\\\n"
-             "wWwWwWwWwWwWwWwWwWwWwWwWwWwWw\n"
-             "~~~ Have you mooed today? ~~~\n",
-             Logger::NO_LOG);
+    log->write("\n"
+               "                 (__)\n"
+               "          ______~(..)~\n"
+               "           ,----\\(oo)\n"
+               "          /|____|,'\n"
+               "         * /\"\\ /\\\n"
+               "wWwWwWwWwWwWwWwWwWwWwWwWwWwWw\n"
+               "~~~ Have you mooed today? ~~~\n",
+               Logger::NO_LOG);
 }

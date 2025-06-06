@@ -54,7 +54,7 @@ public:
         @param need to write log
     */
     template <class T = char const*>
-    static void out(T const* msg, bool log = LOG) noexcept
+    static void write(T const* msg, bool log = LOG) noexcept
     {
         if (log && logfile.is_open())
         {
@@ -71,7 +71,7 @@ public:
         @param need to write log
     */
     template <class T>
-    static void out(T const&& msg, bool log = LOG) noexcept
+    static void write(T const&& msg, bool log = LOG) noexcept
     {
         if (log && logfile.is_open())
         {
