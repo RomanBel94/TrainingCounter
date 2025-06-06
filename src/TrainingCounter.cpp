@@ -22,9 +22,7 @@ int TrainingCounter::run() noexcept
                 switch (task[0]) // do job given in argv
                 {
                 case 'v':
-                    log->out(fmt::format("TrainingCounter {}\nCompiled at {}",
-                                         VERSION, __TIMESTAMP__),
-                             Logger::NO_LOG);
+                    _printVersion();
                     break;
                 case 'm':
                     _markTraining();
@@ -60,6 +58,8 @@ int TrainingCounter::run() noexcept
                     _removeCache();
                 else if (task == "help")
                     _printHelp();
+                else if (task == "version")
+                    _printVersion();
             }
         }
     }
@@ -70,6 +70,16 @@ int TrainingCounter::run() noexcept
         return EXIT_FAILURE;
     }
     return EXIT_SUCCESS;
+}
+
+/*
+    Print version of program
+*/
+void TrainingCounter::_printVersion() const noexcept
+{
+    log->out(fmt::format("TrainingCounter {}\nCompiled at {}", VERSION,
+                         __TIMESTAMP__),
+             Logger::NO_LOG);
 }
 
 /*
