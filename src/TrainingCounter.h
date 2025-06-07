@@ -5,10 +5,7 @@
 #include "Logger.h"
 #include "Version.h"
 
-#include <cstdlib>
-#include <memory>
-
-#include "../external/CLIlib/include/CLIlib.h"
+#include "CLIlib.h"
 
 class TrainingCounter final
 {

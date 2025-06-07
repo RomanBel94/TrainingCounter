@@ -39,6 +39,11 @@ target_sources(TrainingCounterLib
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Save.h
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Save.cpp
 )
+target_include_directories(
+    TrainingCounterLib PUBLIC
+    ${CMAKE_SOURCE_DIR}/external/CLIlib/include/
+    ${CMAKE_SOURCE_DIR}/external/fmt/include/
+)
 target_link_libraries(TrainingCounterLib
     PRIVATE
     fmt::fmt

@@ -8,7 +8,7 @@
 #include <fstream>    // ofstream
 #include <iostream>   // cout
 
-#include "../external/fmt/include/fmt/format.h"
+#include "fmt/format.h"
 
 class Logger final
 {
