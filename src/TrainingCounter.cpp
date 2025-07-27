@@ -15,59 +15,62 @@ int TrainingCounter::run() noexcept
     try
     {
         cli->parse_args(argc, argv);
-
-        for (const auto& [task, value] : cli->tokens())
-        {
-            if (task.size() == 1)
-                switch (task[0]) // do job given in argv
-                {
-                case 'v':
-                    _printVersion();
-                    break;
-                case 'm':
-                    _markTraining();
-                    break;
-                case 's':
-                    _setTrainings(value.empty() ? counter->getTrainings()
-                                                : std::atoi(value.c_str()));
-                    break;
-                case 'a':
-                    _addTrainings(value.empty() ? 0 : atoi(value.c_str()));
-                    break;
-                case 't':
-                    _showTrainings();
-                    break;
-                case 'l':
-                    log->showLog(value.empty() ? 0 : std::atoi(value.c_str()));
-                    break;
-                case 'h':
-                    _printHelp();
-                    break;
-                }
-            else
-            {
-                if (task == "remove_logfile")
-                    _removeLogfile();
-                else if (task == "remove_savefile")
-                    _removeSaveFile();
-                else if (task == "meow")
-                    _drawCat();
-                else if (task == "moo")
-                    _drawMoo();
-                else if (task == "remove_cache")
-                    _removeCache();
-                else if (task == "help")
-                    _printHelp();
-                else if (task == "version")
-                    _printVersion();
-            }
-        }
     }
     catch (const std::exception& ex)
     {
         log->write(ex.what(), Logger::NO_LOG);
         _printHelp();
         return EXIT_FAILURE;
+    }
+
+    if (cli->tokens().empty())
+        _printHelp();
+
+    for (const auto& [task, value] : cli->tokens())
+    {
+        if (task.size() == 1)
+            switch (task[0]) // do job given in argv
+            {
+            case 'v':
+                _printVersion();
+                break;
+            case 'm':
+                _markTraining();
+                break;
+            case 's':
+                _setTrainings(value.empty() ? counter->getTrainings()
+                                            : std::atoi(value.c_str()));
+                break;
+            case 'a':
+                _addTrainings(value.empty() ? 0 : std::atoi(value.c_str()));
+                break;
+            case 't':
+                _showTrainings();
+                break;
+            case 'l':
+                log->showLog(value.empty() ? 0 : std::atoi(value.c_str()));
+                break;
+            case 'h':
+                _printHelp();
+                break;
+            }
+        else
+        {
+            if (task == "remove_logfile")
+                _removeLogfile();
+            else if (task == "remove_savefile")
+                _removeSaveFile();
+            else if (task == "meow")
+                _drawCat();
+            else if (task == "moo")
+                _drawMoo();
+            else if (task == "remove_cache")
+                _removeCache();
+            else if (task == "help")
+                _printHelp();
+            else if (task == "version")
+                _printVersion();
+        }
     }
     return EXIT_SUCCESS;
 }
