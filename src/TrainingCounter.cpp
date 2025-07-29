@@ -24,7 +24,9 @@ int TrainingCounter::run() noexcept
     }
 
     if (cli->tokens().empty())
-        _printHelp();
+        log->write("Arguments are not given. Type TrainingCounter -h (--help) "
+                   "for more information",
+                   Logger::NO_LOG);
 
     for (const auto& [task, value] : cli->tokens())
     {
