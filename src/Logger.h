@@ -45,7 +45,7 @@ public:
     inline static bool const LOG = true;
 
     Logger();
-    ~Logger();
+    ~Logger() noexcept = default;
 
     /*
         Writes message in logfile and console

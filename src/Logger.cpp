@@ -20,12 +20,6 @@ Logger::Logger()
 }
 
 /*
-    Destructor
-    Closes log file
-*/
-Logger::~Logger() { logfile.close(); }
-
-/*
     Shows log from logfile, if number is 0 shows full log
 
     @param number of lines to show
