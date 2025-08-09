@@ -1,4 +1,4 @@
-class Task
+class iTask
 {
 public:
     void execute();
