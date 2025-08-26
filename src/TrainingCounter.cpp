@@ -114,15 +114,14 @@ void TrainingCounter::_printHelp() const noexcept
 */
 void TrainingCounter::_markTraining() noexcept
 {
-    if (counter->getTrainings() > 0)
+    if (counter->getTrainings())
     {
         counter->markTraining();
         log->write("Training marked");
     }
-    else
-    {
+
+    if (!counter->getTrainings())
         log->write("No trainings left", Logger::NO_LOG);
-    }
 }
 
 /*
