@@ -33,7 +33,7 @@ private:
 private:
     inline static size_t const BUFFER_SIZE = UINT8_MAX;
     inline static std::time_t seconds = time(nullptr);
-    inline static char const* const date_time_format = "%a %d.%m.%Y %H:%M\t\t";
+    inline static char const* const date_time_format = "%a %d.%m.%Y %H:%M\t";
 
     Logger(const Logger&) = delete;
     Logger(Logger&&) = delete;
