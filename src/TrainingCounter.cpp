@@ -9,7 +9,7 @@ int TrainingCounter::run() noexcept
 {
     const auto& cli{CLI::CLI::get_instance()};
     cli->add_opt('v', 'm', 's', 'a', 't', 'l', 'h');
-    cli->add_long_opt("remove_logfile", "remove_savefile", "remove_cache",
+    cli->add_long_opt("remove_logfile", "remove_savefile", "remove_cache_dir",
                       "meow", "moo", "version", "help");
 
     try
@@ -24,9 +24,7 @@ int TrainingCounter::run() noexcept
     }
 
     if (cli->tokens().empty())
-        log->write("Arguments are not given. Use: TrainingCounter -h (--help) "
-                   "for more information",
-                   Logger::NO_LOG);
+        _printHelp();
 
     for (const auto& [task, value] : cli->tokens())
     {
@@ -66,7 +64,7 @@ int TrainingCounter::run() noexcept
                 _drawCat();
             else if (task == "moo")
                 _drawMoo();
-            else if (task == "remove_cache")
+            else if (task == "remove_cache_dir")
                 _removeCache();
             else if (task == "help")
                 _printHelp();
