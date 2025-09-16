@@ -50,9 +50,8 @@ int TrainingCounter::run() noexcept
             case 'l':
                 log->showLog(value.empty() ? 0 : std::atoi(value.c_str()));
                 break;
-            case 'h':
+            default:
                 _printHelp();
-                break;
             }
         else
         {
@@ -66,10 +65,10 @@ int TrainingCounter::run() noexcept
                 _drawMoo();
             else if (task == "remove_cache_dir")
                 _removeCache();
-            else if (task == "help")
-                _printHelp();
             else if (task == "version")
                 _printVersion();
+            else
+                _printHelp();
         }
     }
     return EXIT_SUCCESS;
