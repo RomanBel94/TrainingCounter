@@ -1,14 +1,20 @@
 #include "TrainingCounter.h"
+#include <cstddef>
+#include <functional>
+#include <optional>
 
 class iTask
 {
 public:
-    iTask() = default;
+    iTask(std::function<void(std::optional<std::size_t>)> func,
+          std::optional<std::size_t> arg)
+        : func{func}, arg{arg} {};
     ~iTask() = default;
-    void execute();
+    void execute() { func(arg) };
 
 protected:
-    virtual void exec();
+    std::optional<std::size_t> arg{};
+    std::function<void(std::optional<std::size_t>)> func{};
 
 private:
     iTask(const iTask&) = delete;
