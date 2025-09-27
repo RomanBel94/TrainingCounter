@@ -7,7 +7,7 @@ class iTask
 {
 public:
     iTask(std::function<void(std::optional<std::size_t>)> func,
-          std::optional<std::size_t> arg)
+          std::optional<std::size_t> arg = {})
         : func{func}, arg{arg} {};
     ~iTask() = default;
     void execute() { func(arg) };
