@@ -3,7 +3,6 @@
 
 #include "iTask.h"
 #include <list>
-#include <memory>
 
 class TrainingCounter;
 
