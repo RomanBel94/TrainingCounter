@@ -4,6 +4,7 @@
 #include "Counter.hpp"
 #include "Logger.h"
 #include "Version.h"
+#include <optional>
 
 #include "CLIlib.h"
 
@@ -23,17 +24,18 @@ private:
     TrainingCounter& operator=(const TrainingCounter&) = delete;
     TrainingCounter& operator=(TrainingCounter&&) = delete;
 
-    void _printVersion() const noexcept;
-    void _printHelp() const noexcept;
-    void _addTrainings(const uint32_t num);
-    void _setTrainings(const uint32_t num);
-    void _markTraining() noexcept;
-    void _removeLogfile() const noexcept;
-    void _removeSaveFile() const noexcept;
-    void _removeCache() const noexcept;
-    void _drawCat() const noexcept;
-    void _drawMoo() const noexcept;
-    void _showTrainings() const noexcept;
+    void _printVersion(std::optional<std::size_t> opt_arg = {}) const noexcept;
+    void _printHelp(std::optional<std::size_t> opt_arg = {}) const noexcept;
+    void _addTrainings(std::optional<std::size_t> opt_arg = {});
+    void _setTrainings(std::optional<std::size_t> opt_arg = {});
+    void _markTraining(std::optional<std::size_t> opt_arg = {}) noexcept;
+    void _removeLogfile(std::optional<std::size_t> opt_arg = {}) const noexcept;
+    void
+    _removeSaveFile(std::optional<std::size_t> opt_arg = {}) const noexcept;
+    void _removeCache(std::optional<std::size_t> opt_arg = {}) const noexcept;
+    void _drawCat(std::optional<std::size_t> opt_arg = {}) const noexcept;
+    void _drawMoo(std::optional<std::size_t> opt_arg = {}) const noexcept;
+    void _showTrainings(std::optional<std::size_t> opt_arg = {}) const noexcept;
 
 public:
     /*

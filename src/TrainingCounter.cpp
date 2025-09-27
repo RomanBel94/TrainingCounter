@@ -77,7 +77,8 @@ int TrainingCounter::run() noexcept
 /*
     Print version of program
 */
-void TrainingCounter::_printVersion() const noexcept
+void TrainingCounter::_printVersion(
+    std::optional<std::size_t> opt_arg) const noexcept
 {
     log->write(fmt::format("TrainingCounter {}\nCompiled at {}", VERSION,
                            __TIMESTAMP__),
@@ -87,7 +88,8 @@ void TrainingCounter::_printVersion() const noexcept
 /*
     Prints help (usage)
 */
-void TrainingCounter::_printHelp() const noexcept
+void TrainingCounter::_printHelp(
+    std::optional<std::size_t> opt_arg) const noexcept
 {
     log->write(
         "\nUsage:\n\n"
@@ -109,7 +111,7 @@ void TrainingCounter::_printHelp() const noexcept
 /*
     Marks the completed training
 */
-void TrainingCounter::_markTraining() noexcept
+void TrainingCounter::_markTraining(std::optional<std::size_t> opt_arg) noexcept
 {
     if (counter->getTrainings())
     {
@@ -126,10 +128,13 @@ void TrainingCounter::_markTraining() noexcept
 
     @param number to set up
 */
-void TrainingCounter::_setTrainings(const uint32_t num)
+void TrainingCounter::_setTrainings(std::optional<std::size_t> opt_arg)
 {
-    counter->setTrainings(num);
-    log->write(fmt::format("Set trainings to {}", num));
+    if (opt_arg.has_value())
+        throw std::runtime_error{
+            fmt::format("{} {}\n", __PRETTY_FUNCTION__, " no value")};
+    counter->setTrainings(opt_arg.value());
+    log->write(fmt::format("Set trainings to {}", opt_arg.value()));
 }
 
 /*
@@ -137,35 +142,42 @@ void TrainingCounter::_setTrainings(const uint32_t num)
 
     @param number to add
 */
-void TrainingCounter::_addTrainings(const uint32_t num)
+void TrainingCounter::_addTrainings(std::optional<std::size_t> opt_arg)
 {
-    if (counter->getTrainings() + num < UINT32_MAX)
+    if (opt_arg.has_value())
+        throw std::runtime_error{
+            fmt::format("{} {}\n", __PRETTY_FUNCTION__, " no value")};
+    if (counter->getTrainings() + opt_arg.value() < UINT32_MAX)
     {
-        counter->addTrainings(num);
-        log->write(fmt::format("Added {} trainings", num));
+        counter->addTrainings(opt_arg.value());
+        log->write(fmt::format("Added {} trainings", opt_arg.value()));
     }
     else
     {
-        throw std::runtime_error(fmt::format("Can't add {} trainings", num));
+        throw std::runtime_error(
+            fmt::format("Can't add {} trainings", opt_arg.value()));
     }
 }
 
 /*
     Removes log file
 */
-void TrainingCounter::_removeLogfile() const noexcept
+void TrainingCounter::_removeLogfile(
+    std::optional<std::size_t> opt_arg) const noexcept
 {
     log->removeLogfile();
     log->write("Log file has been removed", Logger::NO_LOG);
 }
 
-void TrainingCounter::_removeSaveFile() const noexcept
+void TrainingCounter::_removeSaveFile(
+    std::optional<std::size_t> opt_arg) const noexcept
 {
     counter->removeSavefile();
     log->write("Savefile has been removed");
 }
 
-void TrainingCounter::_removeCache() const noexcept
+void TrainingCounter::_removeCache(
+    std::optional<std::size_t> opt_arg) const noexcept
 {
     _removeSaveFile();
     _removeLogfile();
@@ -173,13 +185,15 @@ void TrainingCounter::_removeCache() const noexcept
     log->write("Cache directory has been removed");
 }
 
-void TrainingCounter::_showTrainings() const noexcept
+void TrainingCounter::_showTrainings(
+    std::optional<std::size_t> opt_arg) const noexcept
 {
     log->write(fmt::format("Remaining trainings: {}", counter->getTrainings()),
                Logger::NO_LOG);
 }
 
-void TrainingCounter::_drawCat() const noexcept
+void TrainingCounter::_drawCat(
+    std::optional<std::size_t> opt_arg) const noexcept
 {
     log->write("\n"
                "       _\n"
@@ -200,7 +214,8 @@ void TrainingCounter::_drawCat() const noexcept
                Logger::NO_LOG);
 }
 
-void TrainingCounter::_drawMoo() const noexcept
+void TrainingCounter::_drawMoo(
+    std::optional<std::size_t> opt_arg) const noexcept
 {
     log->write("\n"
                "                 (__)\n"
