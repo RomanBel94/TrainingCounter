@@ -3,6 +3,7 @@
 
 #include "iTask.h"
 #include <list>
+#include <queue>
 
 class TrainingCounter;
 
@@ -18,7 +19,7 @@ public:
         std::optional<std::size_t> arg = {});
 
 private:
-    std::list<iTask> task_list{};
+    std::queue<iTask, std::list<iTask>> task_queue{};
     TrainingCounter* tc{};
 };
 
