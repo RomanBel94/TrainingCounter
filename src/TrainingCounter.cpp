@@ -32,7 +32,10 @@ int TrainingCounter::run() noexcept
             switch (task[0]) // do job given in argv
             {
             case 'v':
-                _printVersion();
+                task_manager->add_task(&TrainingCounter::_printVersion);
+                task_manager->add_task(&TrainingCounter::_printVersion);
+                task_manager->add_task(&TrainingCounter::_printVersion);
+                task_manager->execute_all_tasks();
                 break;
             case 'm':
                 _markTraining();

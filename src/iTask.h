@@ -1,20 +1,27 @@
-#include "TrainingCounter.h"
+#ifndef ITASK_H
+#define ITASK_H
+
 #include <cstddef>
 #include <functional>
 #include <optional>
 
+class TrainingCounter;
+
 class iTask
 {
 public:
-    iTask(std::function<void(std::optional<std::size_t>)> func,
-          std::optional<std::size_t> arg = {})
-        : func{func}, arg{arg} {};
+    iTask(
+        TrainingCounter* tc,
+        std::function<void(TrainingCounter*, std::optional<std::size_t>)> func,
+        std::optional<std::size_t> arg = {})
+        : tc{tc}, func{func}, arg{arg} {};
     ~iTask() = default;
-    void execute() { func(arg) };
+    void execute() { func(tc, arg); }
 
 protected:
+    TrainingCounter* tc;
     std::optional<std::size_t> arg{};
-    std::function<void(std::optional<std::size_t>)> func{};
+    std::function<void(TrainingCounter*, std::optional<std::size_t>)> func{};
 
 private:
     iTask(const iTask&) = delete;
@@ -22,3 +29,5 @@ private:
     iTask& operator=(const iTask&) = delete;
     iTask& operator=(iTask&&) noexcept = delete;
 };
+
+#endif // ITASK_H

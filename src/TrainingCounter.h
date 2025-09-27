@@ -3,6 +3,7 @@
 
 #include "Counter.hpp"
 #include "Logger.h"
+#include "TaskManager.h"
 #include "Version.h"
 #include <optional>
 
@@ -16,6 +17,8 @@ private:
 
     std::unique_ptr<Counter> counter = std::make_unique<Counter>();
     std::unique_ptr<Logger> log = std::make_unique<Logger>();
+    std::unique_ptr<TaskManager> task_manager =
+        std::make_unique<TaskManager>(this);
 
 private:
     TrainingCounter() = delete;

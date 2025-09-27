@@ -38,6 +38,7 @@ target_sources(TrainingCounterLib
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Logger.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Save.h
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Save.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/TaskManager.cpp
 )
 target_include_directories(
     TrainingCounterLib PUBLIC
