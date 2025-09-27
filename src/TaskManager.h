@@ -19,7 +19,7 @@ public:
 
 private:
     std::list<iTask> task_list{};
-    TrainingCounter* tc;
+    TrainingCounter* tc{};
 };
 
 #endif // TASK_MANAGER_H

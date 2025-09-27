@@ -1,4 +1,5 @@
 #include "TaskManager.h"
+#include <algorithm>
 
 void TaskManager::add_task(
     std::function<void(TrainingCounter*, std::optional<std::size_t>)> func,
@@ -9,6 +10,6 @@ void TaskManager::add_task(
 
 void TaskManager::execute_all_tasks()
 {
-    for (auto& task : task_list)
-        task.execute();
+    std::for_each(task_list.begin(), task_list.end(),
+                  [](iTask& task) { task.execute(); });
 }

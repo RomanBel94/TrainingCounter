@@ -39,6 +39,7 @@ private:
     void _drawCat(std::optional<std::size_t> opt_arg = {}) const noexcept;
     void _drawMoo(std::optional<std::size_t> opt_arg = {}) const noexcept;
     void _showTrainings(std::optional<std::size_t> opt_arg = {}) const noexcept;
+    void _showLog(std::optional<std::size_t> opt_arg = {}) const;
 
 public:
     /*

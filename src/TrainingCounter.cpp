@@ -24,56 +24,41 @@ int TrainingCounter::run() noexcept
     }
 
     if (cli->tokens().empty())
-        _printHelp();
+        task_manager->add_task(&TrainingCounter::_printHelp);
 
     for (const auto& [task, value] : cli->tokens())
     {
-        if (task.size() == 1)
-            switch (task[0]) // do job given in argv
-            {
-            case 'v':
-                task_manager->add_task(&TrainingCounter::_printVersion);
-                task_manager->add_task(&TrainingCounter::_printVersion);
-                task_manager->add_task(&TrainingCounter::_printVersion);
-                task_manager->execute_all_tasks();
-                break;
-            case 'm':
-                _markTraining();
-                break;
-            case 's':
-                _setTrainings(value.empty() ? counter->getTrainings()
-                                            : std::atoi(value.c_str()));
-                break;
-            case 'a':
-                _addTrainings(value.empty() ? 0 : std::atoi(value.c_str()));
-                break;
-            case 't':
-                _showTrainings();
-                break;
-            case 'l':
-                log->showLog(value.empty() ? 0 : std::atoi(value.c_str()));
-                break;
-            default:
-                _printHelp();
-            }
+        if (task == "v" || task == "version")
+            task_manager->add_task(&TrainingCounter::_printVersion);
+        else if (task == "m")
+            task_manager->add_task(&TrainingCounter::_markTraining);
+        else if (task == "s")
+            task_manager->add_task(&TrainingCounter::_setTrainings,
+                                   value.empty() ? counter->getTrainings()
+                                                 : std::stoi(value));
+        else if (task == "a")
+            task_manager->add_task(&TrainingCounter::_addTrainings,
+                                   value.empty() ? 0 : std::stoi(value));
+        else if (task == "t")
+            task_manager->add_task(&TrainingCounter::_showTrainings);
+        else if (task == "l")
+            task_manager->add_task(&TrainingCounter::_showLog,
+                                   value.empty() ? 0 : std::stoi(value));
+        else if (task == "remove_logfile")
+            task_manager->add_task(&TrainingCounter::_removeLogfile);
+        else if (task == "remove_savefile")
+            task_manager->add_task(&TrainingCounter::_removeSaveFile);
+        else if (task == "meow")
+            task_manager->add_task(&TrainingCounter::_drawCat);
+        else if (task == "moo")
+            task_manager->add_task(&TrainingCounter::_drawMoo);
+        else if (task == "remove_cache_dir")
+            task_manager->add_task(&TrainingCounter::_removeCache);
         else
-        {
-            if (task == "remove_logfile")
-                _removeLogfile();
-            else if (task == "remove_savefile")
-                _removeSaveFile();
-            else if (task == "meow")
-                _drawCat();
-            else if (task == "moo")
-                _drawMoo();
-            else if (task == "remove_cache_dir")
-                _removeCache();
-            else if (task == "version")
-                _printVersion();
-            else
-                _printHelp();
-        }
+            task_manager->add_task(&TrainingCounter::_printHelp);
     }
+
+    task_manager->execute_all_tasks();
     return EXIT_SUCCESS;
 }
 
@@ -133,7 +118,7 @@ void TrainingCounter::_markTraining(std::optional<std::size_t> opt_arg) noexcept
 */
 void TrainingCounter::_setTrainings(std::optional<std::size_t> opt_arg)
 {
-    if (opt_arg.has_value())
+    if (!opt_arg.has_value())
         throw std::runtime_error{
             fmt::format("{} {}\n", __PRETTY_FUNCTION__, " no value")};
     counter->setTrainings(opt_arg.value());
@@ -147,7 +132,7 @@ void TrainingCounter::_setTrainings(std::optional<std::size_t> opt_arg)
 */
 void TrainingCounter::_addTrainings(std::optional<std::size_t> opt_arg)
 {
-    if (opt_arg.has_value())
+    if (!opt_arg.has_value())
         throw std::runtime_error{
             fmt::format("{} {}\n", __PRETTY_FUNCTION__, " no value")};
     if (counter->getTrainings() + opt_arg.value() < UINT32_MAX)
@@ -229,4 +214,13 @@ void TrainingCounter::_drawMoo(
                "wWwWwWwWwWwWwWwWwWwWwWwWwWwWw\n"
                "~~~ Have you mooed today? ~~~\n",
                Logger::NO_LOG);
+}
+
+void TrainingCounter::_showLog(std::optional<std::size_t> opt_arg) const
+{
+    if (!opt_arg.has_value())
+        throw std::runtime_error{
+            fmt::format("{} {}\n", __PRETTY_FUNCTION__, " no value")};
+
+    log->showLog(opt_arg.value());
 }
