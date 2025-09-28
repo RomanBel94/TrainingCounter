@@ -23,6 +23,12 @@ int TrainingCounter::run() noexcept
     try
     {
         cli.parse_args(argc, argv);
+        if (cli.tokens().empty())
+            task_manager->add_task(&TrainingCounter::_printPrompt);
+        else
+            _fill_task_queue(cli);
+
+        task_manager->execute_all_tasks();
     }
     catch (const std::exception& ex)
     {
@@ -31,12 +37,6 @@ int TrainingCounter::run() noexcept
         return EXIT_FAILURE;
     }
 
-    if (cli.tokens().empty())
-        task_manager->add_task(&TrainingCounter::_printPrompt);
-    else
-        _fill_task_queue(cli);
-
-    task_manager->execute_all_tasks();
     return EXIT_SUCCESS;
 }
 
@@ -144,7 +144,7 @@ void TrainingCounter::_setTrainings(std::optional<std::size_t> opt_arg)
 {
     if (!opt_arg.has_value())
         throw std::runtime_error{
-            fmt::format("{} {}\n", __PRETTY_FUNCTION__, " no value")};
+            fmt::format("{} {}\n", __PRETTY_FUNCTION__, "no value")};
     counter->setTrainings(opt_arg.value());
     log->write(fmt::format("Set trainings to {}", opt_arg.value()));
 }
@@ -158,7 +158,7 @@ void TrainingCounter::_addTrainings(std::optional<std::size_t> opt_arg)
 {
     if (!opt_arg.has_value())
         throw std::runtime_error{
-            fmt::format("{} {}\n", __PRETTY_FUNCTION__, " no value")};
+            fmt::format("{} {}\n", __PRETTY_FUNCTION__, "no value")};
     if (counter->getTrainings() + opt_arg.value() < UINT32_MAX)
     {
         counter->addTrainings(opt_arg.value());
