@@ -1,25 +1,26 @@
 cmake_minimum_required(VERSION 3.10 FATAL_ERROR)
 
 set(CMAKE_CXX_STANDARD 17)
-set(MAIN TrainingCounter)
 set(CMAKE_BUILD_TYPE Release)
 message(STATUS "Build type: ${CMAKE_BUILD_TYPE}")
-
-if(${WIN32})
-    add_compile_options("/utf-8")
-endif()
 
 add_subdirectory(external/CLIlib)
 add_subdirectory(external/fmt)
 
 project(
-    ${MAIN}
+    TrainingCounter
     VERSION 2.0
     DESCRIPTION "A small utility for counting remaining workouts."
     HOMEPAGE_URL https://github.com/RomanBel94/TrainingCounter.git
     LANGUAGES CXX
 )
 
+# Utf-8 support for MSVC compiler
+if(${CMAKE_CXX_COMPILER_ID} STREQUAL MSVC)
+    add_compile_options("/utf-8")
+endif()
+
+# Write project version Version.h file
 configure_file(
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Version.h.in 
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Version.h 
@@ -53,18 +54,18 @@ target_link_libraries(TrainingCounterLib
     CLIlib
 )
 
-add_executable(${MAIN})
-target_sources(${MAIN}
+add_executable(TrainingCounter)
+target_sources(TrainingCounter
     PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp
 )
-target_link_libraries(${MAIN}
+target_link_libraries(TrainingCounter
     PRIVATE
     TrainingCounterLib
 )
 
 install(
-    TARGETS ${MAIN}
+    TARGETS TrainingCounter
     DESTINATION ${CMAKE_INSTALL_PREFIX}/bin
     CONFIGURATIONS Release 
 )
