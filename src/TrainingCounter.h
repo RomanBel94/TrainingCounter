@@ -19,6 +19,11 @@ private:
     std::unique_ptr<TaskManager> task_manager =
         std::make_unique<TaskManager>(this);
 
+    std::unordered_map<
+        std::string,
+        std::function<void(TrainingCounter*, std::optional<std::size_t>)>>
+        task_set;
+
 private:
     TrainingCounter() = delete;
     TrainingCounter(const TrainingCounter&) = delete;
@@ -26,7 +31,8 @@ private:
     TrainingCounter& operator=(const TrainingCounter&) = delete;
     TrainingCounter& operator=(TrainingCounter&&) = delete;
 
-    void _init_task_queue(const CLI::CLI& cli) const noexcept;
+    void _init_task_set();
+    void _fill_task_queue(const CLI::CLI& cli) const noexcept;
 
     void _printVersion(std::optional<std::size_t> opt_arg = {}) const noexcept;
     void _printHelp(std::optional<std::size_t> opt_arg = {}) const noexcept;
@@ -51,7 +57,7 @@ public:
         @param argc from main
         @param argv from main
     */
-    TrainingCounter(int argc, char** argv) : argc(argc), argv(argv){};
+    TrainingCounter(int argc, char** argv);
 
     template <class... Args>
     static std::shared_ptr<TrainingCounter>&

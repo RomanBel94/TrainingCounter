@@ -1,6 +1,14 @@
 #include "TrainingCounter.h"
 
 /*
+    Ctor
+*/
+TrainingCounter::TrainingCounter(int argc, char** argv) : argc(argc), argv(argv)
+{
+    _init_task_set();
+}
+
+/*
     Main program function
 
     @return exit code
@@ -26,46 +34,45 @@ int TrainingCounter::run() noexcept
     if (cli.tokens().empty())
         task_manager->add_task(&TrainingCounter::_printPrompt);
     else
-        _init_task_queue(cli);
+        _fill_task_queue(cli);
 
     task_manager->execute_all_tasks();
     return EXIT_SUCCESS;
 }
 
-void TrainingCounter::_init_task_queue(const CLI::CLI& cli) const noexcept
+/*
+   Fills task hashmap with class method pointers
+*/
+void TrainingCounter::_init_task_set()
+{
+
+    task_set.insert({"v", &TrainingCounter::_printVersion});
+    task_set.insert({"version", &TrainingCounter::_printVersion});
+    task_set.insert({"h", &TrainingCounter::_printHelp});
+    task_set.insert({"help", &TrainingCounter::_printHelp});
+    task_set.insert({"m", &TrainingCounter::_markTraining});
+    task_set.insert({"s", &TrainingCounter::_setTrainings});
+    task_set.insert({"a", &TrainingCounter::_addTrainings});
+    task_set.insert({"t", &TrainingCounter::_showTrainings});
+    task_set.insert({"l", &TrainingCounter::_showLog});
+    task_set.insert({"remove_logfile", &TrainingCounter::_removeLogfile});
+    task_set.insert({"remove_savefile", &TrainingCounter::_removeSaveFile});
+    task_set.insert({"remove_cache", &TrainingCounter::_removeCache});
+    task_set.insert({"meow", &TrainingCounter::_drawCat});
+    task_set.insert({"moo", &TrainingCounter::_drawMoo});
+}
+
+/*
+   Fills task queue
+*/
+void TrainingCounter::_fill_task_queue(const CLI::CLI& cli) const noexcept
 {
     for (const auto& [task, value] : cli.tokens())
     {
-        if (task == "v" || task == "version")
-            task_manager->add_task(&TrainingCounter::_printVersion);
-        else if (task == "h" || task == "help")
-            task_manager->add_task(&TrainingCounter::_printHelp);
-        else if (task == "m")
-            task_manager->add_task(&TrainingCounter::_markTraining);
-        else if (task == "s")
-            task_manager->add_task(&TrainingCounter::_setTrainings,
-                                   value.empty() ? counter->getTrainings()
-                                                 : std::stoi(value));
-        else if (task == "a")
-            task_manager->add_task(&TrainingCounter::_addTrainings,
-                                   value.empty() ? 0 : std::stoi(value));
-        else if (task == "t")
-            task_manager->add_task(&TrainingCounter::_showTrainings);
-        else if (task == "l")
-            task_manager->add_task(&TrainingCounter::_showLog,
-                                   value.empty() ? 0 : std::stoi(value));
-        else if (task == "remove_logfile")
-            task_manager->add_task(&TrainingCounter::_removeLogfile);
-        else if (task == "remove_savefile")
-            task_manager->add_task(&TrainingCounter::_removeSaveFile);
-        else if (task == "meow")
-            task_manager->add_task(&TrainingCounter::_drawCat);
-        else if (task == "moo")
-            task_manager->add_task(&TrainingCounter::_drawMoo);
-        else if (task == "remove_cache")
-            task_manager->add_task(&TrainingCounter::_removeCache);
+        if (value.empty())
+            task_manager->add_task(task_set.at(task));
         else
-            task_manager->add_task(&TrainingCounter::_printPrompt);
+            task_manager->add_task(task_set.at(task), std::stoi(value));
     }
 }
 
@@ -235,9 +242,5 @@ void TrainingCounter::_drawMoo(
 
 void TrainingCounter::_showLog(std::optional<std::size_t> opt_arg) const
 {
-    if (!opt_arg.has_value())
-        throw std::runtime_error{
-            fmt::format("{} {}\n", __PRETTY_FUNCTION__, " no value")};
-
-    log->showLog(opt_arg.value());
+    log->showLog(opt_arg ? opt_arg.value() : 0);
 }
