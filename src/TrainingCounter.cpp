@@ -7,14 +7,14 @@
 */
 int TrainingCounter::run() noexcept
 {
-    const auto& cli{CLI::CLI::get_instance()};
-    cli->add_opt('v', 'm', 's', 'a', 't', 'l', 'h');
-    cli->add_long_opt("remove_logfile", "remove_savefile", "remove_cache",
-                      "meow", "moo", "version", "help");
+    CLI::CLI cli;
+    cli.add_opt('v', 'm', 's', 'a', 't', 'l', 'h');
+    cli.add_long_opt("remove_logfile", "remove_savefile", "remove_cache",
+                     "meow", "moo", "version", "help");
 
     try
     {
-        cli->parse_args(argc, argv);
+        cli.parse_args(argc, argv);
     }
     catch (const std::exception& ex)
     {
@@ -23,7 +23,7 @@ int TrainingCounter::run() noexcept
         return EXIT_FAILURE;
     }
 
-    if (cli->tokens().empty())
+    if (cli.tokens().empty())
         task_manager->add_task(&TrainingCounter::_printPrompt);
     else
         _init_task_queue(cli);
@@ -32,10 +32,9 @@ int TrainingCounter::run() noexcept
     return EXIT_SUCCESS;
 }
 
-void TrainingCounter::_init_task_queue(
-    const std::shared_ptr<CLI::CLI>& cli) const noexcept
+void TrainingCounter::_init_task_queue(const CLI::CLI& cli) const noexcept
 {
-    for (const auto& [task, value] : cli->tokens())
+    for (const auto& [task, value] : cli.tokens())
     {
         if (task == "v" || task == "version")
             task_manager->add_task(&TrainingCounter::_printVersion);
