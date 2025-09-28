@@ -9,7 +9,7 @@ int TrainingCounter::run() noexcept
 {
     const auto& cli{CLI::CLI::get_instance()};
     cli->add_opt('v', 'm', 's', 'a', 't', 'l', 'h');
-    cli->add_long_opt("remove_logfile", "remove_savefile", "remove_cache_dir",
+    cli->add_long_opt("remove_logfile", "remove_savefile", "remove_cache",
                       "meow", "moo", "version", "help");
 
     try
@@ -19,17 +19,28 @@ int TrainingCounter::run() noexcept
     catch (const std::exception& ex)
     {
         log->write(ex.what(), Logger::NO_LOG);
-        _printHelp();
+        _printPrompt();
         return EXIT_FAILURE;
     }
 
     if (cli->tokens().empty())
-        task_manager->add_task(&TrainingCounter::_printHelp);
+        task_manager->add_task(&TrainingCounter::_printPrompt);
+    else
+        _init_task_queue(cli);
 
+    task_manager->execute_all_tasks();
+    return EXIT_SUCCESS;
+}
+
+void TrainingCounter::_init_task_queue(
+    const std::shared_ptr<CLI::CLI>& cli) const noexcept
+{
     for (const auto& [task, value] : cli->tokens())
     {
         if (task == "v" || task == "version")
             task_manager->add_task(&TrainingCounter::_printVersion);
+        else if (task == "h" || task == "help")
+            task_manager->add_task(&TrainingCounter::_printHelp);
         else if (task == "m")
             task_manager->add_task(&TrainingCounter::_markTraining);
         else if (task == "s")
@@ -52,14 +63,11 @@ int TrainingCounter::run() noexcept
             task_manager->add_task(&TrainingCounter::_drawCat);
         else if (task == "moo")
             task_manager->add_task(&TrainingCounter::_drawMoo);
-        else if (task == "remove_cache_dir")
+        else if (task == "remove_cache")
             task_manager->add_task(&TrainingCounter::_removeCache);
         else
-            task_manager->add_task(&TrainingCounter::_printHelp);
+            task_manager->add_task(&TrainingCounter::_printPrompt);
     }
-
-    task_manager->execute_all_tasks();
-    return EXIT_SUCCESS;
 }
 
 /*
@@ -94,6 +102,16 @@ void TrainingCounter::_printHelp(
         "\tTrainingCounter --remove_cache\t\tRemove cache directory.\n\n"
         "Example: TrainingCounter -m -t -l5 --version\n",
         Logger::NO_LOG);
+}
+
+/*
+    Print short prompt
+*/
+void TrainingCounter::_printPrompt(
+    std::optional<std::size_t> opt_arg) const noexcept
+{
+    log->write("Type \"TrainingCounter -h or --help\" to see instructions",
+               Logger::NO_LOG);
 }
 
 /*
@@ -154,14 +172,14 @@ void TrainingCounter::_removeLogfile(
     std::optional<std::size_t> opt_arg) const noexcept
 {
     log->removeLogfile();
-    log->write("Log file has been removed", Logger::NO_LOG);
+    log->write("Log file removed", Logger::NO_LOG);
 }
 
 void TrainingCounter::_removeSaveFile(
     std::optional<std::size_t> opt_arg) const noexcept
 {
     counter->removeSavefile();
-    log->write("Savefile has been removed");
+    log->write("Savefile removed");
 }
 
 void TrainingCounter::_removeCache(
@@ -170,7 +188,7 @@ void TrainingCounter::_removeCache(
     _removeSaveFile();
     _removeLogfile();
     std::filesystem::remove_all(log->getCacheDir());
-    log->write("Cache directory has been removed");
+    log->write("Cache directory removed");
 }
 
 void TrainingCounter::_showTrainings(

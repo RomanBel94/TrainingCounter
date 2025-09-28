@@ -5,7 +5,6 @@
 #include "Logger.h"
 #include "TaskManager.h"
 #include "Version.h"
-#include <optional>
 
 #include "CLIlib.h"
 
@@ -27,8 +26,11 @@ private:
     TrainingCounter& operator=(const TrainingCounter&) = delete;
     TrainingCounter& operator=(TrainingCounter&&) = delete;
 
+    void _init_task_queue(const std::shared_ptr<CLI::CLI>& cli) const noexcept;
+
     void _printVersion(std::optional<std::size_t> opt_arg = {}) const noexcept;
     void _printHelp(std::optional<std::size_t> opt_arg = {}) const noexcept;
+    void _printPrompt(std::optional<std::size_t> opt_arg = {}) const noexcept;
     void _addTrainings(std::optional<std::size_t> opt_arg = {});
     void _setTrainings(std::optional<std::size_t> opt_arg = {});
     void _markTraining(std::optional<std::size_t> opt_arg = {}) noexcept;
