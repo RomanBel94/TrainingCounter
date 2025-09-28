@@ -4,7 +4,7 @@ void TaskManager::add_task(
     std::function<void(TrainingCounter*, std::optional<std::size_t>)> func,
     std::optional<std::size_t> arg)
 {
-    task_queue.emplace(tc, func, arg);
+    task_queue.emplace(func, tc, arg);
 }
 
 void TaskManager::execute_all_tasks()

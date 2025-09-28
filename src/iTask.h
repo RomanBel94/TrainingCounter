@@ -11,9 +11,8 @@ class iTask
 {
 public:
     iTask(
-        TrainingCounter* tc,
         std::function<void(TrainingCounter*, std::optional<std::size_t>)> func,
-        std::optional<std::size_t> arg = {})
+        TrainingCounter* tc, std::optional<std::size_t> arg = {})
         : tc{tc}, func{func}, arg{arg} {};
     ~iTask() noexcept = default;
 
