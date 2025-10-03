@@ -16,7 +16,7 @@ TrainingCounter::TrainingCounter(int argc, char** argv) : argc(argc), argv(argv)
 int TrainingCounter::run() noexcept
 {
     CLI::CLI cli;
-    cli.add_opt('v', 'm', 's', 'a', 't', 'l', 'h');
+    cli.add_opt('v', 'm', 's', 'a', 't', 'T', 'l', 'h');
     cli.add_long_opt("remove_logfile", "remove_savefile", "remove_cache",
                      "meow", "moo", "version", "help");
 
@@ -54,6 +54,7 @@ void TrainingCounter::_init_task_set()
     task_set.insert({"s", &TrainingCounter::_setTrainings});
     task_set.insert({"a", &TrainingCounter::_addTrainings});
     task_set.insert({"t", &TrainingCounter::_showTrainings});
+    task_set.insert({"T", &TrainingCounter::_showNumTrainings});
     task_set.insert({"l", &TrainingCounter::_showLog});
     task_set.insert({"remove_logfile", &TrainingCounter::_removeLogfile});
     task_set.insert({"remove_savefile", &TrainingCounter::_removeSaveFile});
@@ -100,6 +101,7 @@ void TrainingCounter::_printHelp(
         "\tTrainingCounter -s <num>\t\tSet <num> trainings;\n"
         "\tTrainingCounter -m \t\t\tMark completed training;\n"
         "\tTrainingCounter -t \t\t\tShow remaining trainings;\n"
+        "\tTrainingCounter -t \t\t\tShow remaining trainings (only number);\n"
         "\tTrainingCounter -v, --version\t\tShow TrainingCounter version;\n"
         "\tTrainingCounter -l [<num>]\t\tShow <num> last lines of log.\n"
         "\t\t\t\t\t\tIf <num> is not given full log will be printed;\n"
@@ -167,10 +169,8 @@ void TrainingCounter::_addTrainings(std::optional<std::size_t> opt_arg)
         log->write(fmt::format("Added {} trainings", *opt_arg));
     }
     else
-    {
         throw std::runtime_error(
             fmt::format("Can't add {} trainings", *opt_arg));
-    }
 }
 
 /*
@@ -204,6 +204,12 @@ void TrainingCounter::_showTrainings(
 {
     log->write(fmt::format("Remaining trainings: {}", counter->getTrainings()),
                Logger::NO_LOG);
+}
+
+void TrainingCounter::_showNumTrainings(
+    std::optional<std::size_t> opt_arg) const noexcept
+{
+    log->write(fmt::format("{}", counter->getTrainings()), Logger::NO_LOG);
 }
 
 void TrainingCounter::_drawCat(
