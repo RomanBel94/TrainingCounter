@@ -142,11 +142,12 @@ void TrainingCounter::_markTraining(std::optional<std::size_t> opt_arg) noexcept
 */
 void TrainingCounter::_setTrainings(std::optional<std::size_t> opt_arg)
 {
-    if (!opt_arg.has_value())
+    if (!opt_arg)
         throw std::runtime_error{
             fmt::format("{} {}\n", __PRETTY_FUNCTION__, "no value")};
-    counter->setTrainings(opt_arg.value());
-    log->write(fmt::format("Set trainings to {}", opt_arg.value()));
+
+    counter->setTrainings(*opt_arg);
+    log->write(fmt::format("Set trainings to {}", *opt_arg));
 }
 
 /*
@@ -156,18 +157,19 @@ void TrainingCounter::_setTrainings(std::optional<std::size_t> opt_arg)
 */
 void TrainingCounter::_addTrainings(std::optional<std::size_t> opt_arg)
 {
-    if (!opt_arg.has_value())
+    if (!opt_arg)
         throw std::runtime_error{
             fmt::format("{} {}\n", __PRETTY_FUNCTION__, "no value")};
-    if (counter->getTrainings() + opt_arg.value() < UINT32_MAX)
+
+    if (counter->getTrainings() + *opt_arg < UINT32_MAX)
     {
         counter->addTrainings(opt_arg.value());
-        log->write(fmt::format("Added {} trainings", opt_arg.value()));
+        log->write(fmt::format("Added {} trainings", *opt_arg));
     }
     else
     {
         throw std::runtime_error(
-            fmt::format("Can't add {} trainings", opt_arg.value()));
+            fmt::format("Can't add {} trainings", *opt_arg));
     }
 }
 
@@ -242,5 +244,5 @@ void TrainingCounter::_drawMoo(
 
 void TrainingCounter::_showLog(std::optional<std::size_t> opt_arg) const
 {
-    log->showLog(opt_arg ? opt_arg.value() : 0);
+    log->showLog(opt_arg ? *opt_arg : 0);
 }
