@@ -148,6 +148,24 @@ void TrainingCounter::_setTrainings(std::optional<std::size_t> opt_arg)
         throw std::runtime_error{
             fmt::format("{} {}\n", __PRETTY_FUNCTION__, "no value")};
 
+    char ans;
+    if (*opt_arg < counter->getTrainings())
+    {
+        log->write(
+            "You are trying to set trainings to lower amount than you have.",
+            Logger::NO_LOG);
+        do
+        {
+            log->write("Are you sure? [y/n]:", Logger::NO_LOG);
+            std::cin >> ans;
+        } while (std::tolower(ans) != 'n' && std::tolower(ans) != 'y');
+    }
+
+    if (ans == 'n')
+    {
+        log->write("Setting trainings canceled", Logger::NO_LOG);
+        return;
+    }
     counter->setTrainings(*opt_arg);
     log->write(fmt::format("Set trainings to {}", *opt_arg));
 }
