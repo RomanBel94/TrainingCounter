@@ -156,7 +156,7 @@ void TrainingCounter::_setTrainings(std::optional<std::size_t> opt_arg)
             Logger::NO_LOG);
         do
         {
-            log->write("Are you sure? [y/n]:", Logger::NO_LOG);
+            log->write("\aAre you sure? [y/n]:", Logger::NO_LOG);
             std::cin >> ans;
         } while (std::tolower(ans) != 'n' && std::tolower(ans) != 'y');
     }
