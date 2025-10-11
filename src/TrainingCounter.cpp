@@ -6,6 +6,10 @@
 TrainingCounter::TrainingCounter(int argc, char** argv) : argc(argc), argv(argv)
 {
     _init_task_set();
+
+    cli->add_opt('v', 'm', 's', 'a', 't', 'T', 'l', 'h');
+    cli->add_long_opt("remove_logfile", "remove_savefile", "remove_cache",
+                      "meow", "moo", "version", "help");
 }
 
 /*
@@ -15,18 +19,13 @@ TrainingCounter::TrainingCounter(int argc, char** argv) : argc(argc), argv(argv)
 */
 int TrainingCounter::run() noexcept
 {
-    CLI::CLI cli;
-    cli.add_opt('v', 'm', 's', 'a', 't', 'T', 'l', 'h');
-    cli.add_long_opt("remove_logfile", "remove_savefile", "remove_cache",
-                     "meow", "moo", "version", "help");
-
     try
     {
-        cli.parse_args(argc, argv);
-        if (cli.tokens().empty())
+        cli->parse_args(argc, argv);
+        if (cli->tokens().empty())
             task_manager->add_task(&TrainingCounter::_printPrompt);
         else
-            _fill_task_queue(cli);
+            _fill_task_queue(*cli);
 
         task_manager->execute_all_tasks();
     }
