@@ -5,7 +5,7 @@
 */
 TrainingCounter::TrainingCounter(int argc, char** argv) : argc(argc), argv(argv)
 {
-    _init_task_set();
+    _init_task_table();
 
     cli->add_opt('v', 'm', 's', 'a', 't', 'T', 'l', 'h');
     cli->add_long_opt("remove_logfile", "remove_savefile", "remove_cache",
@@ -43,24 +43,24 @@ int TrainingCounter::run() noexcept
 /*
    Fills task hashmap with class method pointers
 */
-void TrainingCounter::_init_task_set()
+void TrainingCounter::_init_task_table()
 {
 
-    task_set.insert({"v", &TrainingCounter::_printVersion});
-    task_set.insert({"version", &TrainingCounter::_printVersion});
-    task_set.insert({"h", &TrainingCounter::_printHelp});
-    task_set.insert({"help", &TrainingCounter::_printHelp});
-    task_set.insert({"m", &TrainingCounter::_markTraining});
-    task_set.insert({"s", &TrainingCounter::_setTrainings});
-    task_set.insert({"a", &TrainingCounter::_addTrainings});
-    task_set.insert({"t", &TrainingCounter::_showTrainings});
-    task_set.insert({"T", &TrainingCounter::_showNumTrainings});
-    task_set.insert({"l", &TrainingCounter::_showLog});
-    task_set.insert({"remove_logfile", &TrainingCounter::_removeLogfile});
-    task_set.insert({"remove_savefile", &TrainingCounter::_removeSaveFile});
-    task_set.insert({"remove_cache", &TrainingCounter::_removeCache});
-    task_set.insert({"meow", &TrainingCounter::_drawCat});
-    task_set.insert({"moo", &TrainingCounter::_drawMoo});
+    task_table.insert({"v", &TrainingCounter::_printVersion});
+    task_table.insert({"version", &TrainingCounter::_printVersion});
+    task_table.insert({"h", &TrainingCounter::_printHelp});
+    task_table.insert({"help", &TrainingCounter::_printHelp});
+    task_table.insert({"m", &TrainingCounter::_markTraining});
+    task_table.insert({"s", &TrainingCounter::_setTrainings});
+    task_table.insert({"a", &TrainingCounter::_addTrainings});
+    task_table.insert({"t", &TrainingCounter::_showTrainings});
+    task_table.insert({"T", &TrainingCounter::_showNumTrainings});
+    task_table.insert({"l", &TrainingCounter::_showLog});
+    task_table.insert({"remove_logfile", &TrainingCounter::_removeLogfile});
+    task_table.insert({"remove_savefile", &TrainingCounter::_removeSaveFile});
+    task_table.insert({"remove_cache", &TrainingCounter::_removeCache});
+    task_table.insert({"meow", &TrainingCounter::_drawCat});
+    task_table.insert({"moo", &TrainingCounter::_drawMoo});
 }
 
 /*
@@ -71,9 +71,9 @@ void TrainingCounter::_fill_task_queue(const CLI::CLI& cli) const noexcept
     for (const auto& [task, value] : cli.tokens())
     {
         if (value.empty())
-            task_manager->add_task(task_set.at(task));
+            task_manager->add_task(task_table.at(task));
         else
-            task_manager->add_task(task_set.at(task), std::stoi(value));
+            task_manager->add_task(task_table.at(task), std::stoi(value));
     }
 }
 
