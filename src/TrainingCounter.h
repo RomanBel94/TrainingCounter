@@ -36,22 +36,31 @@ private:
     void _init_task_set();
     void _fill_task_queue(const CLI::CLI& cli) const noexcept;
 
-    void _printVersion(std::optional<std::size_t> opt_arg = {}) const noexcept;
-    void _printHelp(std::optional<std::size_t> opt_arg = {}) const noexcept;
-    void _printPrompt(std::optional<std::size_t> opt_arg = {}) const noexcept;
-    void _addTrainings(std::optional<std::size_t> opt_arg = {});
-    void _setTrainings(std::optional<std::size_t> opt_arg = {});
-    void _markTraining(std::optional<std::size_t> opt_arg = {}) noexcept;
-    void _removeLogfile(std::optional<std::size_t> opt_arg = {}) const noexcept;
-    void
-    _removeSaveFile(std::optional<std::size_t> opt_arg = {}) const noexcept;
-    void _removeCache(std::optional<std::size_t> opt_arg = {}) const noexcept;
-    void _drawCat(std::optional<std::size_t> opt_arg = {}) const noexcept;
-    void _drawMoo(std::optional<std::size_t> opt_arg = {}) const noexcept;
-    void _showTrainings(std::optional<std::size_t> opt_arg = {}) const noexcept;
-    void
-    _showNumTrainings(std::optional<std::size_t> opt_arg = {}) const noexcept;
-    void _showLog(std::optional<std::size_t> opt_arg = {}) const;
+    void _printVersion(std::optional<std::size_t> opt_arg = {
+                           std::nullopt}) const noexcept;
+    void _printHelp(std::optional<std::size_t> opt_arg = {
+                        std::nullopt}) const noexcept;
+    void _printPrompt(std::optional<std::size_t> opt_arg = {
+                          std::nullopt}) const noexcept;
+    void _addTrainings(std::optional<std::size_t> opt_arg = {std::nullopt});
+    void _setTrainings(std::optional<std::size_t> opt_arg = {std::nullopt});
+    void _markTraining(std::optional<std::size_t> opt_arg = {
+                           std::nullopt}) noexcept;
+    void _removeLogfile(std::optional<std::size_t> opt_arg = {
+                            std::nullopt}) const noexcept;
+    void _removeSaveFile(std::optional<std::size_t> opt_arg = {
+                             std::nullopt}) const noexcept;
+    void _removeCache(std::optional<std::size_t> opt_arg = {
+                          std::nullopt}) const noexcept;
+    void _drawCat(std::optional<std::size_t> opt_arg = {
+                      std::nullopt}) const noexcept;
+    void _drawMoo(std::optional<std::size_t> opt_arg = {
+                      std::nullopt}) const noexcept;
+    void _showTrainings(std::optional<std::size_t> opt_arg = {
+                            std::nullopt}) const noexcept;
+    void _showNumTrainings(std::optional<std::size_t> opt_arg = {
+                               std::nullopt}) const noexcept;
+    void _showLog(std::optional<std::size_t> opt_arg = {std::nullopt}) const;
 
 public:
     /*

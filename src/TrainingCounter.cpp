@@ -22,6 +22,7 @@ int TrainingCounter::run() noexcept
     try
     {
         cli->parse_args(argc, argv);
+
         if (cli->tokens().empty())
             task_manager->add_task(&TrainingCounter::_printPrompt);
         else
