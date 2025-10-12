@@ -16,11 +16,11 @@ public:
     void execute_all_tasks();
     void add_task(
         std::function<void(TrainingCounter*, std::optional<std::size_t>)> func,
-        std::optional<std::size_t> arg = {});
+        std::optional<std::size_t> arg = {std::nullopt});
 
 private:
     std::queue<iTask, std::list<iTask>> task_queue{};
-    TrainingCounter* tc{};
+    TrainingCounter* tc{nullptr};
 };
 
 #endif // TASK_MANAGER_H
