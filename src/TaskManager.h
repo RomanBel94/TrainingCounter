@@ -10,7 +10,7 @@ class TrainingCounter;
 class TaskManager final
 {
 public:
-    TaskManager(TrainingCounter* tc) : tc{tc} {};
+    explicit TaskManager(TrainingCounter* tc) : tc{tc} {};
     ~TaskManager() noexcept = default;
 
     void execute_all_tasks();
