@@ -12,8 +12,8 @@ class iTask
 public:
     iTask(
         std::function<void(TrainingCounter*, std::optional<std::size_t>)> func,
-        TrainingCounter* tc, std::optional<std::size_t> arg = {})
-        : tc{tc}, func{func}, arg{arg} {};
+        TrainingCounter* tc, std::optional<std::size_t> arg = {std::nullopt})
+        : func{func}, tc{tc}, arg{arg} {};
     ~iTask() noexcept = default;
 
     void execute() { func(tc, arg); }
@@ -24,9 +24,9 @@ private:
     iTask& operator=(const iTask&) = delete;
     iTask& operator=(iTask&&) noexcept = delete;
 
-    TrainingCounter* tc{};
-    std::optional<std::size_t> arg{};
     std::function<void(TrainingCounter*, std::optional<std::size_t>)> func{};
+    TrainingCounter* tc{nullptr};
+    std::optional<std::size_t> arg{std::nullopt};
 };
 
 #endif // ITASK_H
