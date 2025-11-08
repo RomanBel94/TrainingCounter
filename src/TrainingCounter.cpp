@@ -1,4 +1,6 @@
 #include "TrainingCounter.h"
+#include "Version.h"
+#include <algorithm>
 
 /*
     Ctor
@@ -26,7 +28,7 @@ int TrainingCounter::run() noexcept
         if (cli->tokens().empty())
             task_manager->add_task(&TrainingCounter::_printPrompt);
         else
-            _fill_task_queue(*cli);
+            _fill_task_queue(cli->tokens());
 
         task_manager->execute_all_tasks();
     }
@@ -66,17 +68,19 @@ void TrainingCounter::_init_task_table()
 /*
    Fills task queue
 */
-void TrainingCounter::_fill_task_queue(const CLI::CLI& cli) const noexcept
+void TrainingCounter::_fill_task_queue(
+    const std::list<CLI::CLI::token>& tokens) const noexcept
 {
-    for (const auto& [task, value] : cli.tokens())
-    {
-        if (value.empty())
-            task_manager->add_task(task_table.at(task));
-        else
-            task_manager->add_task(task_table.at(task), std::stoi(value));
-    }
+    std::for_each(tokens.begin(), tokens.end(),
+                  [this](const auto& token)
+                  {
+                      if (token.second.empty())
+                          task_manager->add_task(task_table.at(token.first));
+                      else
+                          task_manager->add_task(task_table.at(token.first),
+                                                 std::stoi(token.second));
+                  });
 }
-
 /*
     Print version of program
 */

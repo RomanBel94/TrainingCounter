@@ -1,11 +1,10 @@
 #pragma once
-#include <memory>
 #ifndef CORE_H
 
 #include "Counter.hpp"
 #include "Logger.h"
 #include "TaskManager.h"
-#include "Version.h"
+#include <memory>
 
 #include "CLIlib.h"
 
@@ -34,7 +33,8 @@ private:
     TrainingCounter& operator=(TrainingCounter&&) = delete;
 
     void _init_task_table();
-    void _fill_task_queue(const CLI::CLI& cli) const noexcept;
+    void
+    _fill_task_queue(const std::list<CLI::CLI::token>& tokens) const noexcept;
 
     void _printVersion(std::optional<std::size_t> opt_arg = {
                            std::nullopt}) const noexcept;
