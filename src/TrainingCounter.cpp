@@ -8,10 +8,7 @@
 TrainingCounter::TrainingCounter(int argc, char** argv) : argc(argc), argv(argv)
 {
     _init_task_table();
-
-    cli->add_opt('v', 'm', 's', 'a', 't', 'T', 'l', 'h');
-    cli->add_long_opt("remove_logfile", "remove_savefile", "remove_cache",
-                      "meow", "moo", "version", "help");
+    _init_cli_options();
 }
 
 /*
@@ -63,6 +60,28 @@ void TrainingCounter::_init_task_table()
     task_table.insert({"remove_cache", &TrainingCounter::_removeCache});
     task_table.insert({"meow", &TrainingCounter::_drawCat});
     task_table.insert({"moo", &TrainingCounter::_drawMoo});
+}
+
+/*
+    Fills CLI with valid options
+*/
+void TrainingCounter::_init_cli_options()
+{
+    cli->add_short_option('v');
+    cli->add_short_option('m');
+    cli->add_short_option('s');
+    cli->add_short_option('a');
+    cli->add_short_option('t');
+    cli->add_short_option('T');
+    cli->add_short_option('l');
+    cli->add_short_option('h');
+    cli->add_long_option("remove_logfile");
+    cli->add_long_option("remove_savefile");
+    cli->add_long_option("remove_cache");
+    cli->add_long_option("meow");
+    cli->add_long_option("moo");
+    cli->add_long_option("version");
+    cli->add_long_option("help");
 }
 
 /*

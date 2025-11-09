@@ -33,6 +33,7 @@ private:
     TrainingCounter& operator=(TrainingCounter&&) = delete;
 
     void _init_task_table();
+    void _init_cli_options();
     void
     _fill_task_queue(const std::list<CLI::CLI::token>& tokens) const noexcept;
 
