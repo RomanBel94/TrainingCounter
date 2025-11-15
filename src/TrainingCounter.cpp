@@ -1,8 +1,8 @@
-#include "TrainingCounter.h"
-#include "Version.h"
 #include <algorithm>
 #include <array>
 
+#include "TrainingCounter.h"
+#include "Version.h"
 /*
     Ctor
 */
@@ -167,7 +167,7 @@ void TrainingCounter::_setTrainings(std::optional<std::size_t> opt_arg)
 {
     if (!opt_arg)
         throw std::runtime_error{
-            fmt::format("{} {}\n", __PRETTY_FUNCTION__, "no value")};
+            fmt::format("{} no value\n", __PRETTY_FUNCTION__)};
 
     char ans;
     if (*opt_arg < counter->getTrainings())
@@ -200,9 +200,10 @@ void TrainingCounter::_addTrainings(std::optional<std::size_t> opt_arg)
 {
     if (!opt_arg)
         throw std::runtime_error{
-            fmt::format("{} {}\n", __PRETTY_FUNCTION__, "no value")};
+            fmt::format("{} no value\n", __PRETTY_FUNCTION__)};
 
-    if (counter->getTrainings() + *opt_arg < UINT32_MAX)
+    if (counter->getTrainings() + *opt_arg <
+        std::numeric_limits<uint32_t>().max())
     {
         counter->addTrainings(opt_arg.value());
         log->write(fmt::format("Added {} trainings", *opt_arg));
