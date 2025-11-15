@@ -1,6 +1,7 @@
 #include "TrainingCounter.h"
 #include "Version.h"
 #include <algorithm>
+#include <array>
 
 /*
     Ctor
@@ -67,21 +68,18 @@ void TrainingCounter::_init_task_table()
 */
 void TrainingCounter::_init_cli_options()
 {
-    cli->add_short_option('v');
-    cli->add_short_option('m');
-    cli->add_short_option('s');
-    cli->add_short_option('a');
-    cli->add_short_option('t');
-    cli->add_short_option('T');
-    cli->add_short_option('l');
-    cli->add_short_option('h');
-    cli->add_long_option("remove_logfile");
-    cli->add_long_option("remove_savefile");
-    cli->add_long_option("remove_cache");
-    cli->add_long_option("meow");
-    cli->add_long_option("moo");
-    cli->add_long_option("version");
-    cli->add_long_option("help");
+    std::array short_options{'v', 'm', 's', 'a', 't', 'T', 'l', 'h'};
+    std::for_each(short_options.begin(), short_options.end(),
+                  [this](auto opt) { cli->add_short_option(opt); });
+    std::array long_options{"remove_logfile",
+                            "remove_savefile",
+                            "remove_cache",
+                            "meow",
+                            "moo",
+                            "version",
+                            "help"};
+    std::for_each(long_options.begin(), long_options.end(),
+                  [this](auto opt) { cli->add_long_option(opt); });
 }
 
 /*
