@@ -75,3 +75,7 @@ add_custom_target(
     COMMAND valgrind ${CMAKE_CURRENT_BINARY_DIR}/TrainingCounter -h -ma1 -s`${CMAKE_CURRENT_BINARY_DIR}/TrainingCounter -T` -l5 -t --help --moo --meow
 )
 
+add_custom_target(
+    static_check
+    COMMAND cppcheck --enable=all --std=c++${CMAKE_CXX_STANDARD} -I ${CMAKE_SOURCE_DIR}/external/CLIlib/include ${CMAKE_CURRENT_SOURCE_DIR}/src  >> ${CMAKE_CURRENT_BINARY_DIR}/check_result.txt
+)
