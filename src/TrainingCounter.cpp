@@ -169,7 +169,7 @@ void TrainingCounter::_setTrainings(std::optional<std::size_t> opt_arg)
         throw std::runtime_error{
             fmt::format("{} no value\n", __PRETTY_FUNCTION__)};
 
-    char ans;
+    char ans{'n'};
     if (*opt_arg < counter->getTrainings())
     {
         log->write(
