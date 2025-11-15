@@ -150,7 +150,7 @@ void TrainingCounter::_markTraining(std::optional<std::size_t> opt_arg) noexcept
 {
     if (counter->getTrainings())
     {
-        counter->markTraining();
+        counter->decreaseTraining();
         log->write("Training marked");
     }
 
@@ -169,7 +169,7 @@ void TrainingCounter::_setTrainings(std::optional<std::size_t> opt_arg)
         throw std::runtime_error{
             fmt::format("{} no value\n", __PRETTY_FUNCTION__)};
 
-    char ans{'n'};
+    char ans{};
     if (*opt_arg < counter->getTrainings())
     {
         log->write(
