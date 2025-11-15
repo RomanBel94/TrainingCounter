@@ -72,6 +72,6 @@ install(
 
 add_custom_target(
     run_test
-    COMMAND ${CMAKE_CURRENT_BINARY_DIR}/TrainingCounter -h -ma1 -s`${CMAKE_CURRENT_BINARY_DIR}/TrainingCounter -T` -l5 -t --help --moo --meow
+    COMMAND valgrind ${CMAKE_CURRENT_BINARY_DIR}/TrainingCounter -h -ma1 -s`${CMAKE_CURRENT_BINARY_DIR}/TrainingCounter -T` -l5 -t --help --moo --meow
 )
 
