@@ -1,3 +1,5 @@
+#include <deque>
+
 #include "Logger.h"
 
 /*
@@ -30,10 +32,11 @@ void Logger::showLog(size_t lines_num)
     std::ifstream logfileRead(logFileName, std::ios::in);
 
     std::deque<std::string> lines;
-    char buffer[BUFFER_SIZE];
+    std::string buffer{};
+    buffer.reserve(BUFFER_SIZE);
 
-    while (logfileRead.getline(buffer, BUFFER_SIZE, '\n'))
-        lines.push_back(buffer);
+    while (logfileRead.getline(buffer.data(), BUFFER_SIZE, '\n'))
+        lines.emplace_back(buffer.c_str());
 
     if (lines.empty())
     {

@@ -1,12 +1,10 @@
 #pragma once
 #ifndef SAVE_H
 
-#include <cstdlib>    // getenv()
-#include <filesystem> // exists(), create_directory()
-#include <fstream>    // ifstream, ofstream
-#include <string>     // strings
+#include <cstdlib> // getenv()
+#include <string>  // strings
 
-#include "../external/fmt/include/fmt/core.h"
+#include "fmt/core.h"
 
 class Save final
 {

@@ -1,9 +1,6 @@
 #pragma once
 #ifndef LOGGER_H
 
-#include <cstdlib>    // getenv()
-#include <ctime>      // asctime()
-#include <deque>      // deque
 #include <filesystem> // exists(), create_directory()
 #include <fstream>    // ofstream
 #include <iostream>   // cout

@@ -1,5 +1,6 @@
 #include "Save.h"
 #include <filesystem>
+#include <fstream>
 
 /*
     Creates cache directory if it's not exists
