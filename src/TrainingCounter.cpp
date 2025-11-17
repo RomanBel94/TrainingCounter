@@ -155,7 +155,7 @@ void TrainingCounter::_markTraining(std::optional<std::size_t> opt_arg) noexcept
     }
 
     if (!counter->getTrainings())
-        log->write("No trainings left", Logger::NO_LOG);
+        log->write("\x1b[1;31mNo trainings left\x1b[0m", Logger::NO_LOG);
 }
 
 /*
