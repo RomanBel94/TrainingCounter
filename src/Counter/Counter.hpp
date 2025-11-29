@@ -9,16 +9,14 @@ template <typename uint_t>
 class Counter final
 {
 public:
-    using counter_t = uint_t;
-
     // set <num> of trainings if <num> is greater than 0
-    void set(counter_t num) noexcept;
+    void set(uint_t num) noexcept;
 
     // add <num> of trainings if <num> is greater than 0
-    void add(counter_t num) noexcept;
+    void add(uint_t num) noexcept;
 
     // returns trainings
-    counter_t get() const noexcept { return m_count; }
+    uint_t get() const noexcept { return m_count; }
 
     // decrement trainings by 1 if current number of trainings is greater than 0
     void count() noexcept;
@@ -34,23 +32,23 @@ public:
 
 private:
     std::unique_ptr<Save> m_save = std::make_unique<Save>();
-    counter_t m_count{0}; // current value of trainings
+    uint_t m_count{0}; // current value of trainings
 };
 
 template <typename uint_t>
-void Counter<uint_t>::set(Counter::counter_t num) noexcept
+void Counter<uint_t>::set(uint_t num) noexcept
 {
-    num <= std::numeric_limits<counter_t>().max()
+    num <= std::numeric_limits<uint_t>().max()
         ? m_count = num
-        : m_count = std::numeric_limits<counter_t>().max();
+        : m_count = std::numeric_limits<uint_t>().max();
 }
 
 template <typename uint_t>
-void Counter<uint_t>::add(Counter::counter_t num) noexcept
+void Counter<uint_t>::add(uint_t num) noexcept
 {
-    m_count + num <= std::numeric_limits<counter_t>().max()
+    m_count + num <= std::numeric_limits<uint_t>().max()
         ? m_count += num
-        : m_count = std::numeric_limits<counter_t>().max();
+        : m_count = std::numeric_limits<uint_t>().max();
 }
 
 template <typename uint_t>

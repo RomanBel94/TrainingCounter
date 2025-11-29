@@ -11,10 +11,12 @@
 class TrainingCounter final
 {
 private:
+    using counter_t = std::size_t;
+
     int argc;    // number of given arguments
     char** argv; // value of given arguments
 
-    std::unique_ptr<Counter<std::size_t>> m_counter =
+    std::unique_ptr<Counter<counter_t>> m_counter =
         std::make_unique<Counter<std::size_t>>();
     std::unique_ptr<Logger> log = std::make_unique<Logger>();
     std::unique_ptr<TaskManager> task_manager =
