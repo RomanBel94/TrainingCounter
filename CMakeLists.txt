@@ -31,14 +31,14 @@ message(STATUS "File \"Version.h\" configured with version: ${CMAKE_PROJECT_VERS
 add_library(TrainingCounterLib)
 target_sources(TrainingCounterLib
     PRIVATE
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/Counter.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Counter/Counter.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Version.h
     ${CMAKE_CURRENT_SOURCE_DIR}/src/TrainingCounter.h
     ${CMAKE_CURRENT_SOURCE_DIR}/src/TrainingCounter.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Logger.h
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Logger.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/Save.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/Save.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Counter/Save/Save.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Counter/Save/Save.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/iTask.h
     ${CMAKE_CURRENT_SOURCE_DIR}/src/TaskManager.h
     ${CMAKE_CURRENT_SOURCE_DIR}/src/TaskManager.cpp

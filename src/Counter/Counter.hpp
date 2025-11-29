@@ -1,0 +1,80 @@
+#pragma once
+#ifndef COUNTER_H
+
+#include <memory>
+
+#include "Save/Save.h"
+
+template <typename uint_t>
+class Counter final
+{
+public:
+    using counter_t = uint_t;
+
+    // set <num> of trainings if <num> is greater than 0
+    void set(counter_t num) noexcept;
+
+    // add <num> of trainings if <num> is greater than 0
+    void add(counter_t num) noexcept;
+
+    // returns trainings
+    counter_t get() const noexcept { return m_count; }
+
+    // decrement trainings by 1 if current number of trainings is greater than 0
+    void count() noexcept;
+
+    // removes save file
+    void remove_savefile() const noexcept;
+
+    // ctor
+    Counter();
+
+    // dtor
+    ~Counter();
+
+private:
+    std::unique_ptr<Save> m_save = std::make_unique<Save>();
+    counter_t m_count{0}; // current value of trainings
+};
+
+template <typename uint_t>
+void Counter<uint_t>::set(Counter::counter_t num) noexcept
+{
+    num <= std::numeric_limits<counter_t>().max()
+        ? m_count = num
+        : m_count = std::numeric_limits<counter_t>().max();
+}
+
+template <typename uint_t>
+void Counter<uint_t>::add(Counter::counter_t num) noexcept
+{
+    m_count + num <= std::numeric_limits<counter_t>().max()
+        ? m_count += num
+        : m_count = std::numeric_limits<counter_t>().max();
+}
+
+template <typename uint_t>
+void Counter<uint_t>::count() noexcept
+{
+    m_count > 0 ? --m_count : m_count;
+}
+
+template <typename uint_t>
+void Counter<uint_t>::remove_savefile() const noexcept
+{
+    m_save->removeSavefile();
+}
+
+template <typename uint_t>
+Counter<uint_t>::Counter() : m_count(m_save->read())
+{
+}
+
+template <typename uint_t>
+Counter<uint_t>::~Counter()
+{
+    m_save->write(m_count);
+}
+
+#define COUNTER_H
+#endif

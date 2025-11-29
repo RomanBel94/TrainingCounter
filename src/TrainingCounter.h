@@ -1,7 +1,7 @@
 #pragma once
 #ifndef CORE_H
 
-#include "Counter.hpp"
+#include "Counter/Counter.hpp"
 #include "Logger.h"
 #include "TaskManager.h"
 #include <memory>
@@ -14,7 +14,8 @@ private:
     int argc;    // number of given arguments
     char** argv; // value of given arguments
 
-    std::unique_ptr<Counter> counter = std::make_unique<Counter>();
+    std::unique_ptr<Counter<std::size_t>> m_counter =
+        std::make_unique<Counter<std::size_t>>();
     std::unique_ptr<Logger> log = std::make_unique<Logger>();
     std::unique_ptr<TaskManager> task_manager =
         std::make_unique<TaskManager>(this);

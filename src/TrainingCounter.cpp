@@ -148,13 +148,13 @@ void TrainingCounter::_printPrompt(
 */
 void TrainingCounter::_markTraining(std::optional<std::size_t> opt_arg) noexcept
 {
-    if (counter->getTrainings())
+    if (m_counter->get())
     {
-        counter->decreaseTraining();
+        m_counter->count();
         log->write("Training marked");
     }
 
-    if (!counter->getTrainings())
+    if (!m_counter->get())
         log->write("\x1b[1;31mNo trainings left\x1b[0m", Logger::NO_LOG);
 }
 
@@ -170,7 +170,7 @@ void TrainingCounter::_setTrainings(std::optional<std::size_t> opt_arg)
             fmt::format("{} no value\n", __PRETTY_FUNCTION__)};
 
     char ans{};
-    if (*opt_arg < counter->getTrainings())
+    if (*opt_arg < m_counter->get())
     {
         log->write(
             "You are trying to set trainings to lower amount than you have.",
@@ -187,7 +187,7 @@ void TrainingCounter::_setTrainings(std::optional<std::size_t> opt_arg)
         log->write("Setting trainings canceled", Logger::NO_LOG);
         return;
     }
-    counter->setTrainings(*opt_arg);
+    m_counter->set(*opt_arg);
     log->write(fmt::format("Set trainings to {}", *opt_arg));
 }
 
@@ -202,10 +202,10 @@ void TrainingCounter::_addTrainings(std::optional<std::size_t> opt_arg)
         throw std::runtime_error{
             fmt::format("{} no value\n", __PRETTY_FUNCTION__)};
 
-    if (counter->getTrainings() + *opt_arg <
-        std::numeric_limits<uint32_t>().max())
+    if (m_counter->get() + *opt_arg <
+        std::numeric_limits<Counter<std::size_t>::counter_t>().max())
     {
-        counter->addTrainings(opt_arg.value());
+        m_counter->add(opt_arg.value());
         log->write(fmt::format("Added {} trainings", *opt_arg));
     }
     else
@@ -226,7 +226,7 @@ void TrainingCounter::_removeLogfile(
 void TrainingCounter::_removeSaveFile(
     std::optional<std::size_t> opt_arg) const noexcept
 {
-    counter->removeSavefile();
+    m_counter->remove_savefile();
     log->write("Savefile removed");
 }
 
@@ -242,14 +242,14 @@ void TrainingCounter::_removeCache(
 void TrainingCounter::_showTrainings(
     std::optional<std::size_t> opt_arg) const noexcept
 {
-    log->write(fmt::format("Remaining trainings: {}", counter->getTrainings()),
+    log->write(fmt::format("Remaining trainings: {}", m_counter->get()),
                Logger::NO_LOG);
 }
 
 void TrainingCounter::_showNumTrainings(
     std::optional<std::size_t> opt_arg) const noexcept
 {
-    log->write(fmt::format("{}", counter->getTrainings()), Logger::NO_LOG);
+    log->write(fmt::format("{}", m_counter->get()), Logger::NO_LOG);
 }
 
 void TrainingCounter::_drawCat(
