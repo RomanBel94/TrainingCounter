@@ -202,15 +202,8 @@ void TrainingCounter::_addTrainings(std::optional<std::size_t> opt_arg)
         throw std::runtime_error{
             fmt::format("{} no value\n", __PRETTY_FUNCTION__)};
 
-    if (m_counter->get() + *opt_arg <
-        std::numeric_limits<Counter<std::size_t>::counter_t>().max())
-    {
-        m_counter->add(opt_arg.value());
-        log->write(fmt::format("Added {} trainings", *opt_arg));
-    }
-    else
-        throw std::runtime_error(
-            fmt::format("Can't add {} trainings", *opt_arg));
+    m_counter->add(*opt_arg);
+    log->write(fmt::format("Added {} trainings", *opt_arg));
 }
 
 /*
