@@ -37,7 +37,7 @@ void Logger::write(const std::string_view msg, bool file) noexcept
 {
     if (file)
     {
-        std::filesystem::create_directory(m_cache_dir);
+        std::filesystem::create_directory(cache_dir);
         std::ofstream logfile{m_logfilename, std::ios::out | std::ios::app};
 
         if (logfile.is_open())
