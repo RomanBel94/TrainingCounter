@@ -70,8 +70,9 @@ void TrainingCounter::_init_task_table()
 void TrainingCounter::_init_cli_options()
 {
     std::array short_options{'v', 'm', 's', 'a', 't', 'T', 'l', 'h'};
-    std::for_each(short_options.begin(), short_options.end(),
-                  [this](auto opt) { cli->add_short_option(opt); });
+    std::ranges::for_each(short_options,
+                          [this](auto opt) { cli->add_short_option(opt); });
+
     std::array long_options{"remove_logfile",
                             "remove_savefile",
                             "remove_cache",
@@ -79,8 +80,8 @@ void TrainingCounter::_init_cli_options()
                             "moo",
                             "version",
                             "help"};
-    std::for_each(long_options.begin(), long_options.end(),
-                  [this](auto opt) { cli->add_long_option(opt); });
+    std::ranges::for_each(long_options,
+                          [this](auto opt) { cli->add_long_option(opt); });
 }
 
 /*
