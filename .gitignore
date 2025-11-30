@@ -4,7 +4,7 @@ out/
 CMakeSettings.json
 .vs/
 install/
-src/Version.h
+src/Version/Version.h
 .vimspector.json
 *.obj
 *.exe
