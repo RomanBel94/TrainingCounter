@@ -34,11 +34,11 @@ public:
     Save();
     ~Save() = default;
 
-    static void write(const uint_t trainings) noexcept;
+    static void write(uint_t trainings) noexcept;
     static uint_t read() noexcept;
 
     static void remove_savefile() noexcept;
-    static const auto& getCacheDir() noexcept { return m_cache_dir; }
+    static const auto& get_cache_dir() noexcept { return m_cache_dir; }
 };
 
 /*
@@ -59,15 +59,12 @@ template <typename uint_t>
 uint_t Save<uint_t>::read() noexcept
 {
     std::ifstream input(m_filename, std::ios::in | std::ios::binary);
-    uint32_t trainings{0};
+    uint_t number{0};
 
     if (input.is_open())
-    {
-        input.read(reinterpret_cast<char*>(&trainings), sizeof(trainings));
-        input.close();
-    }
+        input.read(reinterpret_cast<char*>(&number), sizeof(number));
 
-    return trainings;
+    return number;
 }
 
 /*
@@ -76,16 +73,13 @@ uint_t Save<uint_t>::read() noexcept
     @param number to write
 */
 template <typename uint_t>
-void Save<uint_t>::write(const uint_t trainings) noexcept
+void Save<uint_t>::write(uint_t trainings) noexcept
 {
     std::ofstream output(m_filename, std::ios::out | std::ios::binary);
 
     if (output.is_open())
-    {
         output.write(reinterpret_cast<const char*>(&trainings),
                      sizeof(trainings));
-        output.close();
-    }
 }
 
 template <typename uint_t>
