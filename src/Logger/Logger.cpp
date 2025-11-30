@@ -1,3 +1,4 @@
+#include <chrono>
 #include <deque>
 
 #include "Logger.h"
@@ -46,8 +47,8 @@ void Logger::show_logfile(size_t lines_num)
 void Logger::write(std::string const& msg, bool logfile) noexcept
 {
     if (logfile && m_logfile.is_open())
-        m_logfile << std::put_time(std::localtime(&m_time), m_time_format)
-                  << msg << std::endl;
+        m_logfile << std::format("{:%a %d.%m.%Y %H:%M}\t{}\n",
+                                 std::chrono::system_clock::now(), msg);
 
     std::clog << msg << std::endl;
 }

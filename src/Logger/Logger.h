@@ -30,8 +30,6 @@ private:
 private:
     inline static constexpr size_t BUFFER_SIZE =
         std::numeric_limits<unsigned char>().max();
-    inline static std::time_t const m_time = time(nullptr);
-    inline static char const* const m_time_format = "%a %d.%m.%Y %H:%M\t";
 
     Logger(const Logger&) = delete;
     Logger(Logger&&) = delete;
