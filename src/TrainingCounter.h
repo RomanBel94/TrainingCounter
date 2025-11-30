@@ -2,7 +2,6 @@
 #ifndef CORE_H
 
 #include "Counter/Counter.hpp"
-#include "Logger/Logger.h"
 #include "TaskManager/TaskManager.h"
 #include <memory>
 
@@ -18,7 +17,6 @@ private:
 
     std::unique_ptr<Counter<counter_t>> m_counter =
         std::make_unique<Counter<std::size_t>>();
-    std::unique_ptr<Logger> log = std::make_unique<Logger>();
     std::unique_ptr<TaskManager> task_manager =
         std::make_unique<TaskManager>(this);
     std::unique_ptr<CLI::CLI> cli = std::make_unique<CLI::CLI>();

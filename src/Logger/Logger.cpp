@@ -50,7 +50,7 @@ void Logger::write(std::string const& msg, bool logfile) noexcept
         m_logfile << std::format("{:%a %d.%m.%Y %H:%M}\t{}\n",
                                  std::chrono::system_clock::now(), msg);
 
-    std::clog << msg << std::endl;
+    std::clog << std::format("{}\n", msg);
 }
 
 /*

@@ -43,12 +43,13 @@ public:
     Logger();
     ~Logger() noexcept = default;
 
-    void write(std::string const& msg, bool logfile = NO_LOGFILE) noexcept;
+    static void write(std::string const& msg,
+                      bool logfile = NO_LOGFILE) noexcept;
 
-    const auto& get_cache_dir() const noexcept { return m_cache_dir; }
+    static const auto& get_cache_dir() noexcept { return m_cache_dir; }
 
-    void remove_logfile();
-    void show_logfile(std::size_t lines_num = 0);
+    static void remove_logfile();
+    static void show_logfile(std::size_t lines_num = 0);
 };
 
 #define LOGGER_H
