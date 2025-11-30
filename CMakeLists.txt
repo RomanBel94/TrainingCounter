@@ -1,11 +1,10 @@
 cmake_minimum_required(VERSION 3.10 FATAL_ERROR)
 
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_BUILD_TYPE Release)
+set(CMAKE_CXX_STANDARD 20)
 message(STATUS "Build type: ${CMAKE_BUILD_TYPE}")
 
+# external libraries
 add_subdirectory(external/CLIlib)
-add_subdirectory(external/fmt)
 
 project(
     TrainingCounter
@@ -50,7 +49,6 @@ target_include_directories(
 )
 target_link_libraries(TrainingCounterLib
     PRIVATE
-    fmt::fmt
     CLIlib
 )
 
