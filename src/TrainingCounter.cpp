@@ -104,7 +104,7 @@ void TrainingCounter::_fill_task_queue(
 void TrainingCounter::_printVersion(
     std::optional<std::size_t> opt_arg) const noexcept
 {
-    log->write(fmt::format("TrainingCounter {}\nCompiled at {}", VERSION,
+    log->write(std::format("TrainingCounter {}\nCompiled at {}", VERSION,
                            __TIMESTAMP__));
 }
 
@@ -164,7 +164,7 @@ void TrainingCounter::_setTrainings(std::optional<std::size_t> opt_arg)
 {
     if (!opt_arg)
         throw std::runtime_error{
-            fmt::format("{} no value\n", __PRETTY_FUNCTION__)};
+            std::format("{} no value\n", __PRETTY_FUNCTION__)};
 
     char ans{};
     if (*opt_arg < m_counter->get())
@@ -184,7 +184,7 @@ void TrainingCounter::_setTrainings(std::optional<std::size_t> opt_arg)
         return;
     }
     m_counter->set(*opt_arg);
-    log->write(fmt::format("Set trainings to {}", *opt_arg), Logger::LOGFILE);
+    log->write(std::format("Set trainings to {}", *opt_arg), Logger::LOGFILE);
 }
 
 /*
@@ -196,10 +196,10 @@ void TrainingCounter::_addTrainings(std::optional<std::size_t> opt_arg)
 {
     if (!opt_arg)
         throw std::runtime_error{
-            fmt::format("{} no value\n", __PRETTY_FUNCTION__)};
+            std::format("{} no value\n", __PRETTY_FUNCTION__)};
 
     m_counter->add(*opt_arg);
-    log->write(fmt::format("Added {} trainings", *opt_arg), Logger::LOGFILE);
+    log->write(std::format("Added {} trainings", *opt_arg), Logger::LOGFILE);
 }
 
 /*
@@ -231,13 +231,13 @@ void TrainingCounter::_removeCache(
 void TrainingCounter::_showTrainings(
     std::optional<std::size_t> opt_arg) const noexcept
 {
-    log->write(fmt::format("Remaining trainings: {}", m_counter->get()));
+    log->write(std::format("Remaining trainings: {}", m_counter->get()));
 }
 
 void TrainingCounter::_showNumTrainings(
     std::optional<std::size_t> opt_arg) const noexcept
 {
-    log->write(fmt::format("{}", m_counter->get()));
+    log->write(std::format("{}", m_counter->get()));
 }
 
 void TrainingCounter::_drawCat(

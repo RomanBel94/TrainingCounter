@@ -1,9 +1,10 @@
 #pragma once
 #ifndef COUNTER_H
 
+#include <limits>
 #include <memory>
 
-#include "Save/Save.h"
+#include "Save/Save.hpp"
 
 template <typename uint_t>
 class Counter final
@@ -31,7 +32,7 @@ public:
     ~Counter();
 
 private:
-    std::unique_ptr<Save> m_save = std::make_unique<Save>();
+    std::unique_ptr<Save<uint_t>> m_save = std::make_unique<Save<uint_t>>();
     uint_t m_count{0}; // current value of trainings
 };
 
@@ -60,7 +61,7 @@ void Counter<uint_t>::count() noexcept
 template <typename uint_t>
 void Counter<uint_t>::remove_savefile() const noexcept
 {
-    m_save->removeSavefile();
+    m_save->remove_savefile();
 }
 
 template <typename uint_t>

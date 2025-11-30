@@ -5,7 +5,7 @@
 #include <fstream>    // ofstream
 #include <iostream>   // cout
 
-#include "fmt/format.h"
+#include <format>
 
 class Logger final
 {
@@ -15,17 +15,17 @@ private:
 #ifdef _WIN32
 #pragma warning(disable : 4996)
     // cache directory for windows
-    inline const static std::string m_cache_dir{fmt::format(
+    inline const static std::string m_cache_dir{std::format(
         "{}\\..\\ProgramData\\TrainingCounter\\", std::getenv("WINDIR"))};
 #pragma warning(default : 4996)
 #else
     // cache directory for linux
     inline const static std::string m_cache_dir{
-        fmt::format("{}/.TrainingCounter", std::getenv("HOME"))};
+        std::format("{}/.TrainingCounter", std::getenv("HOME"))};
 #endif // _WIN32
 
     inline const static std::string m_logfilename{
-        fmt::format("{}/log.txt", m_cache_dir)};
+        std::format("{}/log.txt", m_cache_dir)};
 
 private:
     inline static constexpr size_t BUFFER_SIZE =
