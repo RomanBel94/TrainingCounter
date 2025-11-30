@@ -3,6 +3,7 @@
 
 #include <filesystem> // exists(), create_directory()
 #include <iostream>   // cout
+#include <string_view>
 
 #include <format>
 
@@ -12,17 +13,17 @@ private:
 #ifdef _WIN32
 #pragma warning(disable : 4996)
     // cache directory for windows
-    inline const static std::string m_cache_dir{std::format(
+    inline const static std::string cache_dir{std::format(
         "{}\\..\\ProgramData\\TrainingCounter\\", std::getenv("WINDIR"))};
 #pragma warning(default : 4996)
 #else
     // cache directory for linux
-    inline const static std::string m_cache_dir{
+    inline const static std::string cache_dir{
         std::format("{}/.TrainingCounter", std::getenv("HOME"))};
 #endif // _WIN32
 
     inline const static std::string m_logfilename{
-        std::format("{}/log.txt", m_cache_dir)};
+        std::format("{}/log.txt", cache_dir)};
 
 private:
     inline static constexpr size_t BUFFER_SIZE =
@@ -37,12 +38,10 @@ public:
     inline static bool constexpr NO_LOGFILE = false;
     inline static bool constexpr LOGFILE = true;
 
-    Logger();
-    ~Logger() noexcept = default;
+    static void write(const std::string_view msg,
+                      bool file = NO_LOGFILE) noexcept;
 
-    static void write(std::string const& msg, bool file = NO_LOGFILE) noexcept;
-
-    static const auto& get_cache_dir() noexcept { return m_cache_dir; }
+    static const auto& get_cache_dir() noexcept { return cache_dir; }
 
     static void remove_logfile();
     static void show_logfile(std::size_t lines_num = 0);

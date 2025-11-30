@@ -33,9 +33,8 @@ void Logger::show_logfile(size_t lines_num)
         write((*it).c_str());
 }
 
-void Logger::write(std::string const& msg, bool file) noexcept
+void Logger::write(const std::string_view msg, bool file) noexcept
 {
-
     if (file)
     {
         std::filesystem::create_directory(m_cache_dir);
