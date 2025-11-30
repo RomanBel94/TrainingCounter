@@ -2,7 +2,6 @@
 #ifndef LOGGER_H
 
 #include <filesystem> // exists(), create_directory()
-#include <fstream>    // ofstream
 #include <iostream>   // cout
 
 #include <format>
@@ -10,8 +9,6 @@
 class Logger final
 {
 private:
-    inline static std::ofstream m_logfile;
-
 #ifdef _WIN32
 #pragma warning(disable : 4996)
     // cache directory for windows
@@ -43,8 +40,7 @@ public:
     Logger();
     ~Logger() noexcept = default;
 
-    static void write(std::string const& msg,
-                      bool logfile = NO_LOGFILE) noexcept;
+    static void write(std::string const& msg, bool file = NO_LOGFILE) noexcept;
 
     static const auto& get_cache_dir() noexcept { return m_cache_dir; }
 
