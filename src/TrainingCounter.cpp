@@ -123,7 +123,7 @@ void TrainingCounter::_printHelp(
         "\tTrainingCounter -s <num>\t\tSet <num> trainings;\n"
         "\tTrainingCounter -m \t\t\tMark completed training;\n"
         "\tTrainingCounter -t \t\t\tShow remaining trainings;\n"
-        "\tTrainingCounter -t \t\t\tShow remaining trainings (only number);\n"
+        "\tTrainingCounter -T \t\t\tShow remaining trainings (only number);\n"
         "\tTrainingCounter -v, --version\t\tShow TrainingCounter version;\n"
         "\tTrainingCounter -l [<num>]\t\tShow <num> last lines of log.\n"
         "\t\t\t\t\t\tIf <num> is not given full log will be printed;\n"
