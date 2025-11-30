@@ -5,6 +5,7 @@
 #include "TrainingCounter.h"
 #include "Version/Version.h"
 #include <format>
+#include <optional>
 
 /*
     Ctor
@@ -92,15 +93,16 @@ void TrainingCounter::_init_cli_options() noexcept
 void TrainingCounter::_fill_task_queue(
     const std::list<CLI::CLI::token>& tokens) const noexcept
 {
-    std::for_each(tokens.begin(), tokens.end(),
-                  [this](const auto& token)
-                  {
-                      if (token.second.empty())
-                          m_task_manager->add_task(task_table.at(token.first));
-                      else
-                          m_task_manager->add_task(task_table.at(token.first),
-                                                   std::stoi(token.second));
-                  });
+    std::ranges::for_each(tokens,
+                          [this](const auto& token)
+                          {
+                              std::optional<counter_t> argument{std::nullopt};
+                              if (!token.second.empty())
+                                  argument = std::stoi(token.second);
+
+                              m_task_manager->add_task(
+                                  task_table.at(token.first), argument);
+                          });
 }
 /*
     Print version of program
