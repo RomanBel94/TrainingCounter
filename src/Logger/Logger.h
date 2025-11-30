@@ -5,25 +5,24 @@
 #include <iostream>   // cout
 #include <string_view>
 
-#include <format>
-
 class Logger final
 {
 private:
 #ifdef _WIN32
 #pragma warning(disable : 4996)
     // cache directory for windows
-    inline const static std::string cache_dir{std::format(
-        "{}\\..\\ProgramData\\TrainingCounter\\", std::getenv("WINDIR"))};
+    inline const static std::filesystem::path cache_directory{
+        std::filesystem::path(std::getenv("WINDIR")) / ".." / "ProgramData" /
+        "TrainingCounter"};
 #pragma warning(default : 4996)
 #else
     // cache directory for linux
-    inline const static std::string cache_dir{
-        std::format("{}/.TrainingCounter", std::getenv("HOME"))};
+    inline const static std::filesystem::path cache_directory{
+        std::filesystem::path(std::getenv("HOME")) / ".TrainingCounter"};
 #endif // _WIN32
 
-    inline const static std::string m_logfilename{
-        std::format("{}/log.txt", cache_dir)};
+    inline const static std::filesystem::path logfile_path{cache_directory /
+                                                           "log.txt"};
 
 private:
     inline static constexpr size_t BUFFER_SIZE =
@@ -41,7 +40,10 @@ public:
     static void write(const std::string_view msg,
                       bool file = NO_LOGFILE) noexcept;
 
-    static const auto& get_cache_dir() noexcept { return cache_dir; }
+    static const decltype(cache_directory) get_cache_dir() noexcept
+    {
+        return cache_directory;
+    }
 
     static void remove_logfile();
     static void show_logfile(std::size_t lines_num = 0);

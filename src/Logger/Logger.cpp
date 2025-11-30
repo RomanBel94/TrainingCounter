@@ -1,5 +1,6 @@
 #include <chrono>
 #include <deque>
+#include <format>
 #include <fstream>
 
 #include "Logger.h"
@@ -11,7 +12,7 @@
 */
 void Logger::show_logfile(size_t lines_num)
 {
-    std::ifstream logfile(m_logfilename, std::ios::in);
+    std::ifstream logfile(logfile_path, std::ios::in);
 
     std::deque<std::string> lines{};
     std::string buffer{};
@@ -37,8 +38,8 @@ void Logger::write(const std::string_view msg, bool file) noexcept
 {
     if (file)
     {
-        std::filesystem::create_directory(cache_dir);
-        std::ofstream logfile{m_logfilename, std::ios::out | std::ios::app};
+        std::filesystem::create_directory(cache_directory);
+        std::ofstream logfile{logfile_path, std::ios::out | std::ios::app};
 
         if (logfile.is_open())
         {
@@ -56,4 +57,4 @@ void Logger::write(const std::string_view msg, bool file) noexcept
 /*
     Removes logfile
 */
-void Logger::remove_logfile() { std::filesystem::remove(m_logfilename); }
+void Logger::remove_logfile() { std::filesystem::remove(logfile_path); }

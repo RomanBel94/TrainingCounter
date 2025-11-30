@@ -4,6 +4,8 @@
 #include "Logger/Logger.h"
 #include "TrainingCounter.h"
 #include "Version/Version.h"
+#include <format>
+
 /*
     Ctor
 */

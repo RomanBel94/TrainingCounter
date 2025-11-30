@@ -3,9 +3,7 @@
 
 #include <cstdlib> // getenv()
 #include <filesystem>
-#include <format>
 #include <fstream>
-#include <string> // strings
 
 template <typename uint_t>
 class Save final
@@ -18,17 +16,18 @@ private:
 
 #ifdef _WIN32
     // cache directory for windows
-    inline static const std::string m_cache_dir{std::format(
-        "{}\\..\\ProgramData\\TrainingCounter\\", getenv("WINDIR"))};
+    inline static const std::filesystem::path cache_directory{
+        std::filesystem::path(std::getenv("WINDIR")) / ".." / "ProgramData" /
+        "TrainingCounter"};
 #else
     // cache directory for linux
-    inline static const std::string m_cache_dir{
-        std::format("{}/.TrainingCounter/", getenv("HOME"))};
+    inline static const std::filesystem::path cache_directory{
+        std::filesystem::path(std::getenv("HOME")) / ".TrainingCounter"};
 #endif // _WIN32
 
     // savefile name
-    inline static const std::string m_filename{
-        std::format("{}save", m_cache_dir)};
+    inline static const std::filesystem::path savefile_path{cache_directory /
+                                                            "save"};
 
 public:
     Save();
@@ -38,7 +37,10 @@ public:
     static uint_t read() noexcept;
 
     static void remove_savefile() noexcept;
-    static const auto& get_cache_dir() noexcept { return m_cache_dir; }
+    static const decltype(cache_directory) get_cache_dirrectory() noexcept
+    {
+        return cache_directory;
+    }
 };
 
 /*
@@ -47,7 +49,7 @@ public:
 template <typename uint_t>
 Save<uint_t>::Save()
 {
-    std::filesystem::create_directory(m_cache_dir);
+    std::filesystem::create_directory(cache_directory);
 }
 
 /*
@@ -58,7 +60,7 @@ Save<uint_t>::Save()
 template <typename uint_t>
 uint_t Save<uint_t>::read() noexcept
 {
-    std::ifstream input(m_filename, std::ios::in | std::ios::binary);
+    std::ifstream input(savefile_path, std::ios::in | std::ios::binary);
     uint_t number{0};
 
     if (input.is_open())
@@ -75,7 +77,7 @@ uint_t Save<uint_t>::read() noexcept
 template <typename uint_t>
 void Save<uint_t>::write(uint_t num) noexcept
 {
-    std::ofstream output(m_filename, std::ios::out | std::ios::binary);
+    std::ofstream output(savefile_path, std::ios::out | std::ios::binary);
 
     if (output.is_open())
         output.write(reinterpret_cast<const char*>(&num), sizeof(num));
@@ -84,7 +86,7 @@ void Save<uint_t>::write(uint_t num) noexcept
 template <typename uint_t>
 void Save<uint_t>::remove_savefile() noexcept
 {
-    std::filesystem::remove(m_filename);
+    std::filesystem::remove(savefile_path);
 }
 
 #define SAVE_H
