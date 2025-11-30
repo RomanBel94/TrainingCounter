@@ -22,8 +22,8 @@ endif()
 
 # Write project version Version.h file
 configure_file(
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/Version.h.in 
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/Version.h 
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Version/Version.h.in 
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Version/Version.h 
     NEWLINE_STYLE UNIX
 )
 message(STATUS "File \"Version.h\" configured with version: ${CMAKE_PROJECT_VERSION}")
@@ -32,16 +32,16 @@ add_library(TrainingCounterLib)
 target_sources(TrainingCounterLib
     PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Counter/Counter.hpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/Version.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Version/Version.h
     ${CMAKE_CURRENT_SOURCE_DIR}/src/TrainingCounter.h
     ${CMAKE_CURRENT_SOURCE_DIR}/src/TrainingCounter.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Logger/Logger.h
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Logger/Logger.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Counter/Save/Save.h
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Counter/Save/Save.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/iTask.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/TaskManager.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/TaskManager.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/TaskManager/Task/iTask.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/TaskManager/TaskManager.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/TaskManager/TaskManager.cpp
 )
 target_include_directories(
     TrainingCounterLib PUBLIC

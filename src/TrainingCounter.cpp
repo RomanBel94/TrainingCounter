@@ -2,7 +2,7 @@
 #include <array>
 
 #include "TrainingCounter.h"
-#include "Version.h"
+#include "Version/Version.h"
 /*
     Ctor
 */
