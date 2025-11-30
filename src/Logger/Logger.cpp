@@ -10,15 +10,7 @@ Logger::Logger()
 {
     std::filesystem::create_directory(m_cache_dir);
 
-    try
-    {
-        m_logfile.open(m_logfilename, std::ios::out | std::ios::app);
-    }
-    catch (const std::exception& ex)
-    {
-        write(ex.what());
-        std::exit(-1);
-    }
+    m_logfile.open(m_logfilename, std::ios::out | std::ios::app);
 }
 
 /*
@@ -49,6 +41,15 @@ void Logger::show_logfile(size_t lines_num)
 
     for (auto it{lines.cend() - lines_num}; it != lines.cend(); ++it)
         write((*it).c_str());
+}
+
+void Logger::write(std::string const& msg, bool logfile) noexcept
+{
+    if (logfile && m_logfile.is_open())
+        m_logfile << std::put_time(std::localtime(&m_time), m_time_format)
+                  << msg << std::endl;
+
+    std::clog << msg << std::endl;
 }
 
 /*

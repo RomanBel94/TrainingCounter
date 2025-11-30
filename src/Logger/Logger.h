@@ -30,8 +30,8 @@ private:
 private:
     inline static constexpr size_t BUFFER_SIZE =
         std::numeric_limits<unsigned char>().max();
-    inline static std::time_t const seconds = time(nullptr);
-    inline static char const* const date_time_format = "%a %d.%m.%Y %H:%M\t";
+    inline static std::time_t const m_time = time(nullptr);
+    inline static char const* const m_time_format = "%a %d.%m.%Y %H:%M\t";
 
     Logger(const Logger&) = delete;
     Logger(Logger&&) = delete;
@@ -39,45 +39,13 @@ private:
     Logger& operator=(Logger&&) = delete;
 
 public:
-    inline static bool const NO_LOGFILE = false;
-    inline static bool const LOGFILE = true;
+    inline static bool constexpr NO_LOGFILE = false;
+    inline static bool constexpr LOGFILE = true;
 
     Logger();
     ~Logger() noexcept = default;
 
-    /*
-        Writes message in logfile and console
-
-        @param message
-        @param need to write log
-    */
-    template <class T = char const*>
-    static void write(T const* msg, bool log = NO_LOGFILE) noexcept
-    {
-        if (log && m_logfile.is_open())
-        {
-            m_logfile << std::put_time(localtime(&seconds), date_time_format)
-                      << msg << '\n';
-        }
-        std::cout << msg << std::endl;
-    }
-
-    /*
-        Writes message in logfile and console
-
-        @param message
-        @param need to write log
-    */
-    template <class T>
-    static void write(T const&& msg, bool log = NO_LOGFILE) noexcept
-    {
-        if (log && m_logfile.is_open())
-        {
-            m_logfile << std::put_time(localtime(&seconds), date_time_format)
-                      << msg << '\n';
-        }
-        std::cout << msg << std::endl;
-    }
+    void write(std::string const& msg, bool logfile = NO_LOGFILE) noexcept;
 
     const auto& get_cache_dir() const noexcept { return m_cache_dir; }
 
