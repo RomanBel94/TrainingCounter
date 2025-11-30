@@ -1,5 +1,4 @@
 #pragma once
-#include <limits>
 #ifndef LOGGER_H
 
 #include <filesystem> // exists(), create_directory()
@@ -11,22 +10,22 @@
 class Logger final
 {
 private:
-    inline static std::ofstream logfile;
+    inline static std::ofstream m_logfile;
 
 #ifdef _WIN32
 #pragma warning(disable : 4996)
     // cache directory for windows
-    inline const static std::string cacheDir{fmt::format(
-        "{}\\..\\ProgramData\\TrainingCounter\\", getenv("WINDIR"))};
+    inline const static std::string m_cache_dir{fmt::format(
+        "{}\\..\\ProgramData\\TrainingCounter\\", std::getenv("WINDIR"))};
 #pragma warning(default : 4996)
 #else
     // cache directory for linux
-    inline const static std::string cacheDir{
-        fmt::format("{}/.TrainingCounter", getenv("HOME"))};
+    inline const static std::string m_cache_dir{
+        fmt::format("{}/.TrainingCounter", std::getenv("HOME"))};
 #endif // _WIN32
 
-    inline const static std::string logFileName{
-        fmt::format("{}/log.txt", cacheDir)};
+    inline const static std::string m_logfilename{
+        fmt::format("{}/log.txt", m_cache_dir)};
 
 private:
     inline static constexpr size_t BUFFER_SIZE =
@@ -40,8 +39,8 @@ private:
     Logger& operator=(Logger&&) = delete;
 
 public:
-    inline static bool const NO_LOG = false;
-    inline static bool const LOG = true;
+    inline static bool const NO_LOGFILE = false;
+    inline static bool const LOGFILE = true;
 
     Logger();
     ~Logger() noexcept = default;
@@ -53,12 +52,12 @@ public:
         @param need to write log
     */
     template <class T = char const*>
-    static void write(T const* msg, bool log = LOG) noexcept
+    static void write(T const* msg, bool log = NO_LOGFILE) noexcept
     {
-        if (log && logfile.is_open())
+        if (log && m_logfile.is_open())
         {
-            logfile << std::put_time(localtime(&seconds), date_time_format)
-                    << msg << '\n';
+            m_logfile << std::put_time(localtime(&seconds), date_time_format)
+                      << msg << '\n';
         }
         std::cout << msg << std::endl;
     }
@@ -70,20 +69,20 @@ public:
         @param need to write log
     */
     template <class T>
-    static void write(T const&& msg, bool log = LOG) noexcept
+    static void write(T const&& msg, bool log = NO_LOGFILE) noexcept
     {
-        if (log && logfile.is_open())
+        if (log && m_logfile.is_open())
         {
-            logfile << std::put_time(localtime(&seconds), date_time_format)
-                    << msg << '\n';
+            m_logfile << std::put_time(localtime(&seconds), date_time_format)
+                      << msg << '\n';
         }
         std::cout << msg << std::endl;
     }
 
-    const auto& getCacheDir() const noexcept { return cacheDir; }
+    const auto& get_cache_dir() const noexcept { return m_cache_dir; }
 
-    void removeLogfile();
-    void showLog(size_t lines_num = 0);
+    void remove_logfile();
+    void show_logfile(std::size_t lines_num = 0);
 };
 
 #define LOGGER_H

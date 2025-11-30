@@ -2,7 +2,7 @@
 #ifndef CORE_H
 
 #include "Counter/Counter.hpp"
-#include "Logger.h"
+#include "Logger/Logger.h"
 #include "TaskManager.h"
 #include <memory>
 

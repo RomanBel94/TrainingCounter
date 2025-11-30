@@ -8,16 +8,16 @@
 */
 Logger::Logger()
 {
-    std::filesystem::create_directory(cacheDir);
+    std::filesystem::create_directory(m_cache_dir);
 
     try
     {
-        logfile.open(logFileName, std::ios::out | std::ios::app);
+        m_logfile.open(m_logfilename, std::ios::out | std::ios::app);
     }
     catch (const std::exception& ex)
     {
         write(ex.what());
-        exit(-1);
+        std::exit(-1);
     }
 }
 
@@ -26,12 +26,12 @@ Logger::Logger()
 
     @param number of lines to show
 */
-void Logger::showLog(size_t lines_num)
+void Logger::show_logfile(size_t lines_num)
 {
-    logfile.close();
-    std::ifstream logfileRead(logFileName, std::ios::in);
+    m_logfile.close();
+    std::ifstream logfileRead(m_logfilename, std::ios::in);
 
-    std::deque<std::string> lines;
+    std::deque<std::string> lines{};
     std::string buffer{};
     buffer.reserve(BUFFER_SIZE);
 
@@ -40,7 +40,7 @@ void Logger::showLog(size_t lines_num)
 
     if (lines.empty())
     {
-        write("Log file is empty.", NO_LOG);
+        write("Log file is empty.");
         return;
     }
 
@@ -48,14 +48,14 @@ void Logger::showLog(size_t lines_num)
         lines_num = lines.size();
 
     for (auto it{lines.cend() - lines_num}; it != lines.cend(); ++it)
-        write((*it).c_str(), NO_LOG);
+        write((*it).c_str());
 }
 
 /*
     Removes logfile
 */
-void Logger::removeLogfile()
+void Logger::remove_logfile()
 {
-    logfile.close();
-    std::filesystem::remove(logFileName);
+    m_logfile.close();
+    std::filesystem::remove(m_logfilename);
 }

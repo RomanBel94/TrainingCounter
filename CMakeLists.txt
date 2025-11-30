@@ -35,8 +35,8 @@ target_sources(TrainingCounterLib
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Version.h
     ${CMAKE_CURRENT_SOURCE_DIR}/src/TrainingCounter.h
     ${CMAKE_CURRENT_SOURCE_DIR}/src/TrainingCounter.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/Logger.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/Logger.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Logger/Logger.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Logger/Logger.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Counter/Save/Save.h
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Counter/Save/Save.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/iTask.h
