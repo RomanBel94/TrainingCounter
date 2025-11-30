@@ -34,7 +34,7 @@ public:
     Save();
     ~Save() = default;
 
-    static void write(uint_t trainings) noexcept;
+    static void write(uint_t num) noexcept;
     static uint_t read() noexcept;
 
     static void remove_savefile() noexcept;
@@ -73,13 +73,12 @@ uint_t Save<uint_t>::read() noexcept
     @param number to write
 */
 template <typename uint_t>
-void Save<uint_t>::write(uint_t trainings) noexcept
+void Save<uint_t>::write(uint_t num) noexcept
 {
     std::ofstream output(m_filename, std::ios::out | std::ios::binary);
 
     if (output.is_open())
-        output.write(reinterpret_cast<const char*>(&trainings),
-                     sizeof(trainings));
+        output.write(reinterpret_cast<const char*>(&num), sizeof(num));
 }
 
 template <typename uint_t>
