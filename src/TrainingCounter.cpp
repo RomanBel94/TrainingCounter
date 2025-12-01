@@ -171,7 +171,12 @@ void TrainingCounter::_setTrainings(std::optional<counter_t> opt_arg) noexcept
 {
     if (!opt_arg)
     {
-        Logger::write(std::format("{} no value\n", __PRETTY_FUNCTION__));
+#ifdef _WIN32
+        Logger::write(std::format("\x1b[1;31m{} no value\n\x1b[0m", __FUNCTION__));
+#else
+        Logger::write(std::format("\x1b[1;31m{} no value\n\x1b[0m", __PRETTY_FUNCTION__));
+#endif // _WIN32
+
         return;
     }
 
@@ -206,7 +211,14 @@ void TrainingCounter::_addTrainings(std::optional<counter_t> opt_arg) noexcept
 {
     if (!opt_arg)
     {
-        Logger::write(std::format("{} no value\n", __PRETTY_FUNCTION__));
+#ifdef _WIN32
+        Logger::write(
+            std::format("\x1b[1;31m{} no value\n\x1b[0m", __FUNCTION__));
+#else
+        Logger::write(
+            std::format("\x1b[1;31m{} no value\n\x1b[0m", __PRETTY_FUNCTION__));
+#endif // _WIN32
+
         return;
     }
 
