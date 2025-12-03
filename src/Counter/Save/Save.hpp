@@ -16,9 +16,11 @@ private:
 
 #ifdef _WIN32
     // cache directory for windows
+#pragma warning(disable : 4996)
     inline static const std::filesystem::path cache_directory{
         std::filesystem::path(std::getenv("WINDIR")) / ".." / "ProgramData" /
         "TrainingCounter"};
+#pragma warning(default : 4996)
 #else
     // cache directory for linux
     inline static const std::filesystem::path cache_directory{
