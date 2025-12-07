@@ -10,9 +10,15 @@
 
     @param number of lines to show
 */
-void Logger::show_logfile(size_t lines_num)
+void Logger::show_logfile(std::size_t lines_num)
 {
     std::ifstream logfile(logfile_path, std::ios::in);
+
+    if (!logfile)
+    {
+        write("\033[31;1mCan't open logfile\033[0m");
+        return;
+    }
 
     std::deque<std::string> lines{};
     std::string buffer{};
@@ -23,7 +29,7 @@ void Logger::show_logfile(size_t lines_num)
 
     if (lines.empty())
     {
-        write("Log file is empty");
+        write("\033[33;1mLog file is empty\033[0m");
         return;
     }
 

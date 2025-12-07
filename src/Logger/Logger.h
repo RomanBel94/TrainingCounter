@@ -25,7 +25,7 @@ private:
                                                            "log.txt"};
 
 private:
-    inline static constexpr size_t BUFFER_SIZE =
+    inline static constexpr std::size_t BUFFER_SIZE =
         std::numeric_limits<unsigned char>().max();
 
     Logger(const Logger&) = delete;
@@ -40,7 +40,8 @@ public:
     static void write(const std::string_view msg,
                       bool file = NO_LOGFILE) noexcept;
 
-    static const decltype(cache_directory) get_cache_dir() noexcept
+    [[nodiscard]] static const decltype(cache_directory)
+    get_cache_dir() noexcept
     {
         return cache_directory;
     }

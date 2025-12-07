@@ -6,9 +6,16 @@
 
 #include "Save/Save.hpp"
 
-template <typename uint_t>
+template <typename uint_t = std::size_t>
 class Counter final
 {
+private:
+    std::unique_ptr<Save<uint_t>> m_save = std::make_unique<Save<uint_t>>();
+    uint_t m_count{0}; // current value of trainings
+
+    inline static constexpr uint_t max = std::numeric_limits<uint_t>().max();
+    inline static constexpr uint_t min = std::numeric_limits<uint_t>().min();
+
 public:
     // set <num> of trainings if <num> is greater than 0
     void set(uint_t num) noexcept;
@@ -30,26 +37,18 @@ public:
 
     // dtor
     ~Counter();
-
-private:
-    std::unique_ptr<Save<uint_t>> m_save = std::make_unique<Save<uint_t>>();
-    uint_t m_count{0}; // current value of trainings
 };
 
 template <typename uint_t>
 void Counter<uint_t>::set(uint_t num) noexcept
 {
-    num <= std::numeric_limits<uint_t>().max()
-        ? m_count = num
-        : m_count = std::numeric_limits<uint_t>().max();
+    num <= max ? m_count = num : m_count = max;
 }
 
 template <typename uint_t>
 void Counter<uint_t>::add(uint_t num) noexcept
 {
-    m_count + num <= std::numeric_limits<uint_t>().max()
-        ? m_count += num
-        : m_count = std::numeric_limits<uint_t>().max();
+    m_count + num <= max ? m_count += num : m_count = max;
 }
 
 template <typename uint_t>

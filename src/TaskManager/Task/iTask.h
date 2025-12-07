@@ -12,7 +12,7 @@ class iTask
 public:
     iTask(
         std::function<void(TrainingCounter*, std::optional<std::size_t>)> func,
-        TrainingCounter* tc, std::optional<std::size_t> arg = {std::nullopt})
+        TrainingCounter* tc, std::optional<std::size_t> arg = std::nullopt)
         : func{func}, tc{tc}, arg{arg} {};
     ~iTask() noexcept = default;
 

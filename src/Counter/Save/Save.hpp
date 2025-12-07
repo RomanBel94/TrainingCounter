@@ -36,10 +36,11 @@ public:
     ~Save() = default;
 
     static void write(uint_t num) noexcept;
-    static uint_t read() noexcept;
+    [[nodiscard]] static uint_t read() noexcept;
 
     static void remove_savefile() noexcept;
-    static const decltype(cache_directory) get_cache_dirrectory() noexcept
+    [[nodiscard]] static const decltype(cache_directory)
+    get_cache_dirrectory() noexcept
     {
         return cache_directory;
     }
