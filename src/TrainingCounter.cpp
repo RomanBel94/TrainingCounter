@@ -110,7 +110,7 @@ void TrainingCounter::_fill_task_queue(
 void TrainingCounter::_printVersion(
     std::optional<counter_t> opt_arg) const noexcept
 {
-    Logger::write(std::format("TrainingCounter {}\nCompiled at {}", VERSION,
+    Logger::write(std::format("TrainingCounter v{}\nCompiled at: {}", VERSION,
                               __TIMESTAMP__));
 }
 
@@ -172,9 +172,11 @@ void TrainingCounter::_setTrainings(std::optional<counter_t> opt_arg) noexcept
     if (!opt_arg)
     {
 #ifdef _WIN32
-        Logger::write(std::format("\x1b[1;31m{} no value\n\x1b[0m", __FUNCTION__));
+        Logger::write(
+            std::format("\x1b[1;31m{} no value\n\x1b[0m", __FUNCTION__));
 #else
-        Logger::write(std::format("\x1b[1;31m{} no value\n\x1b[0m", __PRETTY_FUNCTION__));
+        Logger::write(
+            std::format("\x1b[1;31m{} no value\n\x1b[0m", __PRETTY_FUNCTION__));
 #endif // _WIN32
 
         return;

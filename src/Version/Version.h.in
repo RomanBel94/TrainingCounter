@@ -3,4 +3,4 @@
         Contains project version.
 */
 
-#define VERSION "v-${CMAKE_PROJECT_VERSION}"
+#define VERSION "${CMAKE_PROJECT_VERSION}"
