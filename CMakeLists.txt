@@ -79,5 +79,5 @@ add_custom_target(
 
 add_custom_target(
     doc
-    COMMAND doxygen ${CMAKE_SOURCE_DIR}/Doxyfile
+    COMMAND cd ${CMAKE_SOURCE_DIR} && doxygen 
 )
