@@ -76,3 +76,8 @@ add_custom_target(
     static_check
     COMMAND cppcheck --enable=all --std=c++${CMAKE_CXX_STANDARD} -I ${CMAKE_SOURCE_DIR}/external/CLIlib/include ${CMAKE_CURRENT_SOURCE_DIR}/src  >> ${CMAKE_CURRENT_BINARY_DIR}/check_result.txt
 )
+
+add_custom_target(
+    doc
+    COMMAND doxygen ${CMAKE_SOURCE_DIR}/Doxyfile
+)
