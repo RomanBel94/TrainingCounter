@@ -1,3 +1,8 @@
+/** @file TrainingCounter.h
+ *
+ *  @brief Main class of TrainingCounter application. Contains main logic.
+ *
+ * */
 #pragma once
 #ifndef CORE_H
 
