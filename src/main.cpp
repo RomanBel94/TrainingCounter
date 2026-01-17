@@ -1,21 +1,22 @@
-/** @file main.cpp
+/**
+ * @file main.cpp
  *
- *  @brief Main file.
- *
+ * @brief Main file.
  */
 
 #include "TrainingCounter.h"
 
-/** @brief Starts the application.
+/**
+ * @brief Starts the application.
  *
- *  @param[in] Number of given CLI arguments.
+ * @param[in] argc - number of CLI arguments.
  *
- *  @param[in] Arguments given in CLI.
+ * @param[in] argv - values of CLI arguments.
  *
- *  @return Exit code.
+ * @return Exit code.
  */
 int main(int argc, char* argv[])
 {
-    auto app = TrainingCounter::getInstance(argc, argv);
-    return app->run(); // run application
+    auto& app = TrainingCounter::get_instance(argc, argv);
+    return app.run();
 }

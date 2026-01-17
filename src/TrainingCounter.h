@@ -1,8 +1,9 @@
-/** @file TrainingCounter.h
+/**
+ * @file TrainingCounter.h
  *
- *  @brief Main class of TrainingCounter application. Contains main logic.
+ * @brief Main class of TrainingCounter application. Contains main logic.
  *
- * */
+ */
 
 #pragma once
 #ifndef TRAINING_COUNTER_H
@@ -13,7 +14,10 @@
 
 #include "CLIlib.h"
 
-class TrainingCounter final /**< @brief Main application class. Singleton. */
+/**
+ * @brief Main application class, contains logic.
+ */
+class TrainingCounter final
 {
 private:
     using counter_t = std::size_t; /**< @brief Counter type. */
@@ -38,10 +42,19 @@ private:
         task_table{}; /**< @brief Task hashtable. */
 
 private:
+    /** @brief Deleted default constructor. */
     TrainingCounter() = delete;
+
+    /** @brief Deleted copy constructor. */
     TrainingCounter(const TrainingCounter&) = delete;
+
+    /** @brief Deleted move constructor. */
     TrainingCounter(TrainingCounter&&) = delete;
+
+    /** @brief Deleted copy assignment operator. */
     TrainingCounter& operator=(const TrainingCounter&) = delete;
+
+    /** @brief Deleted move assignment operator. */
     TrainingCounter& operator=(TrainingCounter&&) = delete;
 
     void _init_task_table() noexcept;
@@ -92,26 +105,32 @@ private:
                       std::nullopt}) const noexcept;
 
 public:
-    /** @brief Constructor. Starts command arguments parsing, reads save file
-     * and sets counter.
+    /**
+     * @brief Constructor.
      *
-     * @param[in] Number of given arguments from main.
-     * @param[in] Values of given arguments from main.
+     * @param[in] argc - number of given arguments from main.
+     *
+     * @param[in] argv - values of given arguments from main.
      */
     TrainingCounter(int argc, char** argv);
 
-    /** @brief Creates TrainingCounter instance and returns it.
+    /**
+     * @brief Creates TrainingCounter instance and returns it.
+     *
+     * @param[in] argc - number of CLI arguments.
+     *
+     * @param[in] argv - values of CLI arguments.
      *
      * @return Instance of TrainingCounter.
      */
-    template <class... Args>
-    static std::shared_ptr<TrainingCounter>& getInstance(Args&&... args)
+    static TrainingCounter& get_instance(int argc, char** argv)
     {
-        static auto ptr(std::make_shared<TrainingCounter>(args...));
-        return ptr;
+        static TrainingCounter instance(argc, argv);
+        return instance;
     };
 
-    /** @brief Main program function.
+    /**
+     * @brief Main program function.
      *
      * @return Exit code.
      */
