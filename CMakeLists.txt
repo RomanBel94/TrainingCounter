@@ -77,7 +77,13 @@ add_custom_target(
     COMMAND cppcheck --enable=all --std=c++${CMAKE_CXX_STANDARD} -I ${CMAKE_SOURCE_DIR}/external/CLIlib/include ${CMAKE_CURRENT_SOURCE_DIR}/src  >> ${CMAKE_CURRENT_BINARY_DIR}/check_result.txt
 )
 
-add_custom_target(
-    doc
-    COMMAND cd ${CMAKE_SOURCE_DIR} && doxygen 
-)
+find_package(Doxygen)
+if(DOXYGEN_FOUND)
+    add_custom_target(
+        doc
+        COMMAND cd ${CMAKE_SOURCE_DIR} && doxygen 
+    )
+    message(STATUS "Added target \"doc\"")
+else()
+    message(WARNING "Doxygen is not found, target \"doc\" is not available")
+endif()
