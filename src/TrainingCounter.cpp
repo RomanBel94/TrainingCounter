@@ -11,9 +11,11 @@
 #include "TrainingCounter.h"
 #include "Version/Version.h"
 #include <format>
-#include <optional>
 
-TrainingCounter::TrainingCounter(int argc, char** argv) : argc(argc), argv(argv)
+TrainingCounter::TrainingCounter(int argc, char** argv)
+    : argc(argc), argv(argv), m_counter(std::make_unique<Counter<counter_t>>()),
+      m_task_manager(std::make_unique<TaskManager>(this)),
+      m_cli(std::make_unique<CLI::CLI>())
 {
     _init_task_table();
     _init_cli_options();

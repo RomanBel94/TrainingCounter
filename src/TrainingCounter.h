@@ -38,15 +38,13 @@ private:
     char** argv;
 
     /** @brief Component for counting trainings. */
-    std::unique_ptr<Counter<counter_t>> m_counter{
-        std::make_unique<Counter<counter_t>>()};
+    std::unique_ptr<Counter<counter_t>> m_counter;
 
     /** @brief Component for creating and executing tasks. */
-    std::unique_ptr<TaskManager> m_task_manager{
-        std::make_unique<TaskManager>(this)};
+    std::unique_ptr<TaskManager> m_task_manager;
 
-    /**< @brief Component for parsing CLI. */
-    std::unique_ptr<CLI::CLI> m_cli{std::make_unique<CLI::CLI>()};
+    /** @brief Component for parsing CLI. */
+    std::unique_ptr<CLI::CLI> m_cli;
 
     /** @brief Task hashtable. */
     std::unordered_map<
