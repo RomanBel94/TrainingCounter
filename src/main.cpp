@@ -10,7 +10,6 @@
  * @brief Starts the application.
  *
  * @param[in] argc - number of CLI arguments.
- *
  * @param[in] argv - values of CLI arguments.
  *
  * @return Exit code.

@@ -1,3 +1,9 @@
+/**
+ * @file TrainingCounter.cpp
+ *
+ * @brief TrainingCounter implementation
+ */
+
 #include <algorithm>
 #include <array>
 
@@ -7,20 +13,12 @@
 #include <format>
 #include <optional>
 
-/*
-    Ctor
-*/
 TrainingCounter::TrainingCounter(int argc, char** argv) : argc(argc), argv(argv)
 {
     _init_task_table();
     _init_cli_options();
 }
 
-/*
-    Main program function
-
-    @return exit code
-*/
 int TrainingCounter::run() noexcept
 {
     try
@@ -44,9 +42,6 @@ int TrainingCounter::run() noexcept
     return EXIT_SUCCESS;
 }
 
-/*
-   Fills task hashmap with class method pointers
-*/
 void TrainingCounter::_init_task_table() noexcept
 {
 
@@ -67,9 +62,6 @@ void TrainingCounter::_init_task_table() noexcept
     task_table.insert({"moo", &TrainingCounter::_drawMoo});
 }
 
-/*
-    Fills CLI with valid options
-*/
 void TrainingCounter::_init_cli_options() noexcept
 {
     std::array short_options{'v', 'm', 's', 'a', 't', 'T', 'l', 'h'};
@@ -87,11 +79,7 @@ void TrainingCounter::_init_cli_options() noexcept
                           [this](auto opt) { m_cli->add_long_option(opt); });
 }
 
-/*
-   Fills task queue
-*/
-void TrainingCounter::_fill_task_queue(
-    const std::list<CLI::CLI::token>& tokens) const noexcept
+void TrainingCounter::_fill_task_queue(const token_list& tokens) const noexcept
 {
     std::ranges::for_each(tokens,
                           [this](const auto& token)
@@ -104,9 +92,7 @@ void TrainingCounter::_fill_task_queue(
                                   task_table.at(token.first), argument);
                           });
 }
-/*
-    Print version of program
-*/
+
 void TrainingCounter::_printVersion(
     std::optional<counter_t> opt_arg) const noexcept
 {
@@ -114,9 +100,6 @@ void TrainingCounter::_printVersion(
                               __TIMESTAMP__));
 }
 
-/*
-    Prints help (usage)
-*/
 void TrainingCounter::_printHelp(
     std::optional<counter_t> opt_arg) const noexcept
 {
@@ -137,18 +120,12 @@ void TrainingCounter::_printHelp(
         "Example: TrainingCounter -m -t -l5 --version\n");
 }
 
-/*
-    Print short prompt
-*/
 void TrainingCounter::_printPrompt(
     std::optional<counter_t> opt_arg) const noexcept
 {
     Logger::write("Type \"TrainingCounter -h or --help\" to see instructions");
 }
 
-/*
-    Marks the completed training
-*/
 void TrainingCounter::_markTraining(std::optional<counter_t> opt_arg) noexcept
 {
     if (m_counter->get())
@@ -162,11 +139,6 @@ void TrainingCounter::_markTraining(std::optional<counter_t> opt_arg) noexcept
         Logger::write("\x1b[1;31mNo trainings left\x1b[0m");
 }
 
-/*
-    Sets trainings to given num
-
-    @param number to set up
-*/
 void TrainingCounter::_setTrainings(std::optional<counter_t> opt_arg) noexcept
 {
     if (!opt_arg)
@@ -204,11 +176,6 @@ void TrainingCounter::_setTrainings(std::optional<counter_t> opt_arg) noexcept
                   Logger::LOGFILE);
 }
 
-/*
-    Adds given count of trainings
-
-    @param number to add
-*/
 void TrainingCounter::_addTrainings(std::optional<counter_t> opt_arg) noexcept
 {
     if (!opt_arg)
@@ -228,9 +195,6 @@ void TrainingCounter::_addTrainings(std::optional<counter_t> opt_arg) noexcept
     Logger::write(std::format("Added {} trainings", *opt_arg), Logger::LOGFILE);
 }
 
-/*
-    Removes log file
-*/
 void TrainingCounter::_removeLogfile(
     std::optional<counter_t> opt_arg) const noexcept
 {

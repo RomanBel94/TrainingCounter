@@ -2,7 +2,6 @@
  * @file TrainingCounter.h
  *
  * @brief Main class of TrainingCounter application. Contains main logic.
- *
  */
 
 #pragma once
@@ -20,26 +19,37 @@
 class TrainingCounter final
 {
 private:
-    using counter_t = std::size_t; /**< @brief Counter type. */
-    using param_t = std::size_t;   /**< @brief Method parameter type. */
+    /** @brief Counter type. */
+    using counter_t = std::size_t;
 
-    int argc;    /**< @brief Number of given arguments. */
-    char** argv; /**< @brief Value of given arguments */
+    /** @brief Method parameter type. */
+    using param_t = std::size_t;
 
+    /** @brief CLI tokens list type. */
+    using token_list = std::list<CLI::CLI::token>;
+
+    /** @brief Number of given arguments. */
+    int argc;
+
+    /** @brief Value of given arguments */
+    char** argv;
+
+    /** @brief Component for counting trainings. */
     std::unique_ptr<Counter<counter_t>> m_counter{
-        std::make_unique<Counter<counter_t>>()}; /**< @brief Component for
-                                                    counting trainings. */
+        std::make_unique<Counter<counter_t>>()};
 
-    std::unique_ptr<TaskManager> m_task_manager{std::make_unique<TaskManager>(
-        this)}; /**< @brief Component for creating and executing tasks. */
+    /** @brief Component for creating and executing tasks. */
+    std::unique_ptr<TaskManager> m_task_manager{
+        std::make_unique<TaskManager>(this)};
 
-    std::unique_ptr<CLI::CLI> m_cli{
-        std::make_unique<CLI::CLI>()}; /**< @brief Component for parsing CLI. */
+    /**< @brief Component for parsing CLI. */
+    std::unique_ptr<CLI::CLI> m_cli{std::make_unique<CLI::CLI>()};
 
+    /** @brief Task hashtable. */
     std::unordered_map<
         std::string,
         std::function<void(TrainingCounter*, std::optional<counter_t>)>>
-        task_table{}; /**< @brief Task hashtable. */
+        task_table{};
 
 private:
     /** @brief Deleted default constructor. */
@@ -57,10 +67,18 @@ private:
     /** @brief Deleted move assignment operator. */
     TrainingCounter& operator=(TrainingCounter&&) = delete;
 
+    /** @brief Fills task table with method pointers and string keys.*/
     void _init_task_table() noexcept;
+
+    /** @brief Adds valid options to CLI. */
     void _init_cli_options() noexcept;
-    void
-    _fill_task_queue(const std::list<CLI::CLI::token>& tokens) const noexcept;
+
+    /**
+     * @brief Converts CLI token list to Task queue.
+     *
+     * @param[in] tokens - token list from CLIlib.
+     */
+    void _fill_task_queue(const token_list& tokens) const noexcept;
 
     void _printVersion(std::optional<param_t> opt_arg = {
                            std::nullopt}) const noexcept;
@@ -108,9 +126,8 @@ public:
     /**
      * @brief Constructor.
      *
-     * @param[in] argc - number of given arguments from main.
-     *
-     * @param[in] argv - values of given arguments from main.
+     * @param[in] argc - number of CLI arguments.
+     * @param[in] argv - values of CLI arguments.
      */
     TrainingCounter(int argc, char** argv);
 
@@ -118,7 +135,6 @@ public:
      * @brief Creates TrainingCounter instance and returns it.
      *
      * @param[in] argc - number of CLI arguments.
-     *
      * @param[in] argv - values of CLI arguments.
      *
      * @return Instance of TrainingCounter.
