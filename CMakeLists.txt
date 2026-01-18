@@ -8,7 +8,7 @@ add_subdirectory(external/CLIlib)
 
 project(
     TrainingCounter
-    VERSION 2.1.0
+    VERSION 2.1.1
     DESCRIPTION "A small utility for counting remaining workouts."
     HOMEPAGE_URL https://github.com/RomanBel94/TrainingCounter.git
     LANGUAGES CXX

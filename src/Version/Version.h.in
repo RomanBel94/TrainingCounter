@@ -1,6 +1,13 @@
-/*
-        CMake configured header.
-        Contains project version.
-*/
+/** @file Version.h
+ *
+ * @brief CMake configured header. Contains app version.
+ */
+
+/** @brief Project version */
+#pragma once
+#ifndef VERSION_H
 
 #define VERSION "${CMAKE_PROJECT_VERSION}"
+
+#define VERSION_H
+#endif
