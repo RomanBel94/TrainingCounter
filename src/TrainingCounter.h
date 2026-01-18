@@ -28,6 +28,9 @@ private:
     /** @brief CLI tokens list type. */
     using token_list = std::list<CLI::CLI::token>;
 
+    /** @brief Optional argument type */
+    using opt_arg = std::optional<param_t>;
+
     /** @brief Number of given arguments. */
     int argc;
 
@@ -80,47 +83,83 @@ private:
      */
     void _fill_task_queue(const token_list& tokens) const noexcept;
 
-    void _printVersion(std::optional<param_t> opt_arg = {
-                           std::nullopt}) const noexcept;
+    /**
+     * @brief Prints app version.
+     */
+    void _printVersion(opt_arg) const noexcept;
 
-    void _printHelp(std::optional<param_t> opt_arg = {
-                        std::nullopt}) const noexcept;
+    /**
+     * @brief Prints help message.
+     */
+    void _printHelp(opt_arg) const noexcept;
 
-    void _printPrompt(std::optional<param_t> opt_arg = {
-                          std::nullopt}) const noexcept;
+    /**
+     * @brief Prints short help message.
+     */
+    void _printPrompt(opt_arg) const noexcept;
 
-    void _addTrainings(std::optional<param_t> opt_arg = {
-                           std::nullopt}) noexcept;
+    /**
+     * @brief Decreases training number by 1 if it is greater than 0.
+     */
+    void _markTraining(opt_arg) noexcept;
 
-    void _setTrainings(std::optional<param_t> opt_arg = {
-                           std::nullopt}) noexcept;
+    /**
+     * @brief Sets trainings amount to num. If num is lower than number
+     *        of trainings you have you will be warned.
+     *
+     * @param[in] num - new amount of trainings.
+     */
+    void _setTrainings(opt_arg num) noexcept;
 
-    void _markTraining(std::optional<param_t> opt_arg = {
-                           std::nullopt}) noexcept;
+    /**
+     * @brief Adds num of trainings.
+     *
+     * @param[in] num - number of trainings to add.
+     */
+    void _addTrainings(opt_arg num) noexcept;
 
-    void _removeLogfile(std::optional<param_t> opt_arg = {
-                            std::nullopt}) const noexcept;
+    /**
+     * @brief Removes logfile.
+     */
+    void _removeLogfile(opt_arg) const noexcept;
 
-    void _removeSaveFile(std::optional<param_t> opt_arg = {
-                             std::nullopt}) const noexcept;
+    /**
+     * @brief Removes savefile.
+     */
+    void _removeSaveFile(opt_arg) const noexcept;
 
-    void _removeCache(std::optional<param_t> opt_arg = {
-                          std::nullopt}) const noexcept;
+    /**
+     * @brief Removes logfile and savefile.
+     */
+    void _removeCache(opt_arg) const noexcept;
 
-    void _drawCat(std::optional<param_t> opt_arg = {
-                      std::nullopt}) const noexcept;
+    /**
+     * @brief Prints message with number of trainings.
+     */
+    void _showTrainings(opt_arg) const noexcept;
 
-    void _drawMoo(std::optional<param_t> opt_arg = {
-                      std::nullopt}) const noexcept;
+    /**
+     * @brief Prints only number of trainings.
+     */
+    void _showNumTrainings(opt_arg) const noexcept;
 
-    void _showTrainings(std::optional<param_t> opt_arg = {
-                            std::nullopt}) const noexcept;
+    /**
+     * @brief Prints some last lines of logfile if number
+     *        of lines was passed, else prints full logfile.
+     *
+     * @param[in] lines - number of lines to be showed.
+     */
+    void _showLog(opt_arg lines) const noexcept;
 
-    void _showNumTrainings(std::optional<param_t> opt_arg = {
-                               std::nullopt}) const noexcept;
+    /**
+     * @brief Prints ASCII cat.
+     */
+    void _drawCat(opt_arg) const noexcept;
 
-    void _showLog(std::optional<param_t> opt_arg = {
-                      std::nullopt}) const noexcept;
+    /**
+     * @brief Prints ASCII cow.
+     */
+    void _drawMoo(opt_arg) const noexcept;
 
 public:
     /**
