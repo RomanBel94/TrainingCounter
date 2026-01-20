@@ -83,7 +83,8 @@ void TrainingCounter::_init_cli_options() noexcept
                           [this](auto opt) { m_cli->add_long_option(opt); });
 }
 
-void TrainingCounter::_fill_task_queue(const token_list& tokens) const noexcept
+void TrainingCounter::_fill_task_queue(
+    const cli_token_list& tokens) const noexcept
 {
     std::ranges::for_each(tokens,
                           [this](const auto& token)

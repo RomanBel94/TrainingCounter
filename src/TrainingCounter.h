@@ -26,7 +26,7 @@ private:
     using param_t = std::size_t;
 
     /** @brief CLI tokens list type. */
-    using token_list = std::list<CLI::CLI::token>;
+    using cli_token_list = std::list<CLI::CLI::token>;
 
     /** @brief Optional argument type */
     using opt_arg = std::optional<param_t>;
@@ -79,7 +79,7 @@ private:
      *
      * @param[in] tokens - token list from CLIlib.
      */
-    void _fill_task_queue(const token_list& tokens) const noexcept;
+    void _fill_task_queue(const cli_token_list& tokens) const noexcept;
 
     /**
      * @brief Prints app version.
