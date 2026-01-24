@@ -1,3 +1,8 @@
+/**
+ * @file TaskManager.cpp
+ *
+ * @brief TaskManager implementation.
+ */
 #include "TaskManager.h"
 
 void TaskManager::add_task(
