@@ -102,8 +102,9 @@ private:
     void _markTraining(opt_arg) noexcept;
 
     /**
-     * @brief Sets trainings amount to num. If num is lower than number
-     *        of trainings you have you will be warned.
+     * @brief Sets trainings amount to num.
+     *
+     * If num is lower than number of trainings you have you will be warned.
      *
      * @param[in] num - new amount of trainings.
      */
