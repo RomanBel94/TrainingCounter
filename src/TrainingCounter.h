@@ -178,8 +178,8 @@ public:
      */
     static TrainingCounter& get_instance(int argc, char** argv)
     {
-        static TrainingCounter instance(argc, argv);
-        return instance;
+        static auto instance{std::make_unique<TrainingCounter>(argc, argv)};
+        return *instance;
     };
 
     /**
