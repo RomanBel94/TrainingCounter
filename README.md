@@ -5,14 +5,16 @@ This program uses C++, CMake.
 To build this program you need:
 
  * OC Linux or Windows on your computer;
- * C++ compiler with C++17 standard support
+ * C++ compiler with C++20 standard support
  * CMake version 3.8 or greater
  * Any supported generator, like "Make", "Ninja" for Linux and "Visual Studio" for Windows.
 
 Build:
 
 1) Clone this repository in any place you want;
+
 2) Go to cloned repository;
+
 3) Enter:
 
 ```
