@@ -2,6 +2,7 @@
  * @file iTask.h
  *
  * @brief Contains definition of class iTask.
+ * @author Roman Belyaev
  */
 #pragma once
 #ifndef ITASK_H

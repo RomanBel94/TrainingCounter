@@ -2,6 +2,7 @@
  * @file Logger.h
  *
  * @brief Logger component definition.
+ * @author Roman Belyaev
  */
 #pragma once
 #ifndef LOGGER_H

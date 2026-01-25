@@ -2,6 +2,7 @@
  * @file Logger.cpp
  *
  * @brief Logger implementation.
+ * @author Roman Belyaev
  */
 #include <chrono>
 #include <deque>

@@ -2,6 +2,7 @@
  * @file TaskManager.h
  *
  * @brief Contains TaskManager class.
+ * @author Roman Belyaev
  */
 #ifndef TASK_MANAGER_H
 #define TASK_MANAGER_H

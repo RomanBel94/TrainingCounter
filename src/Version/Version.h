@@ -1,6 +1,7 @@
 /** @file Version.h
  *
  * @brief CMake configured header. Contains app version.
+ * @author Roman Belyaev, cmake
  */
 
 /** @brief Project version */

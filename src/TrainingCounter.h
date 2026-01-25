@@ -2,6 +2,7 @@
  * @file TrainingCounter.h
  *
  * @brief Main class of TrainingCounter application. Contains main logic.
+ * @author Roman Belyaev
  */
 
 #pragma once

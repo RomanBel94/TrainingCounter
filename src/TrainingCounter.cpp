@@ -2,6 +2,7 @@
  * @file TrainingCounter.cpp
  *
  * @brief TrainingCounter implementation
+ * @author Roman Belyaev
  */
 
 #include <algorithm>

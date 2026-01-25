@@ -2,6 +2,7 @@
  * @file TaskManager.cpp
  *
  * @brief TaskManager implementation.
+ * @author Roman Belyaev
  */
 #include "TaskManager.h"
 

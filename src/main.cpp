@@ -2,6 +2,7 @@
  * @file main.cpp
  *
  * @brief Main file.
+ * @author Roman Belyaev
  */
 
 #include "TrainingCounter.h"
