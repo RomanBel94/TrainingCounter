@@ -1,15 +1,16 @@
+/**
+ * @file Logger.cpp
+ *
+ * @brief Logger implementation.
+ */
 #include <chrono>
 #include <deque>
 #include <format>
 #include <fstream>
+#include <iostream>
 
 #include "Logger.h"
 
-/*
-    Shows log from logfile, if number is 0 shows full log
-
-    @param number of lines to show
-*/
 void Logger::show_logfile(std::size_t lines_num)
 {
     std::ifstream logfile(logfile_path, std::ios::in);
@@ -60,7 +61,4 @@ void Logger::write(const std::string_view msg, bool file) noexcept
     std::clog << std::format("{}\n", msg);
 }
 
-/*
-    Removes logfile
-*/
 void Logger::remove_logfile() { std::filesystem::remove(logfile_path); }
