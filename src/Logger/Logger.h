@@ -84,7 +84,7 @@ public:
     /**
      * @brief Shows logfile content.
      *
-     * @function You can pass a number of last lines that would be read from
+     * You can pass a number of last lines that would be read from
      * file. If num is null all logfile will be printed.
      *
      * @param[in] lines_num - number of lines to show.
